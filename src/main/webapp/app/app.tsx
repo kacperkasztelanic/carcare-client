@@ -32,7 +32,7 @@ export class App extends React.Component<IAppProps> {
       <Router>
         <div className="app-container" style={{ paddingTop }}>
           <ToastContainer
-            position={toast.POSITION.TOP_LEFT as ToastPosition}
+            position={toast.POSITION.TOP_RIGHT as ToastPosition}
             className="toastify-container"
             toastClassName="toastify-toast"
           />
