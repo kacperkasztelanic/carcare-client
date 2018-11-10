@@ -42,11 +42,3 @@ const render = Component =>
   );
 
 render(AppComponent);
-
-// This is quite unstable
-// if (module.hot) {
-//   module.hot.accept('./app', () => {
-//     const NextApp = require<{ default: typeof AppComponent }>('./app').default;
-//     render(NextApp);
-//   });
-// }
