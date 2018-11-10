@@ -2,7 +2,7 @@ import React from 'react';
 import { Translate, translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
-import { Button, Alert, Col, Row } from 'reactstrap';
+import { Button, Col, Row } from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
 import { handlePasswordResetInit, reset } from '../password-reset.reducer';
@@ -27,11 +27,6 @@ export class PasswordResetInit extends React.Component<IPasswordResetInitProps> 
             <h1>
               <Translate contentKey="reset.request.title">Reset your password</Translate>
             </h1>
-            <Alert color="warning">
-              <p>
-                <Translate contentKey="reset.request.messages.info">Enter the email address you used to register</Translate>
-              </p>
-            </Alert>
             <AvForm onValidSubmit={this.handleValidSubmit}>
               <AvField
                 name="email"

@@ -52,8 +52,8 @@ export class PasswordResetFinishPage extends React.Component<IPasswordResetFinis
         <PasswordStrengthBar password={this.state.password} />
         <AvField
           name="confirmPassword"
-          label={translate('global.form.confirmpassword')}
-          placeholder={translate('global.form.confirmpassword.placeholder')}
+          label={translate('global.form.confirmnewpassword')}
+          placeholder={translate('global.form.confirmnewpassword.placeholder')}
           type="password"
           validate={{
             required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
