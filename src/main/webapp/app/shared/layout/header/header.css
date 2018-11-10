@@ -79,7 +79,7 @@ Navbar styles
   text-decoration: none;
 }
 .brand-logo .brand-icon {
-  height: 35px;
+  height: 45px;
   width: auto;
   display: inline-block;
 }
@@ -87,6 +87,7 @@ Navbar styles
   height: 45px;
 }
 .brand-title {
+  margin-left: 15px;
   font-size: 24px;
   color: #fff;
 }
