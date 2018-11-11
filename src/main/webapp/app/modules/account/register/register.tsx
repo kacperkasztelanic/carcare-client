@@ -7,6 +7,7 @@ import { Row, Col, Alert, Button } from 'reactstrap';
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 import { IRootState } from 'app/shared/reducers';
 import { handleRegister, reset } from './register.reducer';
+import { Redirect } from 'react-router';
 
 export interface IRegisterProps extends StateProps, DispatchProps {}
 
@@ -33,6 +34,10 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
   };
 
   render() {
+    const { isAuthenticated } = this.props;
+    if (isAuthenticated) {
+      return <Redirect to={'/'} />;
+    }
     return (
       <div>
         <Row className="justify-content-center">
@@ -104,8 +109,9 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
   }
 }
 
-const mapStateToProps = ({ locale }: IRootState) => ({
-  currentLocale: locale.currentLocale
+const mapStateToProps = ({ locale, authentication }: IRootState) => ({
+  currentLocale: locale.currentLocale,
+  isAuthenticated: authentication.isAuthenticated
 });
 
 const mapDispatchToProps = { handleRegister, reset };

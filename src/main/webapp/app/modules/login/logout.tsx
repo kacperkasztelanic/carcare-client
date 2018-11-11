@@ -18,7 +18,7 @@ export class Logout extends React.Component<ILogoutProps> {
         <h4>Logged out successfully!</h4>
         <Redirect
           to={{
-            pathname: '/'
+            pathname: '/login'
           }}
         />
       </div>
