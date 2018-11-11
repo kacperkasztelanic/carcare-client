@@ -1,6 +1,6 @@
 {
     "login": {
-        "title": "Autoryzacja",
+        "title": "Logowanie",
         "form": {
             "password": "Hasło",
             "password.placeholder": "Twoje hasło",
@@ -13,7 +13,8 @@
             }
         },
         "password" : {
-            "forgot": "Zapomniałeś swojego hasła?"
+            "forgot": "Zapomniałeś swojego hasła?",
+            "reset": "Zresetuj hasło"
         }
     }
 }

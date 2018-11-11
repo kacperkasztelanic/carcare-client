@@ -21,11 +21,11 @@ class LoginComponent extends React.Component<ILoginComponentProps> {
     return (
       <div>
         <AvForm onSubmit={this.handleSubmit}>
-          <h1 id="login-title">
-            <Translate contentKey="login.title">Sign in</Translate>
-          </h1>
           <Row>
-            <Col md="12">
+            <Col md="6" sd="12">
+              <h1 id="login-title">
+                <Translate contentKey="login.title">Sign in</Translate>
+              </h1>
               {loginError ? (
                 <Alert color="danger">
                   <Translate contentKey="login.messages.error.authentication">
@@ -33,8 +33,6 @@ class LoginComponent extends React.Component<ILoginComponentProps> {
                     </Translate>
                 </Alert>
               ) : null}
-            </Col>
-            <Col md="12">
               <AvField
                 name="username"
                 label={translate('global.form.username')}
@@ -56,27 +54,32 @@ class LoginComponent extends React.Component<ILoginComponentProps> {
                   <AvInput type="checkbox" name="rememberMe" /> <Translate contentKey="login.form.rememberme">Remember me</Translate>
                 </Label>
               </AvGroup>
+              <div className="mt-1">&nbsp;</div>
+              <Button color="primary" type="submit">
+                <Translate contentKey="login.form.button">Sign in</Translate>
+              </Button>
+              <div className="mt-1">&nbsp;</div>
+              <Alert color="warning">
+                <span>
+                  <Translate contentKey="login.password.forgot">Did you forget your password?</Translate>
+                </span>{' '}
+                <Link to="/reset/request">
+                  <Translate contentKey="login.password.reset">Reset password</Translate>
+                </Link>
+              </Alert>
+              <Alert color="warning">
+                <span>
+                  <Translate contentKey="global.messages.info.register.noaccount">You don't have an account yet?</Translate>
+                </span>{' '}
+                <Link to="/register">
+                  <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
+                </Link>
+              </Alert>
+            </Col>
+            <Col md="6" className="d-none d-md-block">
+              <span className="hipster rounded" />
             </Col>
           </Row>
-          <div className="mt-1">&nbsp;</div>
-          <Alert color="warning">
-            <Link to="/reset/request">
-              <Translate contentKey="login.password.forgot">Did you forget your password?</Translate>
-            </Link>
-          </Alert>
-          <Alert color="warning">
-            <span>
-              <Translate contentKey="global.messages.info.register.noaccount">You don't have an account yet?</Translate>
-            </span>{' '}
-            <Link to="/register">
-              <Translate contentKey="global.messages.info.register.link">Register a new account</Translate>
-            </Link>
-          </Alert>
-          <Row>
-            <Button color="primary" type="submit">
-              <Translate contentKey="login.form.button">Sign in</Translate>
-            </Button>
-            </Row>
         </AvForm>
       </div>
     );
