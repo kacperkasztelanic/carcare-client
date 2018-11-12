@@ -8,7 +8,7 @@ import { IRootState } from 'app/shared/reducers';
 import { handlePasswordResetInit, reset, PasswordResetState } from '../password-reset.reducer';
 import { RouteComponentProps, Redirect } from 'react-router';
 
-export type IPasswordResetInitProps = DispatchProps;
+export interface IPasswordResetInitProps extends StateProps, DispatchProps { }
 
 export class PasswordResetInit extends React.Component<IPasswordResetInitProps> {
   componentWillUnmount() {
@@ -57,6 +57,8 @@ export class PasswordResetInit extends React.Component<IPasswordResetInitProps> 
 const mapStateToProps = ({ passwordReset }: IRootState) => ({
   fireRedirect: passwordReset.resetPasswordSuccess
 });
+
+type StateProps = ReturnType<typeof mapStateToProps>;
 
 const mapDispatchToProps = { handlePasswordResetInit, reset };
 

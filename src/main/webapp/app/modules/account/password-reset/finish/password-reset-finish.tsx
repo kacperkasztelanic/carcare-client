@@ -9,7 +9,7 @@ import { IRootState } from 'app/shared/reducers';
 import { handlePasswordResetFinish, reset } from '../password-reset.reducer';
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 
-export interface IPasswordResetFinishProps extends DispatchProps, RouteComponentProps<{ key: string }> { }
+export interface IPasswordResetFinishProps extends StateProps, DispatchProps, RouteComponentProps<{ key: string }> { }
 
 export interface IPasswordResetFinishState {
   password: string;
@@ -93,6 +93,8 @@ export class PasswordResetFinishPage extends React.Component<IPasswordResetFinis
 const mapStateToProps = ({ passwordReset }: IRootState) => ({
   fireRedirect: passwordReset.resetPasswordSuccess
 });
+
+type StateProps = ReturnType<typeof mapStateToProps>;
 
 const mapDispatchToProps = { handlePasswordResetFinish, reset };
 
