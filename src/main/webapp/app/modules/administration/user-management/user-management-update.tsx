@@ -174,6 +174,7 @@ export class UserManagementUpdate extends React.Component<IUserManagementUpdateP
                     <Translate contentKey="userManagement.langKey">Language Key</Translate>
                   </Label>
                   <AvField type="select" className="form-control" name="langKey" value={user.langKey}>
+                  <option value="" disabled selected>Select your option</option>
                     {locales.map(locale => (
                       <option value={locale} key={locale}>
                         {languages[locale].name}
