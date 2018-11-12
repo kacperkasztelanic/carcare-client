@@ -28,6 +28,7 @@ export class PasswordResetFinishPage extends React.Component<IPasswordResetFinis
 
   handleValidSubmit = (event, values) => {
     this.props.handlePasswordResetFinish(this.state.key, values.newPassword);
+    this.props.history.push('/');
   };
 
   updatePassword = event => {

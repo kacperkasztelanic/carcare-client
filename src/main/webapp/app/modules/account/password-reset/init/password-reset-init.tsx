@@ -6,8 +6,9 @@ import { Button, Col, Row } from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
 import { handlePasswordResetInit, reset } from '../password-reset.reducer';
+import { RouteComponentProps } from 'react-router';
 
-export type IPasswordResetInitProps = DispatchProps;
+export interface IPasswordResetInitProps extends DispatchProps, RouteComponentProps {}
 
 export class PasswordResetInit extends React.Component<IPasswordResetInitProps> {
   componentWillUnmount() {
@@ -16,6 +17,7 @@ export class PasswordResetInit extends React.Component<IPasswordResetInitProps> 
 
   handleValidSubmit = (event, values) => {
     this.props.handlePasswordResetInit(values.email);
+    this.props.history.push('/');
     event.preventDefault();
   };
 

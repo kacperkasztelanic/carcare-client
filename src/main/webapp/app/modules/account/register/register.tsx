@@ -7,9 +7,9 @@ import { Row, Col, Alert, Button } from 'reactstrap';
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 import { IRootState } from 'app/shared/reducers';
 import { handleRegister, reset } from './register.reducer';
-import { Redirect } from 'react-router';
+import { Redirect, RouteComponentProps } from 'react-router';
 
-export interface IRegisterProps extends StateProps, DispatchProps {}
+export interface IRegisterProps extends StateProps, DispatchProps, RouteComponentProps {}
 
 export interface IRegisterState {
   password: string;
@@ -26,6 +26,7 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
 
   handleValidSubmit = (event, values) => {
     this.props.handleRegister(values.username, values.email, values.firstPassword, this.props.currentLocale);
+    this.props.history.push('/');
     event.preventDefault();
   };
 
