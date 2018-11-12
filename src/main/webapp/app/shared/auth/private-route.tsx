@@ -9,7 +9,7 @@ interface IOwnProps extends RouteProps {
   hasAnyAuthorities?: string[];
 }
 
-export interface IPrivateRouteProps extends IOwnProps, StateProps {}
+export interface IPrivateRouteProps extends IOwnProps, StateProps { }
 
 export const PrivateRouteComponent = ({
   component: Component,
@@ -25,20 +25,17 @@ export const PrivateRouteComponent = ({
         <Component {...props} />
       </ErrorBoundary>
     ) : (
-      <div className="insufficient-authority">
-        <div className="alert alert-danger">
-          <Translate contentKey="error.http.403">You are not authorized to access this page.</Translate>
+        <div className="insufficient-authority">
+          <div className="alert alert-danger">
+            <Translate contentKey="error.http.403">You are not authorized to access this page.</Translate>
+          </div>
         </div>
-      </div>
-    );
+      );
 
   const renderRedirect = props => {
-    if (!sessionHasBeenFetched) {
-      return <div />;
-    } else {
-      return isAuthenticated ? (
-        checkAuthorities(props)
-      ) : (
+    return isAuthenticated ? (
+      checkAuthorities(props)
+    ) : (
         <Redirect
           to={{
             pathname: '/login',
@@ -47,7 +44,6 @@ export const PrivateRouteComponent = ({
           }}
         />
       );
-    }
   };
 
   if (!Component) throw new Error(`A component needs to be specified for private route for path ${(rest as any).path}`);

@@ -107,8 +107,7 @@ export class Home extends React.Component<IHomeProp> {
 }
 
 const mapStateToProps = storeState => ({
-  account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated
+  account: storeState.authentication.account
 });
 
 const mapDispatchToProps = { getSession };
