@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Alert, Col, Row, Button } from 'reactstrap';
+import { Col, Row, Button } from 'reactstrap';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Translate, translate, getUrlParameter } from 'react-jhipster';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Redirect } from 'react-router-dom';
 
 import { IRootState } from 'app/shared/reducers';
 import { handlePasswordResetFinish, reset } from '../password-reset.reducer';
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 
-export interface IPasswordResetFinishProps extends DispatchProps, RouteComponentProps<{ key: string }> {}
+export interface IPasswordResetFinishProps extends DispatchProps, RouteComponentProps<{ key: string }> { }
 
 export interface IPasswordResetFinishState {
   password: string;
@@ -28,7 +28,6 @@ export class PasswordResetFinishPage extends React.Component<IPasswordResetFinis
 
   handleValidSubmit = (event, values) => {
     this.props.handlePasswordResetFinish(this.state.key, values.newPassword);
-    this.props.history.push('/');
   };
 
   updatePassword = event => {
@@ -83,16 +82,23 @@ export class PasswordResetFinishPage extends React.Component<IPasswordResetFinis
             <div>{key ? this.getResetForm() : null}</div>
           </Col>
         </Row>
+        {this.props.fireRedirect && (
+          <Redirect to="/" />
+        )}
       </div>
     );
   }
 }
+
+const mapStateToProps = ({ passwordReset }: IRootState) => ({
+  fireRedirect: passwordReset.resetPasswordSuccess
+});
 
 const mapDispatchToProps = { handlePasswordResetFinish, reset };
 
 type DispatchProps = typeof mapDispatchToProps;
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(PasswordResetFinishPage);

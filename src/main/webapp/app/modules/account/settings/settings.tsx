@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Alert, Row } from 'reactstrap';
+import { Button, Col, Row } from 'reactstrap';
 import { connect } from 'react-redux';
 import { Translate, translate } from 'react-jhipster';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
@@ -8,8 +8,9 @@ import { locales, languages } from 'app/config/translation';
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import { saveAccountSettings, reset } from './settings.reducer';
+import { Redirect } from 'react-router';
 
-export interface IUserSettingsProps extends StateProps, DispatchProps {}
+export interface IUserSettingsProps extends StateProps, DispatchProps { }
 
 export interface IUserSettingsState {
   account: any;
@@ -109,14 +110,18 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
             </AvForm>
           </Col>
         </Row>
+        {this.props.fireRedirect && (
+          <Redirect to="/" />
+        )}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ authentication }: IRootState) => ({
+const mapStateToProps = ({ authentication, settings }: IRootState) => ({
   account: authentication.account,
-  isAuthenticated: authentication.isAuthenticated
+  isAuthenticated: authentication.isAuthenticated,
+  fireRedirect: settings.updateSuccess
 });
 
 const mapDispatchToProps = { getSession, saveAccountSettings, reset };

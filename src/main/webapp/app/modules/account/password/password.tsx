@@ -8,8 +8,9 @@ import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 import { savePassword, reset } from './password.reducer';
+import { Redirect } from 'react-router';
 
-export interface IUserPasswordProps extends StateProps, DispatchProps {}
+export interface IUserPasswordProps extends StateProps, DispatchProps { }
 
 export interface IUserPasswordState {
   password: string;
@@ -102,14 +103,18 @@ export class PasswordPage extends React.Component<IUserPasswordProps, IUserPassw
             </AvForm>
           </Col>
         </Row>
+        {this.props.fireRedirect && (
+          <Redirect to="/" />
+        )}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ authentication }: IRootState) => ({
+const mapStateToProps = ({ authentication, password }: IRootState) => ({
   account: authentication.account,
-  isAuthenticated: authentication.isAuthenticated
+  isAuthenticated: authentication.isAuthenticated,
+  fireRedirect: password.updateSuccess
 });
 
 const mapDispatchToProps = { getSession, savePassword, reset };

@@ -5,10 +5,10 @@ import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Button, Col, Row } from 'reactstrap';
 
 import { IRootState } from 'app/shared/reducers';
-import { handlePasswordResetInit, reset } from '../password-reset.reducer';
-import { RouteComponentProps } from 'react-router';
+import { handlePasswordResetInit, reset, PasswordResetState } from '../password-reset.reducer';
+import { RouteComponentProps, Redirect } from 'react-router';
 
-export interface IPasswordResetInitProps extends DispatchProps, RouteComponentProps {}
+export type IPasswordResetInitProps = DispatchProps;
 
 export class PasswordResetInit extends React.Component<IPasswordResetInitProps> {
   componentWillUnmount() {
@@ -17,7 +17,6 @@ export class PasswordResetInit extends React.Component<IPasswordResetInitProps> 
 
   handleValidSubmit = (event, values) => {
     this.props.handlePasswordResetInit(values.email);
-    this.props.history.push('/');
     event.preventDefault();
   };
 
@@ -47,16 +46,23 @@ export class PasswordResetInit extends React.Component<IPasswordResetInitProps> 
             </AvForm>
           </Col>
         </Row>
+        {this.props.fireRedirect && (
+          <Redirect to="/" />
+        )}
       </div>
     );
   }
 }
+
+const mapStateToProps = ({ passwordReset }: IRootState) => ({
+  fireRedirect: passwordReset.resetPasswordSuccess
+});
 
 const mapDispatchToProps = { handlePasswordResetInit, reset };
 
 type DispatchProps = typeof mapDispatchToProps;
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(PasswordResetInit);

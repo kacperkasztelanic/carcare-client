@@ -2,14 +2,14 @@ import React from 'react';
 import { Translate, translate } from 'react-jhipster';
 import { connect } from 'react-redux';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
-import { Row, Col, Alert, Button } from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
 
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
 import { IRootState } from 'app/shared/reducers';
 import { handleRegister, reset } from './register.reducer';
-import { Redirect, RouteComponentProps } from 'react-router';
+import { Redirect } from 'react-router';
 
-export interface IRegisterProps extends StateProps, DispatchProps, RouteComponentProps {}
+export interface IRegisterProps extends StateProps, DispatchProps { }
 
 export interface IRegisterState {
   password: string;
@@ -26,7 +26,6 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
 
   handleValidSubmit = (event, values) => {
     this.props.handleRegister(values.username, values.email, values.firstPassword, this.props.currentLocale);
-    this.props.history.push('/');
     event.preventDefault();
   };
 
@@ -105,14 +104,18 @@ export class RegisterPage extends React.Component<IRegisterProps, IRegisterState
             <p>&nbsp;</p>
           </Col>
         </Row>
+        {this.props.fireRedirect && (
+          <Redirect to="/" />
+        )}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ locale, authentication }: IRootState) => ({
+const mapStateToProps = ({ locale, authentication, register }: IRootState) => ({
   currentLocale: locale.currentLocale,
-  isAuthenticated: authentication.isAuthenticated
+  isAuthenticated: authentication.isAuthenticated,
+  fireRedirect: register.registrationSuccess
 });
 
 const mapDispatchToProps = { handleRegister, reset };
