@@ -4,7 +4,6 @@ import { Redirect, RouteComponentProps } from 'react-router-dom';
 
 import { IRootState } from 'app/shared/reducers';
 import { login } from 'app/shared/reducers/authentication';
-import LoginModal from './login-modal';
 import LoginComponent from './login-component';
 
 export interface ILoginProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
