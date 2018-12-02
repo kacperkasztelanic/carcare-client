@@ -13,6 +13,7 @@ import Entities from 'app/entities';
 import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import { AUTHORITIES } from 'app/config/constants';
+import addVehicle, { } from 'app/modules/carcare/vehicle/addVehicle';
 
 // tslint:disable:space-in-parens
 const Account = Loadable({
@@ -38,6 +39,7 @@ const Routes = () => (
       <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
       <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
+      <ErrorBoundaryRoute path="/addVehicle/:id?" component={addVehicle} />
       <PrivateRoute path="/" component={Home} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
     </Switch>
   </div>
