@@ -39,7 +39,7 @@ class VehicleUpdate extends React.Component<IVehicleUpdateProps, IVehicleUpdateS
     saveVehicle = (event, values) => {
         console.log(event);
         console.log(values);
-        if (errors.length === 0) {
+        // if (errors.length === 0) {
             const { vehicle } = this.props;
             const entity = {
                 ...vehicle,
@@ -51,7 +51,7 @@ class VehicleUpdate extends React.Component<IVehicleUpdateProps, IVehicleUpdateS
             } else {
                 this.props.updateVehicle(entity);
             }
-        }
+    //    } 
     };
 
     handleClose = () => {
@@ -171,7 +171,7 @@ class VehicleUpdate extends React.Component<IVehicleUpdateProps, IVehicleUpdateS
                                             value={vehicle.licensePlate}
                                         />
                                     </AvGroup>
-                                    <Button tag={Link} to="/admin/user-management" replace color="info">
+                                    <Button tag={Link} to="/vehicles" replace color="info">
                                         <FontAwesomeIcon icon="arrow-left" />
                                         &nbsp;
                   <span className="d-none d-md-inline">
