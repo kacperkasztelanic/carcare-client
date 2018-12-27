@@ -115,7 +115,7 @@
             "required": "To pole jest wymagane.",
             "minlength": "Wartość musi mieć długość co najmniej {{min}} znaków.",
             "maxlength": "Wartość nie może być dłuższa niż {{max}} znaków.",
-            "min": "Wartość powinna być większa niż {{min}}.",
+            "min": "Wartość powinna być nie mniejsza niż {{min}}.",
             "max": "Wartość nie może być większa niż {{max}}.",
             "minbytes": "Wartość nie może być mniejsza niż {{min}} bajtów.",
             "maxbytes": "Wartość nie może być większa niż {{max}} bajtów.",
