@@ -5,18 +5,18 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { getRefuel, deleteRefuel } from './refuel.reducer';
+import { getRepair, deleteRepair } from './repair.reducer';
 import { IRootState } from 'app/shared/reducers';
 
 export interface IRefuelDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
-export class RefuelDeleteDialog extends React.Component<IRefuelDeleteDialogProps> {
+export class RepairDeleteDialog extends React.Component<IRefuelDeleteDialogProps> {
   componentDidMount() {
-    this.props.getRefuel(this.props.match.params.id);
+    this.props.getRepair(this.props.match.params.id);
   }
 
   confirmDelete = event => {
-    this.props.deleteRefuel(this.props.refuel.id);
+    this.props.deleteRepair(this.props.refuel.id);
     this.handleClose(event);
   };
 
@@ -32,7 +32,7 @@ export class RefuelDeleteDialog extends React.Component<IRefuelDeleteDialogProps
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="carcare.refuel.delete.question">
+          <Translate contentKey="carcare.repair.delete.question">
             Are you sure you want to delete this refuel?
           </Translate>
         </ModalBody>
@@ -57,7 +57,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   refuel: storeState.refuels.refuel
 });
 
-const mapDispatchToProps = { getRefuel, deleteRefuel };
+const mapDispatchToProps = { getRepair, deleteRepair };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
@@ -65,4 +65,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RefuelDeleteDialog);
+)(RepairDeleteDialog);

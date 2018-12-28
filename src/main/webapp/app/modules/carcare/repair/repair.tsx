@@ -7,16 +7,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { APP_LOCAL_DATE_FORMAT, APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS } from 'app/config/constants';
 import { IRootState } from 'app/shared/reducers';
-import { getRefuels } from './refuel.reducer';
+import { getRepairs } from './repair.reducer';
 import TableSummary from 'app/shared/components/TableSummary';
 
-export interface IRefuelProps extends StateProps, DispatchProps, RouteComponentProps<{ vehicleId: string }> { }
+export interface IRepairProps extends StateProps, DispatchProps, RouteComponentProps<{ vehicleId: string }> { }
 
-export interface IRefuelUpdateState {
+export interface IRepairUpdateState {
   vehicleId: string;
 }
 
-export class Refuel extends React.Component<IRefuelProps, IRefuelUpdateState> {
+export class Refuel extends React.Component<IRepairProps, IRepairUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,15 +29,15 @@ export class Refuel extends React.Component<IRefuelProps, IRefuelUpdateState> {
   }
 
   getRefuels = vehicleId => {
-    this.props.getRefuels(vehicleId);
+    this.props.getRepairs(vehicleId);
   };
 
   render() {
-    const { refuels, totalItems, match } = this.props;
+    const { repairs, totalItems, match } = this.props;
     return (
       <div>
         <h2 id="user-management-page-heading">
-          <Translate contentKey="carcare.refuel.title">Refuels</Translate>
+          <Translate contentKey="carcare.repair.title">Refuels</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
             <FontAwesomeIcon icon="plus" /> <Translate contentKey="carcare.common.add">Add</Translate>
           </Link>
@@ -51,41 +51,33 @@ export class Refuel extends React.Component<IRefuelProps, IRefuelUpdateState> {
               <th>
                 <Translate contentKey="carcare.common.mileage" interpolate={{ unit: 'km' }}>Mileage (km)</Translate>
               </th>
-              <th >
-                <Translate contentKey="carcare.refuel.volume" interpolate={{ unit: 'dm3' }}>Volume (dm3)</Translate>
-              </th>
               <th>
                 <Translate contentKey="carcare.common.cost" interpolate={{ unit: 'PLN' }}>Cost (PLN)</Translate>
               </th>
               <th>
-                <Translate contentKey="carcare.refuel.unit-cost" interpolate={{ unit: 'PLN/dm3' }}>Unit cost (PLN/dm3)</Translate>
+                <Translate contentKey="carcare.repair.station">Station</Translate>
               </th>
               <th>
-                <Translate contentKey="carcare.refuel.station">Station</Translate>
+                <Translate contentKey="carcare.repair.details">Details</Translate>
               </th>
               <th />
             </tr>
           </thead>
           <tbody>
-            {refuels.map((refuel, i) => (
-              <tr id={refuel.id} key={`refuel-${i}`}>
+            {repairs.map((repair, i) => (
+              <tr id={repair.id} key={`repair-${i}`}>
                 <td>
-                  <TextFormat value={refuel.vehicleEvent.date} type="date" format={APP_LOCAL_DATE_FORMAT} blankOnInvalid />
+                  <TextFormat value={repair.vehicleEvent.date} type="date" format={APP_LOCAL_DATE_FORMAT} blankOnInvalid />
                 </td>
-                <td>{refuel.vehicleEvent.mileage}</td>
+                <td>{repair.vehicleEvent.mileage}</td>
                 <td>
-                  <TextFormat value={refuel.volume / 1000} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
+                  <TextFormat value={repair.costInCents / 100} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
                 </td>
-                <td>
-                  <TextFormat value={refuel.costInCents / 100} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
-                </td>
-                <td>
-                  <TextFormat value={(refuel.costInCents / 100) / (refuel.volume / 1000)} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
-                </td>
-                <td>{refuel.station}</td>
+                <td>{repair.station}</td>
+                <td>{repair.details}</td>
                 <td className="text-right">
                   <div className="btn-group flex-btn-group-container">
-                    <Button tag={Link} to={`${match.url}/${refuel.id}/edit`} color="primary" size="sm">
+                    <Button tag={Link} to={`${match.url}/${repair.id}/edit`} color="primary" size="sm">
                       <FontAwesomeIcon icon="pencil-alt" />{' '}
                       <span className="d-none d-md-inline">
                         <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -93,7 +85,7 @@ export class Refuel extends React.Component<IRefuelProps, IRefuelUpdateState> {
                     </Button>
                     <Button
                       tag={Link}
-                      to={`${match.url}/${refuel.id}/delete`}
+                      to={`${match.url}/${repair.id}/delete`}
                       color="danger"
                       size="sm"
                     >
@@ -115,11 +107,11 @@ export class Refuel extends React.Component<IRefuelProps, IRefuelUpdateState> {
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
-  refuels: storeState.refuels.refuels,
-  totalItems: storeState.refuels.totalItems
+  repairs: storeState.repairs.repairs,
+  totalItems: storeState.repairs.totalItems
 });
 
-const mapDispatchToProps = { getRefuels };
+const mapDispatchToProps = { getRepairs };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

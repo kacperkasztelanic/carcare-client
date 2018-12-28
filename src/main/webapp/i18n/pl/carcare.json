@@ -1,6 +1,7 @@
 {
     "carcare": {
         "common": {
+            "add": "Dodaj",
             "date": "Data",
             "cost": "Koszt ({{ unit }})",
             "mileage": "Przebieg ({{ unit }})",
@@ -9,15 +10,26 @@
         "refuel": {
             "entity": "Tankowanie",
             "title": "Tankowanie",
-            "add": "Dodaj",
             "volume": "Objętość ({{ unit }})",
             "unit-cost": "Cena jednostkowa ({{ unit }})",
-            "station":"Stacja",
-            "edit":{
-                "title":"Utwórz lub edytuj tankowanie"
+            "station": "Stacja",
+            "edit": {
+                "title": "Utwórz lub edytuj tankowanie"
             },
-            "delete":{
-                "question":"Czy na pewno chcesz usunąć tę informację o tankowaniu?"
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć tę informację o tankowaniu?"
+            }
+        },
+        "repair": {
+            "entity": "Naprawa",
+            "title": "Naprawy",
+            "station": "Warsztat",
+            "details": "Szczegóły",
+            "edit": {
+                "title": "Utwórz lub edytuj naprawę"
+            },
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć tę informację o naprawie?"
             }
         }
     }

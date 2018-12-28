@@ -1,12 +1,12 @@
 import { IVehicleEvent } from './vehicle-event.model.ts';
 
-export interface IRefuel {
+export interface IRepair {
     id?: any;
     vehicleEvent?: IVehicleEvent;
-    volume?: number;
     costInCents?: number;
     station?: string;
+    details?: string;
     vehicleId?: any;
 }
 
-export const defaultValue: Readonly<IRefuel> = {};
+export const defaultValue: Readonly<IRepair> = {};

@@ -1,6 +1,7 @@
 {
     "carcare": {
         "common": {
+            "add": "Add",
             "date": "Date",
             "cost": "Cost ({{ unit }})",
             "mileage": "Mileage ({{ unit }})",
@@ -9,15 +10,26 @@
         "refuel": {
             "entity": "Refuel",
             "title": "Refuels",
-            "add": "Add",
             "volume": "Volume ({{ unit }})",
             "unit-cost": "Unit cost ({{ unit }})",
-            "station":"Station",
-            "edit":{
-                "title":"Create or edit a refuel"
+            "station": "Station",
+            "edit": {
+                "title": "Create or edit a refuel"
             },
-            "delete":{
-                "question":"Are you sure you want to delete this refuel?"
+            "delete": {
+                "question": "Are you sure you want to delete this refuel?"
+            }
+        },
+        "repair": {
+            "entity": "Repair",
+            "title": "Repairs",
+            "station": "Station",
+            "details": "Details",
+            "edit": {
+                "title": "Create or edit a repair"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete this repair?"
             }
         }
     }
