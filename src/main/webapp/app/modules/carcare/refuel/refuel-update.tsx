@@ -74,14 +74,6 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
                         <p>Loading...</p>
                     ) : (
                             <AvForm model={isNew ? {} : refuelEntity} onSubmit={this.saveEntity}>
-                                {!isNew ? (
-                                    <AvGroup>
-                                        <Label for="id">
-                                            <Translate contentKey="global.field.id">ID</Translate>
-                                        </Label>
-                                        <AvInput id="refuel-id" type="text" className="form-control" name="id" required readOnly />
-                                    </AvGroup>
-                                ) : null}
                                 <AvGroup>
                                     <Label id="StationLabel" for="station">
                                         <Translate contentKey="carcare.refuel.station">Station</Translate>
