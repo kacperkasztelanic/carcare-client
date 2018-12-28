@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { APP_LOCAL_DATE_FORMAT, APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS } from 'app/config/constants';
 import { IRootState } from 'app/shared/reducers';
 import { getRefuels } from './refuel.reducer';
+import TableSummary from 'app/shared/components/TableSummary';
 
 export interface IRefuelProps extends StateProps, DispatchProps, RouteComponentProps<{ vehicleId: string }> { }
 
@@ -38,7 +39,7 @@ export class Refuel extends React.Component<IRefuelProps, IRefuelUpdateState> {
         <h2 id="user-management-page-heading">
           <Translate contentKey="carcare.refuel.title">Refuels</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
-            <FontAwesomeIcon icon="plus" /> <Translate contentKey="carcare.refuel.add">Add new refuel</Translate>
+            <FontAwesomeIcon icon="plus" /> <Translate contentKey="carcare.refuel.add">Add</Translate>
           </Link>
         </h2>
         <Table responsive striped>
@@ -107,10 +108,7 @@ export class Refuel extends React.Component<IRefuelProps, IRefuelUpdateState> {
             ))}
           </tbody>
         </Table>
-        <p>
-          <Translate contentKey="carcare.common.table-summary">Number of elements</Translate>:&nbsp;
-          {totalItems}
-        </p>
+        <TableSummary totalItems={totalItems} />
       </div>
     );
   }
