@@ -1,0 +1,24 @@
+{
+    "carcare": {
+        "common": {
+            "date": "Data",
+            "cost": "Koszt ({{ unit }})",
+            "mileage": "Przebieg ({{ unit }})",
+            "table-summary": "Liczba elementów"
+        },
+        "refuel": {
+            "entity": "Tankowanie",
+            "title": "Tankowanie",
+            "add": "Dodaj",
+            "volume": "Objętość ({{ unit }})",
+            "unit-cost": "Cena jednostkowa ({{ unit }})",
+            "station":"Stacja",
+            "edit":{
+                "title":"Utwórz lub edytuj tankowanie"
+            },
+            "delete":{
+                "question":"Czy na pewno chcesz usunąć tę informację o tankowaniu?"
+            }
+        }
+    }
+}

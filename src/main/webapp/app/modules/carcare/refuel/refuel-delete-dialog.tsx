@@ -33,8 +33,8 @@ export class RefuelDeleteDialog extends React.Component<IRefuelDeleteDialogProps
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
         <ModalBody>
-          <Translate contentKey="userManagement.delete.question" interpolate={{ id: refuel.id }}>
-            Are you sure you want to delete this User?
+          <Translate contentKey="carcare.refuel.delete.question">
+            Are you sure you want to delete this refuel?
           </Translate>
         </ModalBody>
         <ModalFooter>

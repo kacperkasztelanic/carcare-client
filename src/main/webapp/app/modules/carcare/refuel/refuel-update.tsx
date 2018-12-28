@@ -67,8 +67,7 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
         return (
             <Modal isOpen toggle={this.handleClose}>
                 <ModalHeader toggle={this.handleClose}>
-                    {/* <Translate contentKey="sandboxApp.author.home.createOrEditLabel">Create or edit a Author</Translate> */}
-                    Create or edit a refuel
+                    <Translate contentKey="carcare.refuel.edit.title">Create or edit a refuel</Translate>
                 </ModalHeader>
                 <ModalBody>
                     {loading ? (
@@ -85,9 +84,8 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
                                 ) : null}
                                 <AvGroup>
                                     <Label id="StationLabel" for="station">
-                                        {/* <Translate contentKey="sandboxApp.author.name">Name</Translate> */}
-                                        Station
-                                        </Label>
+                                        <Translate contentKey="carcare.refuel.station">Station</Translate>
+                                    </Label>
                                     <AvField
                                         id="refuel-station"
                                         type="text"
@@ -101,9 +99,8 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
                                 </AvGroup>
                                 <AvGroup>
                                     <Label id="dateLabel" for="vehicleEvent.date">
-                                        {/* <Translate contentKey="sandboxApp.author.birthDate">Birth Date</Translate> */}
-                                        Date
-                                        </Label>
+                                        <Translate contentKey="carcare.common.date">Date</Translate>
+                                    </Label>
                                     <AvField
                                         id="refuel-date"
                                         type="date"
@@ -116,9 +113,8 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
                                 </AvGroup>
                                 <AvGroup>
                                     <Label id="mileageLabel" for="vehicleEvent.mileage">
-                                        {/* <Translate contentKey="sandboxApp.author.birthDate">Birth Date</Translate> */}
-                                        Mileage
-                                        </Label>
+                                        <Translate contentKey="carcare.common.mileage" interpolate={{ unit: 'km' }}>Mileage (km)</Translate>
+                                    </Label>
                                     <AvField
                                         id="refuel-mileage"
                                         type="text"
@@ -131,9 +127,8 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
                                 </AvGroup>
                                 <AvGroup>
                                     <Label id="volumeLabel" for="volume">
-                                        {/* <Translate contentKey="sandboxApp.author.birthDate">Birth Date</Translate> */}
-                                        Volume
-                                        </Label>
+                                        <Translate contentKey="carcare.refuel.volume" interpolate={{ unit: 'dm3' }}>Volume (dm3)</Translate>
+                                    </Label>
                                     <AvField
                                         id="refuel-volume"
                                         type="text"
@@ -146,9 +141,8 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
                                 </AvGroup>
                                 <AvGroup>
                                     <Label id="costLabel" for="cost">
-                                        {/* <Translate contentKey="sandboxApp.author.birthDate">Birth Date</Translate> */}
-                                        Cost
-                                        </Label>
+                                        <Translate contentKey="carcare.common.cost" interpolate={{ unit: 'PLN' }}>Cost (PLN)</Translate>
+                                    </Label>
                                     <AvField
                                         id="refuel-cost"
                                         type="text"

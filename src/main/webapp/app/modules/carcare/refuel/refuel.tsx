@@ -2,10 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Table } from 'reactstrap';
-import {
-  Translate,
-  TextFormat
-} from 'react-jhipster';
+import { Translate, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { APP_LOCAL_DATE_FORMAT, APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS } from 'app/config/constants';
@@ -39,39 +36,31 @@ export class Refuel extends React.Component<IRefuelProps, IRefuelUpdateState> {
     return (
       <div>
         <h2 id="user-management-page-heading">
-          {/* <Translate contentKey="userManagement.home.title">Users</Translate> */}
-          Refuels
+          <Translate contentKey="carcare.refuel.title">Refuels</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
-            {/* <FontAwesomeIcon icon="plus" /> <Translate contentKey="userManagement.home.createLabel">Add new refuel</Translate> */}
-            <FontAwesomeIcon icon="plus" /> Add new refuel
+            <FontAwesomeIcon icon="plus" /> <Translate contentKey="carcare.refuel.add">Add new refuel</Translate>
           </Link>
         </h2>
         <Table responsive striped>
           <thead>
             <tr>
               <th>
-                Date
-                {/* <Translate contentKey="global.field.id">Date</Translate> */}
+                <Translate contentKey="carcare.common.date">Date</Translate>
               </th>
               <th>
-                Mileage (km)
-                {/* <Translate contentKey="userManagement.login">Mileage</Translate> */}
+                <Translate contentKey="carcare.common.mileage" interpolate={{ unit: 'km' }}>Mileage (km)</Translate>
               </th>
               <th >
-                Volume (dm3)
-                {/* <Translate contentKey="userManagement.email">Volume</Translate> */}
+                <Translate contentKey="carcare.refuel.volume" interpolate={{ unit: 'dm3' }}>Volume (dm3)</Translate>
               </th>
               <th>
-                Cost (PLN)
-                {/* <Translate contentKey="userManagement.langKey">Cost</Translate> */}
+                <Translate contentKey="carcare.common.cost" interpolate={{ unit: 'PLN' }}>Cost (PLN)</Translate>
               </th>
               <th>
-                Unit cost (PLN/dm3)
-                {/* <Translate contentKey="userManagement.langKey">Cost</Translate> */}
+                <Translate contentKey="carcare.refuel.unit-cost" interpolate={{ unit: 'PLN/dm3' }}>Unit cost (PLN/dm3)</Translate>
               </th>
               <th>
-                Station
-                {/* <Translate contentKey="userManagement.langKey">Station</Translate> */}
+                <Translate contentKey="carcare.refuel.station">Station</Translate>
               </th>
               <th />
             </tr>
@@ -119,8 +108,7 @@ export class Refuel extends React.Component<IRefuelProps, IRefuelUpdateState> {
           </tbody>
         </Table>
         <p>
-          {/* <Translate contentKey=""> Number of elements: </Translate> */}
-          Number of elements:&nbsp;
+          <Translate contentKey="carcare.common.table-summary">Number of elements</Translate>:&nbsp;
           {totalItems}
         </p>
       </div>
