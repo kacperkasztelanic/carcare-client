@@ -31,6 +31,30 @@
             "delete": {
                 "question": "Are you sure you want to delete this repair?"
             }
+        },
+        "inspection": {
+            "entity": "Inspection",
+            "title": "Inspections",
+            "station": "Station",
+            "details": "Details",
+            "valid-thru": "Valid thru",
+            "edit": {
+                "title": "Create or edit an inspection"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete this inspection?"
+            }
+        },
+        "insurance": {
+            "entity": "Insurance",
+            "title": "Insurances",
+            "insurer": "Insurer",
+            "edit": {
+                "title": "Create or edit an insurance"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete this insurance?"
+            }
         }
     }
 }

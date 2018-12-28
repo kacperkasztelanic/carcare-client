@@ -31,6 +31,30 @@
             "delete": {
                 "question": "Czy na pewno chcesz usunąć tę informację o naprawie?"
             }
+        },
+        "inspection": {
+            "entity": "Przegląd techniczny",
+            "title": "Przeglądy techniczne",
+            "station": "Stacja diagnostyczna",
+            "details": "Szczegóły",
+            "valid-thru": "Ważny do",
+            "edit": {
+                "title": "Utwórz lub edytuj przegląd"
+            },
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć tę informację o przeglądzie?"
+            }
+        },
+        "insurance": {
+            "entity": "Ubezpieczenie",
+            "title": "Ubezpieczenia",
+            "insurer": "Ubezpieczyciel",
+            "edit": {
+                "title": "Utwórz lub edytuj ubezpieczenie"
+            },
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć tę informację o ubezpieczeniu?"
+            }
         }
     }
 }

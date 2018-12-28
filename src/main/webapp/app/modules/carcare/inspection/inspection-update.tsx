@@ -7,16 +7,16 @@ import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { getRepair, updateRepair, createRepair, reset } from './repair.reducer';
+import { getInspection, updateInspection, createInspection, reset } from './inspection.reducer';
 
-export interface IRepairUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string, vehicleId: string }> { }
+export interface IInspectionUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string, vehicleId: string }> { }
 
-export interface IRepairUpdateState {
+export interface IInspectionUpdateState {
     isNew: boolean;
     vehicleId: string;
 }
 
-export class RepairUpdate extends React.Component<IRepairUpdateProps, IRepairUpdateState> {
+export class InspectionUpdate extends React.Component<IInspectionUpdateProps, IInspectionUpdateState> {
     constructor(props) {
         super(props);
         this.state = {
@@ -35,23 +35,23 @@ export class RepairUpdate extends React.Component<IRepairUpdateProps, IRepairUpd
         if (this.state.isNew) {
             this.props.reset();
         } else {
-            this.props.getRepair(this.props.match.params.id);
+            this.props.getInspection(this.props.match.params.id);
         }
     }
 
     saveEntity = (event, errors, values) => {
         if (errors.length === 0) {
-            const { repairEntity } = this.props;
+            const { inspectionEntity } = this.props;
             const entity = {
-                ...repairEntity,
+                ...inspectionEntity,
                 ...this.state,
                 ...values
             };
 
             if (this.state.isNew) {
-                this.props.createRepair(entity);
+                this.props.createInspection(entity);
             } else {
-                this.props.updateRepair(entity);
+                this.props.updateInspection(entity);
             }
         }
     };
@@ -62,24 +62,24 @@ export class RepairUpdate extends React.Component<IRepairUpdateProps, IRepairUpd
     };
 
     render() {
-        const { repairEntity, loading, updating } = this.props;
+        const { inspectionEntity, loading, updating } = this.props;
         const { isNew } = this.state;
         return (
             <Modal isOpen toggle={this.handleClose}>
                 <ModalHeader toggle={this.handleClose}>
-                    <Translate contentKey="carcare.repair.edit.title">Create or edit a repair</Translate>
+                    <Translate contentKey="carcare.inspection.edit.title">Create or edit a inspection</Translate>
                 </ModalHeader>
                 <ModalBody>
                     {loading ? (
                         <p>Loading...</p>
                     ) : (
-                            <AvForm model={isNew ? {} : repairEntity} onSubmit={this.saveEntity}>
+                            <AvForm model={isNew ? {} : inspectionEntity} onSubmit={this.saveEntity}>
                                 <AvGroup>
                                     <Label id="dateLabel" for="vehicleEvent.date">
                                         <Translate contentKey="carcare.common.date">Date</Translate>
                                     </Label>
                                     <AvField
-                                        id="repair-date"
+                                        id="inspection-date"
                                         type="date"
                                         className="form-control"
                                         name="vehicleEvent.date"
@@ -93,7 +93,7 @@ export class RepairUpdate extends React.Component<IRepairUpdateProps, IRepairUpd
                                         <Translate contentKey="carcare.common.mileage" interpolate={{ unit: 'km' }}>Mileage (km)</Translate>
                                     </Label>
                                     <AvField
-                                        id="repair-mileage"
+                                        id="inspection-mileage"
                                         type="text"
                                         name="vehicleEvent.mileage"
                                         validate={{
@@ -107,7 +107,7 @@ export class RepairUpdate extends React.Component<IRepairUpdateProps, IRepairUpd
                                         <Translate contentKey="carcare.common.cost" interpolate={{ unit: 'PLN' }}>Cost (PLN)</Translate>
                                     </Label>
                                     <AvField
-                                        id="repair-cost"
+                                        id="inspection-cost"
                                         type="text"
                                         name="costInCents"
                                         validate={{
@@ -117,11 +117,25 @@ export class RepairUpdate extends React.Component<IRepairUpdateProps, IRepairUpd
                                     />
                                 </AvGroup>
                                 <AvGroup>
-                                    <Label id="stationLabel" for="station">
-                                        <Translate contentKey="carcare.repair.station">Station</Translate>
+                                    <Label id="validThruLabel" for="validThru">
+                                        <Translate contentKey="carcare.inspection.valid-thru">Date</Translate>
                                     </Label>
                                     <AvField
-                                        id="refuel-station"
+                                        id="inspection-validThru"
+                                        type="date"
+                                        className="form-control"
+                                        name="validThru"
+                                        validate={{
+                                            required: { value: true, errorMessage: translate('entity.validation.required') }
+                                        }}
+                                    />
+                                </AvGroup>
+                                <AvGroup>
+                                    <Label id="StationLabel" for="station">
+                                        <Translate contentKey="carcare.inspection.station">Station</Translate>
+                                    </Label>
+                                    <AvField
+                                        id="inspection-station"
                                         type="text"
                                         name="station"
                                         validate={{
@@ -133,10 +147,10 @@ export class RepairUpdate extends React.Component<IRepairUpdateProps, IRepairUpd
                                 </AvGroup>
                                 <AvGroup>
                                     <Label id="detailsLabel" for="details">
-                                        <Translate contentKey="carcare.repair.details">Details</Translate>
+                                        <Translate contentKey="carcare.inspection.details">Details</Translate>
                                     </Label>
                                     <AvField
-                                        id="repair-details"
+                                        id="inspection-details"
                                         type="textarea"
                                         name="details"
                                         validate={{
@@ -145,7 +159,7 @@ export class RepairUpdate extends React.Component<IRepairUpdateProps, IRepairUpd
                                         }}
                                     />
                                 </AvGroup>
-                                <Button tag={Link} id="cancel-save" to={`/carcare/repair/${this.state.vehicleId}`} replace color="info">
+                                <Button tag={Link} id="cancel-save" to={`/carcare/inspection/${this.state.vehicleId}`} replace color="info">
                                     <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
                                         <Translate contentKey="entity.action.back">Back</Translate>
@@ -165,16 +179,16 @@ export class RepairUpdate extends React.Component<IRepairUpdateProps, IRepairUpd
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
-    repairEntity: storeState.repairs.repair,
-    loading: storeState.repairs.loading,
-    updating: storeState.repairs.updating,
-    updateSuccess: storeState.repairs.updateSuccess
+    inspectionEntity: storeState.inspections.inspection,
+    loading: storeState.inspections.loading,
+    updating: storeState.inspections.updating,
+    updateSuccess: storeState.inspections.updateSuccess
 });
 
 const mapDispatchToProps = {
-    getRepair,
-    updateRepair,
-    createRepair,
+    getInspection,
+    updateInspection,
+    createInspection,
     reset
 };
 
@@ -184,4 +198,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(RepairUpdate);
+)(InspectionUpdate);

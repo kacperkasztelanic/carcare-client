@@ -15,6 +15,7 @@ import passwordReset, { PasswordResetState } from 'app/modules/account/password-
 import vehicles, { VehiclesState } from 'app/modules/carcare/vehicle/vehicle.reducer';
 import refuels, { RefuelsState } from 'app/modules/carcare/refuel/refuel.reducer';
 import repairs, { RepairsState } from 'app/modules/carcare/repair/repair.reducer';
+import inspections, { InspectionsState } from 'app/modules/carcare/inspection/inspection.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -31,6 +32,7 @@ export interface IRootState {
   readonly vehicles: VehiclesState;
   readonly refuels: RefuelsState;
   readonly repairs: RepairsState;
+  readonly inspections: InspectionsState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -49,6 +51,7 @@ const rootReducer = combineReducers<IRootState>({
   vehicles,
   refuels,
   repairs,
+  inspections,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });
