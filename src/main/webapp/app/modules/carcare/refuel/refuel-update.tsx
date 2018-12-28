@@ -75,21 +75,6 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
                     ) : (
                             <AvForm model={isNew ? {} : refuelEntity} onSubmit={this.saveEntity}>
                                 <AvGroup>
-                                    <Label id="StationLabel" for="station">
-                                        <Translate contentKey="carcare.refuel.station">Station</Translate>
-                                    </Label>
-                                    <AvField
-                                        id="refuel-station"
-                                        type="text"
-                                        name="station"
-                                        validate={{
-                                            required: { value: true, errorMessage: translate('entity.validation.required') },
-                                            minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) },
-                                            maxLength: { value: 20, errorMessage: translate('entity.validation.maxlength', { max: 20 }) }
-                                        }}
-                                    />
-                                </AvGroup>
-                                <AvGroup>
                                     <Label id="dateLabel" for="vehicleEvent.date">
                                         <Translate contentKey="carcare.common.date">Date</Translate>
                                     </Label>
@@ -118,6 +103,20 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
                                     />
                                 </AvGroup>
                                 <AvGroup>
+                                    <Label id="costLabel" for="cost">
+                                        <Translate contentKey="carcare.common.cost" interpolate={{ unit: 'PLN' }}>Cost (PLN)</Translate>
+                                    </Label>
+                                    <AvField
+                                        id="refuel-cost"
+                                        type="text"
+                                        name="costInCents"
+                                        validate={{
+                                            required: { value: true, errorMessage: translate('entity.validation.required') },
+                                            min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
+                                        }}
+                                    />
+                                </AvGroup>
+                                <AvGroup>
                                     <Label id="volumeLabel" for="volume">
                                         <Translate contentKey="carcare.refuel.volume" interpolate={{ unit: 'dm3' }}>Volume (dm3)</Translate>
                                     </Label>
@@ -132,16 +131,17 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
                                     />
                                 </AvGroup>
                                 <AvGroup>
-                                    <Label id="costLabel" for="cost">
-                                        <Translate contentKey="carcare.common.cost" interpolate={{ unit: 'PLN' }}>Cost (PLN)</Translate>
+                                    <Label id="StationLabel" for="station">
+                                        <Translate contentKey="carcare.refuel.station">Station</Translate>
                                     </Label>
                                     <AvField
-                                        id="refuel-cost"
+                                        id="refuel-station"
                                         type="text"
-                                        name="costInCents"
+                                        name="station"
                                         validate={{
                                             required: { value: true, errorMessage: translate('entity.validation.required') },
-                                            min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
+                                            minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) },
+                                            maxLength: { value: 20, errorMessage: translate('entity.validation.maxlength', { max: 20 }) }
                                         }}
                                     />
                                 </AvGroup>
