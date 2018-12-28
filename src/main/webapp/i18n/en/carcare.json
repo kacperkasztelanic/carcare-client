@@ -1,4 +1,30 @@
 {
+    "carcareApp": {
+        "loginVM": {
+            "username": "username",
+            "password": "password"
+        },
+        "insurance": {
+            "created": "Insurance added",
+            "updated": "Insurance updated",
+            "deleted": "Insurance deleted"
+        },
+        "inspection": {
+            "created": "Inspection added",
+            "updated": "Inspection updated",
+            "deleted": "Inspection deleted"
+        },
+        "repair": {
+            "created": "Repair added",
+            "updated": "Repair updated",
+            "deleted": "Repair deleted"
+        },
+        "refuel": {
+            "created": "Refuel added",
+            "updated": "Refuel updated",
+            "deleted": "Refuel deleted"
+        }
+    },
     "carcare": {
         "common": {
             "add": "Add",
@@ -49,6 +75,11 @@
             "entity": "Insurance",
             "title": "Insurances",
             "insurer": "Insurer",
+            "number": "Number",
+            "type": "Type",
+            "valid-from": "Valid from",
+            "valid-thru": "Valid thru",
+            "details": "Details",
             "edit": {
                 "title": "Create or edit an insurance"
             },

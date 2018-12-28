@@ -16,6 +16,7 @@ import vehicles, { VehiclesState } from 'app/modules/carcare/vehicle/vehicle.red
 import refuels, { RefuelsState } from 'app/modules/carcare/refuel/refuel.reducer';
 import repairs, { RepairsState } from 'app/modules/carcare/repair/repair.reducer';
 import inspections, { InspectionsState } from 'app/modules/carcare/inspection/inspection.reducer';
+import insurances, { InsurancesState } from 'app/modules/carcare/insurance/insurance.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -33,6 +34,7 @@ export interface IRootState {
   readonly refuels: RefuelsState;
   readonly repairs: RepairsState;
   readonly inspections: InspectionsState;
+  readonly insurances: InsurancesState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -52,6 +54,7 @@ const rootReducer = combineReducers<IRootState>({
   refuels,
   repairs,
   inspections,
+  insurances,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

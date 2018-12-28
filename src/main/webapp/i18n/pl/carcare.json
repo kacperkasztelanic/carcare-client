@@ -1,4 +1,30 @@
 {
+    "carcareApp": {
+        "loginVM": {
+            "username": "nazwa użytkownika",
+            "password": "hasło"
+        },
+        "insurance": {
+            "created": "Ubezpieczenie dodane",
+            "updated": "Ubezpieczenie zaktualizowane",
+            "deleted": "Ubezpieczenie usunięte"
+        },
+        "inspection": {
+            "created": "Przegląd techniczny dodany",
+            "updated": "Przegląd techniczny zaktualizowany",
+            "deleted": "Przegląd techniczny usunięty"
+        },
+        "repair": {
+            "created": "Naprawa dodana",
+            "updated": "Naprawa zaktualizowana",
+            "deleted": "Naprawa usunięta"
+        },
+        "refuel": {
+            "created": "Tankowanie dodane",
+            "updated": "Tankowanie zaktualizowane",
+            "deleted": "Tankowanie usunięte"
+        }
+    },
     "carcare": {
         "common": {
             "add": "Dodaj",
@@ -49,6 +75,11 @@
             "entity": "Ubezpieczenie",
             "title": "Ubezpieczenia",
             "insurer": "Ubezpieczyciel",
+            "number": "Numer",
+            "type": "Typ",
+            "valid-from": "Ważne od",
+            "valid-thru": "Ważne do",
+            "details": "Szczegóły",
             "edit": {
                 "title": "Utwórz lub edytuj ubezpieczenie"
             },

@@ -5,11 +5,11 @@ import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util'
 import { IInspection, defaultValue } from 'app/shared/model/inspection.model';
 
 export const ACTION_TYPES = {
-    FETCH_REFUELS: 'inspection/FETCH_REFUELS',
-    FETCH_REFUEL: 'inspection/FETCH_REFUEL',
-    CREATE_REFUEL: 'inspection/CREATE_REFUEL',
-    UPDATE_REFUEL: 'inspection/UPDATE_REFUEL',
-    DELETE_REFUEL: 'inspection/DELETE_REFUEL',
+    FETCH_INSPECTIONS: 'inspection/FETCH_INSPECTIONS',
+    FETCH_INSPECTION: 'inspection/FETCH_INSPECTION',
+    CREATE_INSPECTION: 'inspection/CREATE_INSPECTION',
+    UPDATE_INSPECTION: 'inspection/UPDATE_INSPECTION',
+    DELETE_INSPECTION: 'inspection/DELETE_INSPECTION',
     RESET: 'inspection/RESET'
 };
 
@@ -27,28 +27,28 @@ export type InspectionsState = Readonly<typeof initialState>;
 
 export default (state: InspectionsState = initialState, action): InspectionsState => {
     switch (action.type) {
-        case REQUEST(ACTION_TYPES.FETCH_REFUELS):
-        case REQUEST(ACTION_TYPES.FETCH_REFUEL):
+        case REQUEST(ACTION_TYPES.FETCH_INSPECTIONS):
+        case REQUEST(ACTION_TYPES.FETCH_INSPECTION):
             return {
                 ...state,
                 errorMessage: null,
                 updateSuccess: false,
                 loading: true
             };
-        case REQUEST(ACTION_TYPES.CREATE_REFUEL):
-        case REQUEST(ACTION_TYPES.UPDATE_REFUEL):
-        case REQUEST(ACTION_TYPES.DELETE_REFUEL):
+        case REQUEST(ACTION_TYPES.CREATE_INSPECTION):
+        case REQUEST(ACTION_TYPES.UPDATE_INSPECTION):
+        case REQUEST(ACTION_TYPES.DELETE_INSPECTION):
             return {
                 ...state,
                 errorMessage: null,
                 updateSuccess: false,
                 updating: true
             };
-        case FAILURE(ACTION_TYPES.FETCH_REFUELS):
-        case FAILURE(ACTION_TYPES.FETCH_REFUEL):
-        case FAILURE(ACTION_TYPES.CREATE_REFUEL):
-        case FAILURE(ACTION_TYPES.UPDATE_REFUEL):
-        case FAILURE(ACTION_TYPES.DELETE_REFUEL):
+        case FAILURE(ACTION_TYPES.FETCH_INSPECTIONS):
+        case FAILURE(ACTION_TYPES.FETCH_INSPECTION):
+        case FAILURE(ACTION_TYPES.CREATE_INSPECTION):
+        case FAILURE(ACTION_TYPES.UPDATE_INSPECTION):
+        case FAILURE(ACTION_TYPES.DELETE_INSPECTION):
             return {
                 ...state,
                 loading: false,
@@ -56,28 +56,28 @@ export default (state: InspectionsState = initialState, action): InspectionsStat
                 updateSuccess: false,
                 errorMessage: action.payload
             };
-        case SUCCESS(ACTION_TYPES.FETCH_REFUELS):
+        case SUCCESS(ACTION_TYPES.FETCH_INSPECTIONS):
             return {
                 ...state,
                 loading: false,
                 inspections: action.payload.data,
                 totalItems: action.payload.headers['x-total-count']
             };
-        case SUCCESS(ACTION_TYPES.FETCH_REFUEL):
+        case SUCCESS(ACTION_TYPES.FETCH_INSPECTION):
             return {
                 ...state,
                 loading: false,
                 inspection: action.payload.data
             };
-        case SUCCESS(ACTION_TYPES.CREATE_REFUEL):
-        case SUCCESS(ACTION_TYPES.UPDATE_REFUEL):
+        case SUCCESS(ACTION_TYPES.CREATE_INSPECTION):
+        case SUCCESS(ACTION_TYPES.UPDATE_INSPECTION):
             return {
                 ...state,
                 updating: false,
                 updateSuccess: true,
                 inspection: action.payload.data
             };
-        case SUCCESS(ACTION_TYPES.DELETE_REFUEL):
+        case SUCCESS(ACTION_TYPES.DELETE_INSPECTION):
             return {
                 ...state,
                 updating: false,
@@ -103,7 +103,7 @@ const apiUrl = 'api/inspection';
 export const getInspections: ICrudGetAllAction<IInspection> = vehicleId => {
     const requestUrl = `${apiUrl}/all/${vehicleId}`;
     return {
-        type: ACTION_TYPES.FETCH_REFUELS,
+        type: ACTION_TYPES.FETCH_INSPECTIONS,
         payload: axios.get<IInspection>(requestUrl)
     };
 };
@@ -111,7 +111,7 @@ export const getInspections: ICrudGetAllAction<IInspection> = vehicleId => {
 export const getInspection: ICrudGetAction<IInspection> = id => {
     const requestUrl = `${apiUrl}/${id}`;
     return {
-        type: ACTION_TYPES.FETCH_REFUEL,
+        type: ACTION_TYPES.FETCH_INSPECTION,
         payload: axios.get<IInspection>(requestUrl)
     };
 };
@@ -119,7 +119,7 @@ export const getInspection: ICrudGetAction<IInspection> = id => {
 export const createInspection: ICrudPutAction<IInspection> = inspection => async dispatch => {
     const requestUrl = `${apiUrl}/${inspection.vehicleId}`;
     const result = await dispatch({
-        type: ACTION_TYPES.CREATE_REFUEL,
+        type: ACTION_TYPES.CREATE_INSPECTION,
         payload: axios.post(requestUrl, inspection)
     });
     dispatch(getInspections(inspection.vehicleId));
@@ -129,7 +129,7 @@ export const createInspection: ICrudPutAction<IInspection> = inspection => async
 export const updateInspection: ICrudPutAction<IInspection> = inspection => async dispatch => {
     const requestUrl = `${apiUrl}/${inspection.id}`;
     const result = await dispatch({
-        type: ACTION_TYPES.UPDATE_REFUEL,
+        type: ACTION_TYPES.UPDATE_INSPECTION,
         payload: axios.put(requestUrl, inspection)
     });
     dispatch(getInspections(inspection.vehicleId));
@@ -139,12 +139,12 @@ export const updateInspection: ICrudPutAction<IInspection> = inspection => async
 export const deleteInspection: ICrudDeleteAction<IInspection> = id => async dispatch => {
     const requestUrl = `${apiUrl}/${id}`;
     const inspection = await dispatch({
-        type: ACTION_TYPES.FETCH_REFUEL,
+        type: ACTION_TYPES.FETCH_INSPECTION,
         payload: axios.get(requestUrl)
     });
     const vehicleId = inspection.value.data.vehicleId;
     const result = await dispatch({
-        type: ACTION_TYPES.DELETE_REFUEL,
+        type: ACTION_TYPES.DELETE_INSPECTION,
         payload: axios.delete(requestUrl)
     });
     dispatch(getInspections(vehicleId));
