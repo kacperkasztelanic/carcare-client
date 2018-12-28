@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getRefuel, deleteRefuel } from './refuel.reducer';
 import { IRootState } from 'app/shared/reducers';
 
-export interface IRefuelDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> { }
+export interface IRefuelDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class RefuelDeleteDialog extends React.Component<IRefuelDeleteDialogProps> {
   componentDidMount() {

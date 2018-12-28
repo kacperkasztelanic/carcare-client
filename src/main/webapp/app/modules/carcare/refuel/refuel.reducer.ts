@@ -86,7 +86,12 @@ export default (state: RefuelsState = initialState, action): RefuelsState => {
             };
         case ACTION_TYPES.RESET:
             return {
-                ...initialState
+                ...state,
+                loading: false,
+                errorMessage: null,
+                refuel: defaultValue,
+                updating: false,
+                updateSuccess: false
             };
         default:
             return state;
@@ -137,11 +142,12 @@ export const deleteRefuel: ICrudDeleteAction<IRefuel> = id => async dispatch => 
         type: ACTION_TYPES.FETCH_REFUEL,
         payload: axios.get(requestUrl)
     });
+    const vehicleId = refuel.value.data.vehicleId;
     const result = await dispatch({
         type: ACTION_TYPES.DELETE_REFUEL,
         payload: axios.delete(requestUrl)
     });
-    dispatch(getRefuels(refuel.vehicleId));
+    dispatch(getRefuels(vehicleId));
     return result;
 };
 

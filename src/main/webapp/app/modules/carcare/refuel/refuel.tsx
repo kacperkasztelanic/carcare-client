@@ -35,7 +35,7 @@ export class Refuel extends React.Component<IRefuelProps, IRefuelUpdateState> {
   };
 
   render() {
-    const { refuels, match } = this.props;
+    const { refuels, totalItems, match } = this.props;
     return (
       <div>
         <h2 id="user-management-page-heading">
@@ -66,6 +66,10 @@ export class Refuel extends React.Component<IRefuelProps, IRefuelUpdateState> {
                 {/* <Translate contentKey="userManagement.langKey">Cost</Translate> */}
               </th>
               <th>
+                Unit cost (PLN/dm3)
+                {/* <Translate contentKey="userManagement.langKey">Cost</Translate> */}
+              </th>
+              <th>
                 Station
                 {/* <Translate contentKey="userManagement.langKey">Station</Translate> */}
               </th>
@@ -84,6 +88,9 @@ export class Refuel extends React.Component<IRefuelProps, IRefuelUpdateState> {
                 </td>
                 <td>
                   <TextFormat value={refuel.costInCents / 100} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
+                </td>
+                <td>
+                  <TextFormat value={(refuel.costInCents / 100) / (refuel.volume / 1000)} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
                 </td>
                 <td>{refuel.station}</td>
                 <td className="text-right">
@@ -111,13 +118,19 @@ export class Refuel extends React.Component<IRefuelProps, IRefuelUpdateState> {
             ))}
           </tbody>
         </Table>
+        <p>
+          {/* <Translate contentKey=""> Number of elements: </Translate> */}
+          Number of elements:&nbsp;
+          {totalItems}
+        </p>
       </div>
     );
   }
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
-  refuels: storeState.refuels.refuels
+  refuels: storeState.refuels.refuels,
+  totalItems: storeState.refuels.totalItems
 });
 
 const mapDispatchToProps = { getRefuels };

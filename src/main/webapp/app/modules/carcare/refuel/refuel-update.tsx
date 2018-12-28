@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label } from 'reactstrap';
+import { Button, Label, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,7 +27,7 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
 
     componentWillUpdate(nextProps, nextState) {
         if (nextProps.updateSuccess !== this.props.updateSuccess && nextProps.updateSuccess) {
-            this.handleClose();
+            this.handleClose(event);
         }
     }
 
@@ -56,130 +56,124 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
         }
     };
 
-    handleClose = () => {
-        this.props.history.push(`/carcare/refuel/${this.state.vehicleId}`);
+    handleClose = event => {
+        event.stopPropagation();
+        this.props.history.goBack();
     };
 
     render() {
         const { refuelEntity, loading, updating } = this.props;
         const { isNew } = this.state;
-
         return (
-            <div>
-                <Row className="justify-content-center">
-                    <Col md="8">
-                        <h2 id="sandboxApp.author.home.createOrEditLabel">
-                            {/* <Translate contentKey="sandboxApp.author.home.createOrEditLabel">Create or edit a Author</Translate> */}
-                            Create or edit a refuel
-                        </h2>
-                    </Col>
-                </Row>
-                <Row className="justify-content-center">
-                    <Col md="8">
-                        {loading ? (
-                            <p>Loading...</p>
-                        ) : (
-                                <AvForm model={isNew ? {} : refuelEntity} onSubmit={this.saveEntity}>
-                                    {!isNew ? (
-                                        <AvGroup>
-                                            <Label for="id">
-                                                <Translate contentKey="global.field.id">ID</Translate>
-                                            </Label>
-                                            <AvInput id="refuel-id" type="text" className="form-control" name="id" required readOnly />
-                                        </AvGroup>
-                                    ) : null}
+            <Modal isOpen toggle={this.handleClose}>
+                <ModalHeader toggle={this.handleClose}>
+                    {/* <Translate contentKey="sandboxApp.author.home.createOrEditLabel">Create or edit a Author</Translate> */}
+                    Create or edit a refuel
+                </ModalHeader>
+                <ModalBody>
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : (
+                            <AvForm model={isNew ? {} : refuelEntity} onSubmit={this.saveEntity}>
+                                {!isNew ? (
                                     <AvGroup>
-                                        <Label id="StationLabel" for="station">
-                                            {/* <Translate contentKey="sandboxApp.author.name">Name</Translate> */}
-                                            Station
+                                        <Label for="id">
+                                            <Translate contentKey="global.field.id">ID</Translate>
                                         </Label>
-                                        <AvField
-                                            id="refuel-station"
-                                            type="text"
-                                            name="station"
-                                            validate={{
-                                                required: { value: true, errorMessage: translate('entity.validation.required') },
-                                                minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) },
-                                                maxLength: { value: 20, errorMessage: translate('entity.validation.maxlength', { max: 20 }) }
-                                            }}
-                                        />
+                                        <AvInput id="refuel-id" type="text" className="form-control" name="id" required readOnly />
                                     </AvGroup>
-                                    <AvGroup>
-                                        <Label id="dateLabel" for="vehicleEvent.date">
-                                            {/* <Translate contentKey="sandboxApp.author.birthDate">Birth Date</Translate> */}
-                                            Date
+                                ) : null}
+                                <AvGroup>
+                                    <Label id="StationLabel" for="station">
+                                        {/* <Translate contentKey="sandboxApp.author.name">Name</Translate> */}
+                                        Station
                                         </Label>
-                                        <AvField
-                                            id="refuel-date"
-                                            type="date"
-                                            className="form-control"
-                                            name="vehicleEvent.date"
-                                            validate={{
-                                                required: { value: true, errorMessage: translate('entity.validation.required') }
-                                            }}
-                                        />
-                                    </AvGroup>
-                                    <AvGroup>
-                                        <Label id="mileageLabel" for="vehicleEvent.mileage">
-                                            {/* <Translate contentKey="sandboxApp.author.birthDate">Birth Date</Translate> */}
-                                            Mileage
+                                    <AvField
+                                        id="refuel-station"
+                                        type="text"
+                                        name="station"
+                                        validate={{
+                                            required: { value: true, errorMessage: translate('entity.validation.required') },
+                                            minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) },
+                                            maxLength: { value: 20, errorMessage: translate('entity.validation.maxlength', { max: 20 }) }
+                                        }}
+                                    />
+                                </AvGroup>
+                                <AvGroup>
+                                    <Label id="dateLabel" for="vehicleEvent.date">
+                                        {/* <Translate contentKey="sandboxApp.author.birthDate">Birth Date</Translate> */}
+                                        Date
                                         </Label>
-                                        <AvField
-                                            id="refuel-mileage"
-                                            type="text"
-                                            name="vehicleEvent.mileage"
-                                            validate={{
-                                                required: { value: true, errorMessage: translate('entity.validation.required') },
-                                                min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
-                                            }}
-                                        />
-                                    </AvGroup>
-                                    <AvGroup>
-                                        <Label id="volumeLabel" for="volume">
-                                            {/* <Translate contentKey="sandboxApp.author.birthDate">Birth Date</Translate> */}
-                                            Volume
+                                    <AvField
+                                        id="refuel-date"
+                                        type="date"
+                                        className="form-control"
+                                        name="vehicleEvent.date"
+                                        validate={{
+                                            required: { value: true, errorMessage: translate('entity.validation.required') }
+                                        }}
+                                    />
+                                </AvGroup>
+                                <AvGroup>
+                                    <Label id="mileageLabel" for="vehicleEvent.mileage">
+                                        {/* <Translate contentKey="sandboxApp.author.birthDate">Birth Date</Translate> */}
+                                        Mileage
                                         </Label>
-                                        <AvField
-                                            id="refuel-volume"
-                                            type="text"
-                                            name="volume"
-                                            validate={{
-                                                required: { value: true, errorMessage: translate('entity.validation.required') },
-                                                min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
-                                            }}
-                                        />
-                                    </AvGroup>
-                                    <AvGroup>
-                                        <Label id="costLabel" for="cost">
-                                            {/* <Translate contentKey="sandboxApp.author.birthDate">Birth Date</Translate> */}
-                                            Cost
+                                    <AvField
+                                        id="refuel-mileage"
+                                        type="text"
+                                        name="vehicleEvent.mileage"
+                                        validate={{
+                                            required: { value: true, errorMessage: translate('entity.validation.required') },
+                                            min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
+                                        }}
+                                    />
+                                </AvGroup>
+                                <AvGroup>
+                                    <Label id="volumeLabel" for="volume">
+                                        {/* <Translate contentKey="sandboxApp.author.birthDate">Birth Date</Translate> */}
+                                        Volume
                                         </Label>
-                                        <AvField
-                                            id="refuel-cost"
-                                            type="text"
-                                            name="costInCents"
-                                            validate={{
-                                                required: { value: true, errorMessage: translate('entity.validation.required') },
-                                                min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
-                                            }}
-                                        />
-                                    </AvGroup>
-                                    <Button tag={Link} id="cancel-save" to={`/carcare/refuel/${this.state.vehicleId}`} replace color="info">
-                                        <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                                    <AvField
+                                        id="refuel-volume"
+                                        type="text"
+                                        name="volume"
+                                        validate={{
+                                            required: { value: true, errorMessage: translate('entity.validation.required') },
+                                            min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
+                                        }}
+                                    />
+                                </AvGroup>
+                                <AvGroup>
+                                    <Label id="costLabel" for="cost">
+                                        {/* <Translate contentKey="sandboxApp.author.birthDate">Birth Date</Translate> */}
+                                        Cost
+                                        </Label>
+                                    <AvField
+                                        id="refuel-cost"
+                                        type="text"
+                                        name="costInCents"
+                                        validate={{
+                                            required: { value: true, errorMessage: translate('entity.validation.required') },
+                                            min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
+                                        }}
+                                    />
+                                </AvGroup>
+                                <Button tag={Link} id="cancel-save" to={`/carcare/refuel/${this.state.vehicleId}`} replace color="info">
+                                    <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
-                                            <Translate contentKey="entity.action.back">Back</Translate>
-                                        </span>
-                                    </Button>
-                                    &nbsp;
+                                        <Translate contentKey="entity.action.back">Back</Translate>
+                                    </span>
+                                </Button>
+                                &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                                        <FontAwesomeIcon icon="save" />&nbsp;
+                                    <FontAwesomeIcon icon="save" />&nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
-                                    </Button>
-                                </AvForm>
-                            )}
-                    </Col>
-                </Row>
-            </div>
+                                </Button>
+                            </AvForm>
+                        )}
+                </ModalBody>
+            </Modal >
         );
     }
 }
