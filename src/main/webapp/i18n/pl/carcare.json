@@ -23,6 +23,11 @@
             "created": "Tankowanie dodane",
             "updated": "Tankowanie zaktualizowane",
             "deleted": "Tankowanie usunięte"
+        },
+        "routineService":{
+            "created": "Rutynowa obsługa dodana",
+            "updated": "Rutynowa obsługa zaktualizowana",
+            "deleted": "Rutynowa obsługa usunięta"
         }
     },
     "carcare": {
@@ -85,6 +90,20 @@
             },
             "delete": {
                 "question": "Czy na pewno chcesz usunąć tę informację o ubezpieczeniu?"
+            }
+        },
+        "service": {
+            "entity": "Rutynowa obsługa",
+            "title": "Rutynowa obsługa",
+            "next-by-mileage": "Następna przy ({{ unit }})",
+            "next-by-date": "Następna",
+            "station": "Warsztat",
+            "details": "Szczegóły",
+            "edit": {
+                "title": "Utwórz lub edytuj rutynową obsługę"
+            },
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć tę informację o rutynowej obsłudze?"
             }
         }
     }

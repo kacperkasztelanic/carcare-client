@@ -23,6 +23,11 @@
             "created": "Refuel added",
             "updated": "Refuel updated",
             "deleted": "Refuel deleted"
+        },
+        "routineService":{
+            "created": "Routine service added",
+            "updated": "Routine service updated",
+            "deleted": "Routine service deleted"
         }
     },
     "carcare": {
@@ -85,6 +90,20 @@
             },
             "delete": {
                 "question": "Are you sure you want to delete this insurance?"
+            }
+        },
+        "service": {
+            "entity": "Service",
+            "title": "Services",
+            "next-by-mileage": "Next by mileage ({{ unit }})",
+            "next-by-date": "Next by date",
+            "station": "Station",
+            "details": "Details",
+            "edit": {
+                "title": "Create or edit a routine service"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete this routine service?"
             }
         }
     }

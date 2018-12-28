@@ -5,6 +5,7 @@ import refuel from './refuel';
 import repair from './repair';
 import inspection from './inspection';
 import insurance from './insurance';
+import service from './service';
 
 const Routes = ({ match }) => (
   <>
@@ -13,6 +14,7 @@ const Routes = ({ match }) => (
       <ErrorBoundaryRoute path={`${match.url}/repair`} component={repair} />
       <ErrorBoundaryRoute path={`${match.url}/inspection`} component={inspection} />
       <ErrorBoundaryRoute path={`${match.url}/insurance`} component={insurance} />
+      <ErrorBoundaryRoute path={`${match.url}/service`} component={service} />
     </Switch>
   </>
 );
