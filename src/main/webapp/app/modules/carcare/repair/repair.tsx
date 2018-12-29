@@ -45,6 +45,7 @@ export class Refuel extends React.Component<IRepairProps, IRepairUpdateState> {
         <Table responsive striped>
           <thead>
             <tr>
+              <th>#</th>
               <th>
                 <Translate contentKey="carcare.common.date">Date</Translate>
               </th>
@@ -66,6 +67,7 @@ export class Refuel extends React.Component<IRepairProps, IRepairUpdateState> {
           <tbody>
             {repairs.map((repair, i) => (
               <tr id={repair.id} key={`repair-${i}`}>
+                <th>{i + 1}</th>
                 <td>
                   <TextFormat value={repair.vehicleEvent.date} type="date" format={APP_LOCAL_DATE_FORMAT} blankOnInvalid />
                 </td>

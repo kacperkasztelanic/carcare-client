@@ -45,6 +45,7 @@ export class Service extends React.Component<IServiceProps, IServiceUpdateState>
         <Table responsive striped>
           <thead>
             <tr>
+              <th>#</th>
               <th>
                 <Translate contentKey="carcare.common.date">Date</Translate>
               </th>
@@ -72,6 +73,7 @@ export class Service extends React.Component<IServiceProps, IServiceUpdateState>
           <tbody>
             {services.map((service, i) => (
               <tr id={service.id} key={`service-${i}`}>
+                <th>{i + 1}</th>
                 <td>
                   <TextFormat value={service.vehicleEvent.date} type="date" format={APP_LOCAL_DATE_FORMAT} blankOnInvalid />
                 </td>

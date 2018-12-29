@@ -45,6 +45,7 @@ export class Inspection extends React.Component<IInspectionProps, IInspectionUpd
         <Table responsive striped>
           <thead>
             <tr>
+              <th>#</th>
               <th>
                 <Translate contentKey="carcare.common.date">Date</Translate>
               </th>
@@ -69,6 +70,7 @@ export class Inspection extends React.Component<IInspectionProps, IInspectionUpd
           <tbody>
             {inspections.map((inspection, i) => (
               <tr id={inspection.id} key={`inspection-${i}`}>
+                <th>{i + 1}</th>
                 <td>
                   <TextFormat value={inspection.vehicleEvent.date} type="date" format={APP_LOCAL_DATE_FORMAT} blankOnInvalid />
                 </td>

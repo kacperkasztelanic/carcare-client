@@ -45,6 +45,7 @@ export class Insurance extends React.Component<IInsuranceProps, IInsuranceUpdate
         <Table responsive striped>
           <thead>
             <tr>
+              <th>#</th>
               <th>
                 <Translate contentKey="carcare.common.date">Date</Translate>
               </th>
@@ -78,6 +79,7 @@ export class Insurance extends React.Component<IInsuranceProps, IInsuranceUpdate
           <tbody>
             {insurances.map((insurance, i) => (
               <tr id={insurance.id} key={`insurance-${i}`}>
+                <th>{i + 1}</th>
                 <td>
                   <TextFormat value={insurance.vehicleEvent.date} type="date" format={APP_LOCAL_DATE_FORMAT} blankOnInvalid />
                 </td>
