@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Table } from 'reactstrap';
+import { Button, Table, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 import { Translate, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { APP_LOCAL_DATE_FORMAT, APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS } from 'app/config/constants';
+import { APP_LOCAL_DATE_FORMAT, APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS, APP_COMPACT_DETAILS_LENGTH } from 'app/config/constants';
 import { IRootState } from 'app/shared/reducers';
 import { getServices } from './service.reducer';
 import TableSummary from 'app/shared/components/TableSummary';
@@ -14,14 +14,22 @@ export interface IServiceProps extends StateProps, DispatchProps, RouteComponent
 
 export interface IServiceUpdateState {
   vehicleId: string;
+  detailsPopoverOpen: boolean;
 }
 
 export class Service extends React.Component<IServiceProps, IServiceUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      vehicleId: this.props.match.params.vehicleId
+      vehicleId: this.props.match.params.vehicleId,
+      detailsPopoverOpen: false
     };
+  }
+
+  toogleDetailsPopover = () => {
+    this.setState({
+      detailsPopoverOpen: !this.state.detailsPopoverOpen
+    });
   }
 
   componentDidMount() {
@@ -86,7 +94,20 @@ export class Service extends React.Component<IServiceProps, IServiceUpdateState>
                 </td>
                 <td>{service.nextByMileage}</td>
                 <td>{service.station}</td>
-                <td>{service.details}</td>
+                <td>
+                  {
+                    (service.details.length < APP_COMPACT_DETAILS_LENGTH) ? service.details : (
+                      <div>
+                        <Button id="details-popover" type="button" color="info" onClick={this.toogleDetailsPopover}>
+                          <Translate contentKey="carcare.service.details">Details</Translate>
+                        </Button>
+                        <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
+                          <PopoverHeader><Translate contentKey="carcare.service.details">Details</Translate></PopoverHeader>
+                          <PopoverBody>{service.details}</PopoverBody>
+                        </Popover>
+                      </div>)
+                  }
+                </td>
                 <td className="text-right">
                   <div className="btn-group flex-btn-group-container">
                     <Button tag={Link} to={`${match.url}/${service.id}/edit`} color="primary" size="sm">
