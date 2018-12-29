@@ -91,18 +91,16 @@ export class Inspection extends React.Component<IInspectionProps, IInspectionUpd
                 </td>
                 <td>{inspection.station}</td>
                 <td>
-                  {
-                    (inspection.details.length < APP_COMPACT_DETAILS_LENGTH) ? inspection.details : (
-                      <div>
-                        <Button id="details-popover" type="button" outline color="info" onClick={this.toogleDetailsPopover}>
-                          {inspection.details.slice(0, APP_COMPACT_DETAILS_LENGTH - 3) + '...'}
-                        </Button>
-                        <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
-                          <PopoverHeader><Translate contentKey="carcare.inspection.details">Details</Translate></PopoverHeader>
-                          <PopoverBody style={{ whiteSpace: 'pre-wrap' }}>{inspection.details}</PopoverBody>
-                        </Popover>
-                      </div>)
-                  }
+                  <Button id="details-popover" type="button" outline color="info" onClick={this.toogleDetailsPopover}>
+                    <span className="d-none d-md-inline">
+                      {inspection.details.slice(0, APP_COMPACT_DETAILS_LENGTH - 3) + (inspection.details.length > APP_COMPACT_DETAILS_LENGTH ? '...' : '')}
+                    </span>
+                    <span className="d-sd-inline d-md-none"><FontAwesomeIcon icon="question" /></span>
+                  </Button>
+                  <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
+                    <PopoverHeader><Translate contentKey="carcare.inspection.details">Details</Translate></PopoverHeader>
+                    <PopoverBody style={{ whiteSpace: 'pre-wrap' }}>{inspection.details}</PopoverBody>
+                  </Popover>
                 </td>
                 <td className="text-right">
                   <div className="btn-group flex-btn-group-container">

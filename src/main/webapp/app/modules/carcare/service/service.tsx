@@ -95,18 +95,16 @@ export class Service extends React.Component<IServiceProps, IServiceUpdateState>
                 <td>{service.nextByMileage}</td>
                 <td>{service.station}</td>
                 <td>
-                  {
-                    (service.details.length < APP_COMPACT_DETAILS_LENGTH) ? service.details : (
-                      <div>
-                        <Button id="details-popover" type="button" outline color="info" onClick={this.toogleDetailsPopover}>
-                          {service.details.slice(0, APP_COMPACT_DETAILS_LENGTH - 3) + '...'}
-                        </Button>
-                        <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
-                          <PopoverHeader><Translate contentKey="carcare.service.details">Details</Translate></PopoverHeader>
-                          <PopoverBody style={{ whiteSpace: 'pre-wrap' }}>{service.details}</PopoverBody>
-                        </Popover>
-                      </div>)
-                  }
+                  <Button id="details-popover" type="button" outline color="info" onClick={this.toogleDetailsPopover}>
+                    <span className="d-none d-md-inline">
+                      {service.details.slice(0, APP_COMPACT_DETAILS_LENGTH - 3) + (service.details.length > APP_COMPACT_DETAILS_LENGTH ? '...' : '')}
+                    </span>
+                    <span className="d-sd-inline d-md-none"><FontAwesomeIcon icon="question" /></span>
+                  </Button>
+                  <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
+                    <PopoverHeader><Translate contentKey="carcare.service.details">Details</Translate></PopoverHeader>
+                    <PopoverBody style={{ whiteSpace: 'pre-wrap' }}>{service.details}</PopoverBody>
+                  </Popover>
                 </td>
                 <td className="text-right">
                   <div className="btn-group flex-btn-group-container">

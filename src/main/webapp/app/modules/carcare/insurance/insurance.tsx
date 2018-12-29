@@ -105,18 +105,16 @@ export class Insurance extends React.Component<IInsuranceProps, IInsuranceUpdate
                 <td>{insurance.insurer}</td>
                 <td>{insurance.number}</td>
                 <td>
-                  {
-                    (insurance.details.length < APP_COMPACT_DETAILS_LENGTH) ? insurance.details : (
-                      <div>
-                        <Button id="details-popover" type="button" outline color="info" onClick={this.toogleDetailsPopover}>
-                          {insurance.details.slice(0, APP_COMPACT_DETAILS_LENGTH - 3) + '...'}
-                        </Button>
-                        <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
-                          <PopoverHeader><Translate contentKey="carcare.insurance.details">Details</Translate></PopoverHeader>
-                          <PopoverBody style={{ whiteSpace: 'pre-wrap' }}>{insurance.details}</PopoverBody>
-                        </Popover>
-                      </div>)
-                  }
+                  <Button id="details-popover" type="button" outline color="info" onClick={this.toogleDetailsPopover}>
+                    <span className="d-none d-md-inline">
+                      {insurance.details.slice(0, APP_COMPACT_DETAILS_LENGTH - 3) + (insurance.details.length > APP_COMPACT_DETAILS_LENGTH ? '...' : '')}
+                    </span>
+                    <span className="d-sd-inline d-md-none"><FontAwesomeIcon icon="question" /></span>
+                  </Button>
+                  <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
+                    <PopoverHeader><Translate contentKey="carcare.insurance.details">Details</Translate></PopoverHeader>
+                    <PopoverBody style={{ whiteSpace: 'pre-wrap' }}>{insurance.details}</PopoverBody>
+                  </Popover>
                 </td>
                 <td className="text-right">
                   <div className="btn-group flex-btn-group-container">
