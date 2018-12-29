@@ -9,6 +9,7 @@ import { APP_LOCAL_DATE_FORMAT, APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS,
 import { IRootState } from 'app/shared/reducers';
 import { getInspections } from './inspection.reducer';
 import TableSummary from 'app/shared/components/TableSummary';
+import BackButton from 'app/shared/components/BackButton';
 
 export interface IInspectionProps extends StateProps, DispatchProps, RouteComponentProps<{ vehicleId: string }> { }
 
@@ -31,6 +32,11 @@ export class Inspection extends React.Component<IInspectionProps, IInspectionUpd
       detailsPopoverOpen: !this.state.detailsPopoverOpen
     });
   }
+
+  handleClose = event => {
+    event.stopPropagation();
+    this.props.history.goBack();
+  };
 
   componentDidMount() {
     this.getInspections(this.state.vehicleId);
@@ -128,6 +134,7 @@ export class Inspection extends React.Component<IInspectionProps, IInspectionUpd
           </tbody>
         </Table>
         <TableSummary totalItems={totalItems} />
+        <BackButton handleFunction={this.handleClose} />
       </div>
     );
   }

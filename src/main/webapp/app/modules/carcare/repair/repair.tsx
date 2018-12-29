@@ -9,6 +9,7 @@ import { APP_LOCAL_DATE_FORMAT, APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS,
 import { IRootState } from 'app/shared/reducers';
 import { getRepairs } from './repair.reducer';
 import TableSummary from 'app/shared/components/TableSummary';
+import BackButton from 'app/shared/components/BackButton';
 
 export interface IRepairProps extends StateProps, DispatchProps, RouteComponentProps<{ vehicleId: string }> { }
 
@@ -31,6 +32,11 @@ export class Refuel extends React.Component<IRepairProps, IRepairUpdateState> {
       detailsPopoverOpen: !this.state.detailsPopoverOpen
     });
   }
+
+  handleClose = event => {
+    event.stopPropagation();
+    this.props.history.goBack();
+  };
 
   componentDidMount() {
     this.getRefuels(this.state.vehicleId);
@@ -122,6 +128,7 @@ export class Refuel extends React.Component<IRepairProps, IRepairUpdateState> {
           </tbody>
         </Table>
         <TableSummary totalItems={totalItems} />
+        <BackButton handleFunction={this.handleClose} />
       </div>
     );
   }

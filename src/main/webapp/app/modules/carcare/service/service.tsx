@@ -9,6 +9,7 @@ import { APP_LOCAL_DATE_FORMAT, APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS,
 import { IRootState } from 'app/shared/reducers';
 import { getServices } from './service.reducer';
 import TableSummary from 'app/shared/components/TableSummary';
+import BackButton from 'app/shared/components/BackButton';
 
 export interface IServiceProps extends StateProps, DispatchProps, RouteComponentProps<{ vehicleId: string }> { }
 
@@ -31,6 +32,11 @@ export class Service extends React.Component<IServiceProps, IServiceUpdateState>
       detailsPopoverOpen: !this.state.detailsPopoverOpen
     });
   }
+
+  handleClose = event => {
+    event.stopPropagation();
+    this.props.history.goBack();
+  };
 
   componentDidMount() {
     this.getServices(this.state.vehicleId);
@@ -132,6 +138,7 @@ export class Service extends React.Component<IServiceProps, IServiceUpdateState>
           </tbody>
         </Table>
         <TableSummary totalItems={totalItems} />
+        <BackButton handleFunction={this.handleClose} />
       </div>
     );
   }
