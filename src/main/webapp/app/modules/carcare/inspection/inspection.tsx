@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Table } from 'reactstrap';
+import { Button, Table, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 import { Translate, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { APP_LOCAL_DATE_FORMAT, APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS } from 'app/config/constants';
+import { APP_LOCAL_DATE_FORMAT, APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS, APP_COMPACT_DETAILS_LENGTH } from 'app/config/constants';
 import { IRootState } from 'app/shared/reducers';
 import { getInspections } from './inspection.reducer';
 import TableSummary from 'app/shared/components/TableSummary';
@@ -14,14 +14,22 @@ export interface IInspectionProps extends StateProps, DispatchProps, RouteCompon
 
 export interface IInspectionUpdateState {
   vehicleId: string;
+  detailsPopoverOpen: boolean;
 }
 
 export class Inspection extends React.Component<IInspectionProps, IInspectionUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      vehicleId: this.props.match.params.vehicleId
+      vehicleId: this.props.match.params.vehicleId,
+      detailsPopoverOpen: false
     };
+  }
+
+  toogleDetailsPopover = () => {
+    this.setState({
+      detailsPopoverOpen: !this.state.detailsPopoverOpen
+    });
   }
 
   componentDidMount() {
@@ -82,7 +90,20 @@ export class Inspection extends React.Component<IInspectionProps, IInspectionUpd
                   <TextFormat value={inspection.validThru} type="date" format={APP_LOCAL_DATE_FORMAT} blankOnInvalid />
                 </td>
                 <td>{inspection.station}</td>
-                <td>{inspection.details}</td>
+                <td>
+                  {
+                    (inspection.details.length < APP_COMPACT_DETAILS_LENGTH) ? inspection.details : (
+                      <div>
+                        <Button id="details-popover" type="button" color="info" onClick={this.toogleDetailsPopover}>
+                          <Translate contentKey="carcare.inspection.details">Details</Translate>
+                        </Button>
+                        <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
+                          <PopoverHeader><Translate contentKey="carcare.inspection.details">Details</Translate></PopoverHeader>
+                          <PopoverBody>{inspection.details}</PopoverBody>
+                        </Popover>
+                      </div>)
+                  }
+                </td>
                 <td className="text-right">
                   <div className="btn-group flex-btn-group-container">
                     <Button tag={Link} to={`${match.url}/${inspection.id}/edit`} color="primary" size="sm">
