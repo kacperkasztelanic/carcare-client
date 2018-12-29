@@ -1,15 +1,12 @@
+import { IVehicleDetails } from './vehicle-details.model';
+
 export interface IVehicle {
     id?: any;
     make?: string;
     model?: string;
     licensePlate?: string;
-    image?: any;
+    fuelType?: string;
+    vehicleDetails?: IVehicleDetails;
 }
 
-export const defaultValue: Readonly<IVehicle> = {
-    id: null,
-    make: null,
-    model: null,
-    licensePlate: null,
-    image: null
-};
+export const defaultValue: Readonly<IVehicle> = {};

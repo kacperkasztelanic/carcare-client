@@ -24,7 +24,7 @@
             "updated": "Tankowanie zaktualizowane",
             "deleted": "Tankowanie usunięte"
         },
-        "routineService":{
+        "routineService": {
             "created": "Rutynowa obsługa dodana",
             "updated": "Rutynowa obsługa zaktualizowana",
             "deleted": "Rutynowa obsługa usunięta"
@@ -105,6 +105,35 @@
             "delete": {
                 "question": "Czy na pewno chcesz usunąć tę informację o rutynowej obsłudze?"
             }
+        },
+        "vehicle": {
+            "entity": "Pojazd",
+            "title": "Pojazdy",
+            "make": "Marka",
+            "model": "Model",
+            "license-plate": "Nr rejestracyjny",
+            "fuel-type": "Rodzaj paliwa",
+            "details": "Szczegóły",
+            "edit": {
+                "title": "Utwórz lub edytuj pojazd"
+            },
+            "delete": {
+                "question": "Czy na pewno chcesz usunąć ten pojazd i wszystkie powiązane informacje?"
+            }
+        },
+        "vehicle-details": {
+            "entity": "Szczegóły pojazdu",
+            "title": "Szczegóły pojazdu",
+            "model-suffix": "Wersja",
+            "vin-number": "Nr VIN",
+            "vehicle-card": "Nr karty pojazdu",
+            "registration-certificate": "Nr dowodu rejestracyjnego",
+            "year-of-manufacture": "Rok produkcji",
+            "engine-volume": "Pojemność silnika ({{ unit }})",
+            "engine-power": "Moc silnika ({{ unit }})",
+            "weight": "Masa ({{ unit }})",
+            "notes": "Notatki",
+            "image": "Zdjęcie"
         }
     }
 }

@@ -24,7 +24,7 @@
             "updated": "Refuel updated",
             "deleted": "Refuel deleted"
         },
-        "routineService":{
+        "routineService": {
             "created": "Routine service added",
             "updated": "Routine service updated",
             "deleted": "Routine service deleted"
@@ -105,6 +105,35 @@
             "delete": {
                 "question": "Are you sure you want to delete this routine service?"
             }
+        },
+        "vehicle": {
+            "entity": "Vehicle",
+            "title": "Vehicles",
+            "make": "Make",
+            "model": "Model",
+            "license-plate": "License plate",
+            "fuel-type": "Fuel type",
+            "details": "Details",
+            "edit": {
+                "title": "Create or edit a vehicle"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete this vehicle and all the associated information?"
+            }
+        },
+        "vehicle-details": {
+            "entity": "Vehicle Details",
+            "title": "Vehicle Details",
+            "model-suffix": "Model suffix",
+            "vin-number": "VIN number",
+            "vehicle-card": "Vehicle card",
+            "registration-certificate": "Registration certificate",
+            "year-of-manufacture": "Year of manufacture",
+            "engine-volume": "Engine volume ({{ unit }})",
+            "engine-power": "Engine power ({{ unit }})",
+            "weight": "Weight ({{ unit }})",
+            "notes": "Notes",
+            "image": "Image"
         }
     }
 }
