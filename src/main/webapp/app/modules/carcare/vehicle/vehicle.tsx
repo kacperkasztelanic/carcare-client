@@ -5,7 +5,6 @@ import { Button, Table } from 'reactstrap';
 import { Translate, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { APP_LOCAL_DATE_FORMAT, APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS } from 'app/config/constants';
 import { IRootState } from 'app/shared/reducers';
 import { getVehicles } from './vehicle.reducer';
 import TableSummary from 'app/shared/components/TableSummary';
@@ -13,10 +12,7 @@ import { IVehicle } from 'app/shared/model/vehicle.model';
 
 export interface IVehicleProps extends StateProps, DispatchProps, RouteComponentProps<{}> { }
 
-export interface IVehicleUpdateState {
-}
-
-export class Vehicle extends React.Component<IVehicleProps, IVehicleUpdateState> {
+export class Vehicle extends React.Component<IVehicleProps> {
   constructor(props) {
     super(props);
   }
@@ -26,7 +22,6 @@ export class Vehicle extends React.Component<IVehicleProps, IVehicleUpdateState>
   }
 
   handleClick = (vehicle: IVehicle) => {
-    console.log(vehicle.id);
     this.props.history.push(`${this.props.match.url}/${vehicle.id}`);
   };
 
@@ -58,7 +53,7 @@ export class Vehicle extends React.Component<IVehicleProps, IVehicleUpdateState>
           </thead>
           <tbody>
             {vehicles.map((vehicle, i) => (
-              <tr id={vehicle.id} key={`vehicle-${i}`} className="hand" onClick={() => this.handleClick(vehicle)}>
+              <tr id={vehicle.id} key={`vehicle-${i}`} className="hand" onClick={this.handleClick.bind(this, vehicle)}>
                 <th>{i + 1}</th>
                 <td>{vehicle.licensePlate}</td>
                 <td>{vehicle.make}</td>

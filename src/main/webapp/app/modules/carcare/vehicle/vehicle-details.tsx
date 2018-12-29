@@ -71,7 +71,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                     <Translate contentKey="entity.action.back">Back</Translate>
                 </span>
             </Button> */}
-            <Button id="go-back" onClick={this.handleClose.bind(this)} color="info">
+            <Button id="go-back" onClick={this.handleClose} color="info">
                 <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
