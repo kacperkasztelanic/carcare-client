@@ -108,12 +108,12 @@ export class Insurance extends React.Component<IInsuranceProps, IInsuranceUpdate
                   {
                     (insurance.details.length < APP_COMPACT_DETAILS_LENGTH) ? insurance.details : (
                       <div>
-                        <Button id="details-popover" type="button" color="info" onClick={this.toogleDetailsPopover}>
-                          <Translate contentKey="carcare.insurance.details">Details</Translate>
+                        <Button id="details-popover" type="button" outline color="info" onClick={this.toogleDetailsPopover}>
+                          {insurance.details.slice(0, APP_COMPACT_DETAILS_LENGTH - 3) + '...'}
                         </Button>
                         <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
                           <PopoverHeader><Translate contentKey="carcare.insurance.details">Details</Translate></PopoverHeader>
-                          <PopoverBody>{insurance.details}</PopoverBody>
+                          <PopoverBody style={{ whiteSpace: 'pre-wrap' }}>{insurance.details}</PopoverBody>
                         </Popover>
                       </div>)
                   }

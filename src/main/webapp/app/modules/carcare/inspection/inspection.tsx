@@ -94,12 +94,12 @@ export class Inspection extends React.Component<IInspectionProps, IInspectionUpd
                   {
                     (inspection.details.length < APP_COMPACT_DETAILS_LENGTH) ? inspection.details : (
                       <div>
-                        <Button id="details-popover" type="button" color="info" onClick={this.toogleDetailsPopover}>
-                          <Translate contentKey="carcare.inspection.details">Details</Translate>
+                        <Button id="details-popover" type="button" outline color="info" onClick={this.toogleDetailsPopover}>
+                          {inspection.details.slice(0, APP_COMPACT_DETAILS_LENGTH - 3) + '...'}
                         </Button>
                         <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
                           <PopoverHeader><Translate contentKey="carcare.inspection.details">Details</Translate></PopoverHeader>
-                          <PopoverBody>{inspection.details}</PopoverBody>
+                          <PopoverBody style={{ whiteSpace: 'pre-wrap' }}>{inspection.details}</PopoverBody>
                         </Popover>
                       </div>)
                   }

@@ -98,12 +98,12 @@ export class Service extends React.Component<IServiceProps, IServiceUpdateState>
                   {
                     (service.details.length < APP_COMPACT_DETAILS_LENGTH) ? service.details : (
                       <div>
-                        <Button id="details-popover" type="button" color="info" onClick={this.toogleDetailsPopover}>
-                          <Translate contentKey="carcare.service.details">Details</Translate>
+                        <Button id="details-popover" type="button" outline color="info" onClick={this.toogleDetailsPopover}>
+                          {service.details.slice(0, APP_COMPACT_DETAILS_LENGTH - 3) + '...'}
                         </Button>
                         <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
                           <PopoverHeader><Translate contentKey="carcare.service.details">Details</Translate></PopoverHeader>
-                          <PopoverBody>{service.details}</PopoverBody>
+                          <PopoverBody style={{ whiteSpace: 'pre-wrap' }}>{service.details}</PopoverBody>
                         </Popover>
                       </div>)
                   }
