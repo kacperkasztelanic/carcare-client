@@ -14,7 +14,6 @@ import carcare from 'app/modules/carcare';
 import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 import { AUTHORITIES } from 'app/config/constants';
-import vehicleUpdate from 'app/modules/carcare/vehicle/vehicle-update';
 
 // tslint:disable:space-in-parens
 const Account = Loadable({
@@ -37,7 +36,6 @@ const Routes = () => (
       <ErrorBoundaryRoute path="/activate/:key?" component={Activate} />
       <ErrorBoundaryRoute path="/reset/request" component={PasswordResetInit} />
       <ErrorBoundaryRoute path="/reset/finish/:key?" component={PasswordResetFinish} />
-      <PrivateRoute path="/vehicles/add" component={vehicleUpdate} hasAnyAuthorities={[AUTHORITIES.USER]} />
       <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
       <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />

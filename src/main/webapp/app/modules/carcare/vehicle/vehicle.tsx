@@ -22,7 +22,11 @@ export class Vehicle extends React.Component<IVehicleProps> {
   }
 
   handleClick = (vehicle: IVehicle) => {
-    this.props.history.push(`${this.props.match.url}/${vehicle.id}`);
+    this.props.history.push(`${this.props.match.url}/${vehicle.id}/details`);
+  };
+
+  handleButtonColumn = event => {
+    event.stopPropagation();
   };
 
   render() {
@@ -58,7 +62,7 @@ export class Vehicle extends React.Component<IVehicleProps> {
                 <td>{vehicle.licensePlate}</td>
                 <td>{vehicle.make}</td>
                 <td>{vehicle.model}</td>
-                <td className="text-right">
+                <td className="text-right" style={{ cursor: 'default' }} onClick={this.handleButtonColumn}>
                   <div className="btn-group flex-btn-group-container">
                     <Button tag={Link} to={`${match.url}/${vehicle.id}/edit`} color="primary" size="sm">
                       <FontAwesomeIcon icon="pencil-alt" />{' '}

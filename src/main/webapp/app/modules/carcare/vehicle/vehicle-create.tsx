@@ -9,14 +9,14 @@ import { IRootState } from 'app/shared/reducers';
 
 import { getVehicle, updateVehicle, createVehicle, reset } from './vehicle.reducer';
 
-export interface IVehicleUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ vehicleId: string }> { }
+export interface IVehicleCreateProps extends StateProps, DispatchProps, RouteComponentProps<{ vehicleId: string }> { }
 
-export interface IVehicleUpdateState {
+export interface IVehicleCreateState {
     isNew: boolean;
     vehicleId: string;
 }
 
-export class VehicleUpdate extends React.Component<IVehicleUpdateProps, IVehicleUpdateState> {
+export class VehicleCreate extends React.Component<IVehicleCreateProps, IVehicleCreateState> {
     constructor(props) {
         super(props);
         this.state = {
@@ -75,69 +75,46 @@ export class VehicleUpdate extends React.Component<IVehicleUpdateProps, IVehicle
                     ) : (
                             <AvForm model={isNew ? {} : vehicleEntity} onSubmit={this.saveEntity}>
                                 <AvGroup>
-                                    <Label id="dateLabel" for="vehicleEvent.date">
-                                        <Translate contentKey="carcare.common.date">Date</Translate>
+                                    <Label id="makeLabel" for="make">
+                                        <Translate contentKey="carcare.vehicle.make">Make</Translate>
                                     </Label>
                                     <AvField
-                                        id="vehicle-date"
-                                        type="date"
+                                        id="vehicle-make"
+                                        type="text"
                                         className="form-control"
-                                        name="vehicleEvent.date"
-                                        validate={{
-                                            required: { value: true, errorMessage: translate('entity.validation.required') }
-                                        }}
-                                    />
-                                </AvGroup>
-                                <AvGroup>
-                                    <Label id="mileageLabel" for="vehicleEvent.mileage">
-                                        <Translate contentKey="carcare.common.mileage" interpolate={{ unit: 'km' }}>Mileage (km)</Translate>
-                                    </Label>
-                                    <AvField
-                                        id="vehicle-mileage"
-                                        type="text"
-                                        name="vehicleEvent.mileage"
+                                        name="make"
                                         validate={{
                                             required: { value: true, errorMessage: translate('entity.validation.required') },
-                                            min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
+                                            minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) },
+                                            maxLength: { value: 20, errorMessage: translate('entity.validation.maxlength', { max: 20 }) }
                                         }}
                                     />
                                 </AvGroup>
                                 <AvGroup>
-                                    <Label id="costLabel" for="cost">
-                                        <Translate contentKey="carcare.common.cost" interpolate={{ unit: 'PLN' }}>Cost (PLN)</Translate>
+                                    <Label id="modelLabel" for="model">
+                                        <Translate contentKey="carcare.vehicle.model">Model</Translate>
                                     </Label>
                                     <AvField
-                                        id="vehicle-cost"
+                                        id="vehicle-model"
                                         type="text"
-                                        name="costInCents"
+                                        className="form-control"
+                                        name="model"
                                         validate={{
                                             required: { value: true, errorMessage: translate('entity.validation.required') },
-                                            min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
+                                            minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) },
+                                            maxLength: { value: 20, errorMessage: translate('entity.validation.maxlength', { max: 20 }) }
                                         }}
                                     />
                                 </AvGroup>
                                 <AvGroup>
-                                    <Label id="volumeLabel" for="volume">
-                                        <Translate contentKey="carcare.vehicle.volume" interpolate={{ unit: 'dm3' }}>Volume (dm3)</Translate>
+                                    <Label id="licensePlateLabel" for="licensePlate">
+                                        <Translate contentKey="carcare.vehicle.license-plate">License plate</Translate>
                                     </Label>
                                     <AvField
-                                        id="vehicle-volume"
+                                        id="vehicle-license-plate"
                                         type="text"
-                                        name="volume"
-                                        validate={{
-                                            required: { value: true, errorMessage: translate('entity.validation.required') },
-                                            min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
-                                        }}
-                                    />
-                                </AvGroup>
-                                <AvGroup>
-                                    <Label id="StationLabel" for="station">
-                                        <Translate contentKey="carcare.vehicle.station">Station</Translate>
-                                    </Label>
-                                    <AvField
-                                        id="vehicle-station"
-                                        type="text"
-                                        name="station"
+                                        className="form-control"
+                                        name="licensePlate"
                                         validate={{
                                             required: { value: true, errorMessage: translate('entity.validation.required') },
                                             minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) },
@@ -184,4 +161,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(VehicleUpdate);
+)(VehicleCreate);
