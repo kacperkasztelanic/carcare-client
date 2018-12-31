@@ -8,6 +8,8 @@ export interface IVehicleDetails {
     enginePower?: number;
     weight?: number;
     notes?: string;
+    imageContentType?: string;
+    image?: any;
     vehicleId?: any;
 }
 
