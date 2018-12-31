@@ -39,7 +39,7 @@ const Routes = () => (
       <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
       <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
-      <PrivateRoute path="/carcare" component={carcare} hasAnyAuthorities={[AUTHORITIES.USER]} />
+      <PrivateRoute path="/app" component={carcare} hasAnyAuthorities={[AUTHORITIES.USER]} />
       <PrivateRoute path="/" component={Home} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
     </Switch>
   </div>
