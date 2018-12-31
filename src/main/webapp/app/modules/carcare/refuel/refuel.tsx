@@ -82,13 +82,13 @@ export class Refuel extends React.Component<IRefuelProps, IRefuelUpdateState> {
                 </td>
                 <td>{refuel.vehicleEvent.mileage}</td>
                 <td>
-                  <TextFormat value={refuel.volume / 1000} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
+                  <TextFormat value={refuel.volume} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
                 </td>
                 <td>
-                  <TextFormat value={refuel.costInCents / 100} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
+                  <TextFormat value={refuel.costInCents} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
                 </td>
                 <td>
-                  <TextFormat value={(refuel.costInCents / 100) / (refuel.volume / 1000)} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
+                  <TextFormat value={refuel.costInCents / refuel.volume} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
                 </td>
                 <td>{refuel.station}</td>
                 <td className="text-right">

@@ -65,12 +65,6 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
         const { vehicleEntity, loading, updating } = this.props;
         const { isNew } = this.state;
         return (<div>
-            {/* <Button tag={Link} id="go-back" to={`/carcare/vehicle`} replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />&nbsp;
-                  <span className="d-none d-md-inline">
-                    <Translate contentKey="entity.action.back">Back</Translate>
-                </span>
-            </Button> */}
             <Button id="go-back" onClick={this.handleClose} color="info">
                 <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">

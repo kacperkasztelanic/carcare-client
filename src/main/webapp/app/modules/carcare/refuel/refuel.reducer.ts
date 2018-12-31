@@ -100,11 +100,14 @@ export default (state: RefuelsState = initialState, action): RefuelsState => {
 
 const apiUrl = 'api/refuel';
 
-export const getRefuels: ICrudGetAllAction<IRefuel> = vehicleId => {
+export const getRefuels: ICrudGetAllAction<IRefuel[]> = vehicleId => {
     const requestUrl = `${apiUrl}/all/${vehicleId}`;
     return {
         type: ACTION_TYPES.FETCH_REFUELS,
-        payload: axios.get<IRefuel>(requestUrl)
+        payload: axios.get<IRefuel[]>(requestUrl).then(response => ({
+            ...response,
+            data: response.data.map(prepareAfterReceive)
+        }))
     };
 };
 
@@ -112,12 +115,16 @@ export const getRefuel: ICrudGetAction<IRefuel> = id => {
     const requestUrl = `${apiUrl}/${id}`;
     return {
         type: ACTION_TYPES.FETCH_REFUEL,
-        payload: axios.get<IRefuel>(requestUrl)
+        payload: axios.get<IRefuel>(requestUrl).then(response => ({
+            ...response,
+            data: prepareAfterReceive(response.data)
+        }))
     };
 };
 
 export const createRefuel: ICrudPutAction<IRefuel> = refuel => async dispatch => {
     const requestUrl = `${apiUrl}/${refuel.vehicleId}`;
+    refuel = prepareToDispatch(refuel);
     const result = await dispatch({
         type: ACTION_TYPES.CREATE_REFUEL,
         payload: axios.post(requestUrl, refuel)
@@ -128,6 +135,7 @@ export const createRefuel: ICrudPutAction<IRefuel> = refuel => async dispatch =>
 
 export const updateRefuel: ICrudPutAction<IRefuel> = refuel => async dispatch => {
     const requestUrl = `${apiUrl}/${refuel.id}`;
+    refuel = prepareToDispatch(refuel);
     const result = await dispatch({
         type: ACTION_TYPES.UPDATE_REFUEL,
         payload: axios.put(requestUrl, refuel)
@@ -153,4 +161,16 @@ export const deleteRefuel: ICrudDeleteAction<IRefuel> = id => async dispatch => 
 
 export const reset = () => ({
     type: ACTION_TYPES.RESET
+});
+
+const prepareToDispatch = (refuel: IRefuel): IRefuel => ({
+    ...refuel,
+    costInCents: refuel.costInCents * 100,
+    volume: refuel.volume * 1000
+});
+
+const prepareAfterReceive = (refuel: IRefuel): IRefuel => ({
+    ...refuel,
+    costInCents: refuel.costInCents / 100,
+    volume: refuel.volume / 1000
 });

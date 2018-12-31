@@ -106,7 +106,7 @@ export class Insurance extends React.Component<IInsuranceProps, IInsuranceUpdate
                   <TextFormat value={insurance.validThru} type="date" format={APP_LOCAL_DATE_FORMAT} blankOnInvalid />
                 </td>
                 <td>
-                  <TextFormat value={insurance.costInCents / 100} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
+                  <TextFormat value={insurance.costInCents} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
                 </td>
                 <td>{insurance.insurer}</td>
                 <td>{insurance.number}</td>

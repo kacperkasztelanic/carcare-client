@@ -100,11 +100,14 @@ export default (state: InspectionsState = initialState, action): InspectionsStat
 
 const apiUrl = 'api/inspection';
 
-export const getInspections: ICrudGetAllAction<IInspection> = vehicleId => {
+export const getInspections: ICrudGetAllAction<IInspection[]> = vehicleId => {
     const requestUrl = `${apiUrl}/all/${vehicleId}`;
     return {
         type: ACTION_TYPES.FETCH_INSPECTIONS,
-        payload: axios.get<IInspection>(requestUrl)
+        payload: axios.get<IInspection[]>(requestUrl).then(response => ({
+            ...response,
+            data: response.data.map(prepareAfterReceive)
+        }))
     };
 };
 
@@ -112,12 +115,16 @@ export const getInspection: ICrudGetAction<IInspection> = id => {
     const requestUrl = `${apiUrl}/${id}`;
     return {
         type: ACTION_TYPES.FETCH_INSPECTION,
-        payload: axios.get<IInspection>(requestUrl)
+        payload: axios.get<IInspection>(requestUrl).then(response => ({
+            ...response,
+            data: prepareAfterReceive(response.data)
+        }))
     };
 };
 
 export const createInspection: ICrudPutAction<IInspection> = inspection => async dispatch => {
     const requestUrl = `${apiUrl}/${inspection.vehicleId}`;
+    inspection = prepareToDispatch(inspection);
     const result = await dispatch({
         type: ACTION_TYPES.CREATE_INSPECTION,
         payload: axios.post(requestUrl, inspection)
@@ -128,6 +135,7 @@ export const createInspection: ICrudPutAction<IInspection> = inspection => async
 
 export const updateInspection: ICrudPutAction<IInspection> = inspection => async dispatch => {
     const requestUrl = `${apiUrl}/${inspection.id}`;
+    inspection = prepareToDispatch(inspection);
     const result = await dispatch({
         type: ACTION_TYPES.UPDATE_INSPECTION,
         payload: axios.put(requestUrl, inspection)
@@ -153,4 +161,14 @@ export const deleteInspection: ICrudDeleteAction<IInspection> = id => async disp
 
 export const reset = () => ({
     type: ACTION_TYPES.RESET
+});
+
+const prepareToDispatch = (inspection: IInspection): IInspection => ({
+    ...inspection,
+    costInCents: inspection.costInCents * 100
+});
+
+const prepareAfterReceive = (inspection: IInspection): IInspection => ({
+    ...inspection,
+    costInCents: inspection.costInCents / 100
 });

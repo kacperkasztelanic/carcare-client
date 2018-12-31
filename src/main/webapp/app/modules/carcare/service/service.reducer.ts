@@ -100,11 +100,14 @@ export default (state: ServicesState = initialState, action): ServicesState => {
 
 const apiUrl = 'api/routine-service';
 
-export const getServices: ICrudGetAllAction<IService> = vehicleId => {
+export const getServices: ICrudGetAllAction<IService[]> = vehicleId => {
     const requestUrl = `${apiUrl}/all/${vehicleId}`;
     return {
         type: ACTION_TYPES.FETCH_SERVICES,
-        payload: axios.get<IService>(requestUrl)
+        payload: axios.get<IService[]>(requestUrl).then(response => ({
+            ...response,
+            data: response.data.map(prepareAfterReceive)
+        }))
     };
 };
 
@@ -112,12 +115,16 @@ export const getService: ICrudGetAction<IService> = id => {
     const requestUrl = `${apiUrl}/${id}`;
     return {
         type: ACTION_TYPES.FETCH_SERVICE,
-        payload: axios.get<IService>(requestUrl)
+        payload: axios.get<IService>(requestUrl).then(response => ({
+            ...response,
+            data: prepareAfterReceive(response.data)
+        }))
     };
 };
 
 export const createService: ICrudPutAction<IService> = service => async dispatch => {
     const requestUrl = `${apiUrl}/${service.vehicleId}`;
+    service = prepareToDispatch(service);
     const result = await dispatch({
         type: ACTION_TYPES.CREATE_SERVICE,
         payload: axios.post(requestUrl, service)
@@ -128,6 +135,7 @@ export const createService: ICrudPutAction<IService> = service => async dispatch
 
 export const updateService: ICrudPutAction<IService> = service => async dispatch => {
     const requestUrl = `${apiUrl}/${service.id}`;
+    service = prepareToDispatch(service);
     const result = await dispatch({
         type: ACTION_TYPES.UPDATE_SERVICE,
         payload: axios.put(requestUrl, service)
@@ -153,4 +161,14 @@ export const deleteService: ICrudDeleteAction<IService> = id => async dispatch =
 
 export const reset = () => ({
     type: ACTION_TYPES.RESET
+});
+
+const prepareToDispatch = (service: IService): IService => ({
+    ...service,
+    costInCents: service.costInCents * 100
+});
+
+const prepareAfterReceive = (service: IService): IService => ({
+    ...service,
+    costInCents: service.costInCents / 100
 });

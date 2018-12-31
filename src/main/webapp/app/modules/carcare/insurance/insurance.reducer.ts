@@ -100,11 +100,14 @@ export default (state: InsurancesState = initialState, action): InsurancesState 
 
 const apiUrl = 'api/insurance';
 
-export const getInsurances: ICrudGetAllAction<IInsurance> = vehicleId => {
+export const getInsurances: ICrudGetAllAction<IInsurance[]> = vehicleId => {
     const requestUrl = `${apiUrl}/all/${vehicleId}`;
     return {
         type: ACTION_TYPES.FETCH_INSURANCES,
-        payload: axios.get<IInsurance>(requestUrl)
+        payload: axios.get<IInsurance[]>(requestUrl).then(response => ({
+            ...response,
+            data: response.data.map(prepareAfterReceive)
+        }))
     };
 };
 
@@ -112,12 +115,16 @@ export const getInsurance: ICrudGetAction<IInsurance> = id => {
     const requestUrl = `${apiUrl}/${id}`;
     return {
         type: ACTION_TYPES.FETCH_INSURANCE,
-        payload: axios.get<IInsurance>(requestUrl)
+        payload: axios.get<IInsurance>(requestUrl).then(response => ({
+            ...response,
+            data: prepareAfterReceive(response.data)
+        }))
     };
 };
 
 export const createInsurance: ICrudPutAction<IInsurance> = insurance => async dispatch => {
     const requestUrl = `${apiUrl}/${insurance.vehicleId}`;
+    insurance = prepareToDispatch(insurance);
     const result = await dispatch({
         type: ACTION_TYPES.CREATE_INSURANCE,
         payload: axios.post(requestUrl, insurance)
@@ -128,6 +135,7 @@ export const createInsurance: ICrudPutAction<IInsurance> = insurance => async di
 
 export const updateInsurance: ICrudPutAction<IInsurance> = insurance => async dispatch => {
     const requestUrl = `${apiUrl}/${insurance.id}`;
+    insurance = prepareToDispatch(insurance);
     const result = await dispatch({
         type: ACTION_TYPES.UPDATE_INSURANCE,
         payload: axios.put(requestUrl, insurance)
@@ -153,4 +161,14 @@ export const deleteInsurance: ICrudDeleteAction<IInsurance> = id => async dispat
 
 export const reset = () => ({
     type: ACTION_TYPES.RESET
+});
+
+const prepareToDispatch = (insurance: IInsurance): IInsurance => ({
+    ...insurance,
+    costInCents: insurance.costInCents * 100
+});
+
+const prepareAfterReceive = (insurance: IInsurance): IInsurance => ({
+    ...insurance,
+    costInCents: insurance.costInCents / 100
 });

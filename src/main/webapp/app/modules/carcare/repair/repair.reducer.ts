@@ -100,11 +100,14 @@ export default (state: RepairsState = initialState, action): RepairsState => {
 
 const apiUrl = 'api/repair';
 
-export const getRepairs: ICrudGetAllAction<IRepair> = vehicleId => {
+export const getRepairs: ICrudGetAllAction<IRepair[]> = vehicleId => {
     const requestUrl = `${apiUrl}/all/${vehicleId}`;
     return {
         type: ACTION_TYPES.FETCH_REPAIRS,
-        payload: axios.get<IRepair>(requestUrl)
+        payload: axios.get<IRepair[]>(requestUrl).then(response => ({
+            ...response,
+            data: response.data.map(prepareAfterReceive)
+        }))
     };
 };
 
@@ -112,12 +115,16 @@ export const getRepair: ICrudGetAction<IRepair> = id => {
     const requestUrl = `${apiUrl}/${id}`;
     return {
         type: ACTION_TYPES.FETCH_REPAIR,
-        payload: axios.get<IRepair>(requestUrl)
+        payload: axios.get<IRepair>(requestUrl).then(response => ({
+            ...response,
+            data: prepareAfterReceive(response.data)
+        }))
     };
 };
 
 export const createRepair: ICrudPutAction<IRepair> = repair => async dispatch => {
     const requestUrl = `${apiUrl}/${repair.vehicleId}`;
+    repair = prepareToDispatch(repair);
     const result = await dispatch({
         type: ACTION_TYPES.CREATE_REPAIR,
         payload: axios.post(requestUrl, repair)
@@ -128,6 +135,7 @@ export const createRepair: ICrudPutAction<IRepair> = repair => async dispatch =>
 
 export const updateRepair: ICrudPutAction<IRepair> = repair => async dispatch => {
     const requestUrl = `${apiUrl}/${repair.id}`;
+    repair = prepareToDispatch(repair);
     const result = await dispatch({
         type: ACTION_TYPES.UPDATE_REPAIR,
         payload: axios.put(requestUrl, repair)
@@ -153,4 +161,14 @@ export const deleteRepair: ICrudDeleteAction<IRepair> = id => async dispatch => 
 
 export const reset = () => ({
     type: ACTION_TYPES.RESET
+});
+
+const prepareToDispatch = (repair: IRepair): IRepair => ({
+    ...repair,
+    costInCents: repair.costInCents * 100
+});
+
+const prepareAfterReceive = (repair: IRepair): IRepair => ({
+    ...repair,
+    costInCents: repair.costInCents / 100
 });

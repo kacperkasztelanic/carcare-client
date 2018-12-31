@@ -90,7 +90,7 @@ export class Inspection extends React.Component<IInspectionProps, IInspectionUpd
                 </td>
                 <td>{inspection.vehicleEvent.mileage}</td>
                 <td>
-                  <TextFormat value={inspection.costInCents / 100} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
+                  <TextFormat value={inspection.costInCents} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
                 </td>
                 <td>
                   <TextFormat value={inspection.validThru} type="date" format={APP_LOCAL_DATE_FORMAT} blankOnInvalid />

@@ -87,7 +87,7 @@ export class Refuel extends React.Component<IRepairProps, IRepairUpdateState> {
                 </td>
                 <td>{repair.vehicleEvent.mileage}</td>
                 <td>
-                  <TextFormat value={repair.costInCents / 100} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
+                  <TextFormat value={repair.costInCents} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
                 </td>
                 <td>{repair.station}</td>
                 <td>

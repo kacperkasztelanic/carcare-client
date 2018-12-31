@@ -93,7 +93,7 @@ export class Service extends React.Component<IServiceProps, IServiceUpdateState>
                 </td>
                 <td>{service.vehicleEvent.mileage}</td>
                 <td>
-                  <TextFormat value={service.costInCents / 100} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
+                  <TextFormat value={service.costInCents} type="number" format={APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS} blankOnInvalid />
                 </td>
                 <td>
                   <TextFormat value={service.nextByDate} type="date" format={APP_LOCAL_DATE_FORMAT} blankOnInvalid />

@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { getRefuel, updateRefuel, createRefuel, reset } from './refuel.reducer';
+import value from '*.json';
 
 export interface IRefuelUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string, vehicleId: string }> { }
 
@@ -23,12 +24,6 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
             vehicleId: this.props.match.params.vehicleId,
             isNew: !this.props.match.params || !this.props.match.params.id
         };
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-        if (nextProps.updateSuccess !== this.props.updateSuccess && nextProps.updateSuccess) {
-            this.handleClose(event);
-        }
     }
 
     componentDidMount() {
@@ -53,6 +48,7 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
             } else {
                 this.props.updateRefuel(entity);
             }
+            this.handleClose(event);
         }
     };
 
