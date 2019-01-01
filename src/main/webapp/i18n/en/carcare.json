@@ -134,6 +134,12 @@
             "weight": "Weight ({{ unit }})",
             "notes": "Notes",
             "image": "Image"
+        },
+        "reports": {
+            "entity": "Report",
+            "title": "Reports",
+            "generate": "Generate",
+            "download": "Download"
         }
     }
 }

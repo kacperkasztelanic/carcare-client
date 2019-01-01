@@ -10,7 +10,7 @@ import VehicleDetails from './vehicle-details';
 const Routes = ({ match }) => (
     <>
         <Switch>
-            <ErrorBoundaryRoute path={`${match.url}/:id/details`} component={VehicleDetails} />
+            <ErrorBoundaryRoute path={`${match.url}/details/:id`} component={VehicleDetails} />
             <ErrorBoundaryRoute path={`${match.url}`} component={Vehicle} />
         </Switch>
         <ErrorBoundaryRoute path={`${match.url}/:id/delete`} component={VehicleDeleteDialog} />

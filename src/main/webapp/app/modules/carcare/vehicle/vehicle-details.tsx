@@ -1,77 +1,210 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Label, Modal, ModalHeader, ModalBody } from 'reactstrap';
-import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate } from 'react-jhipster';
+import { RouteComponentProps } from 'react-router-dom';
+import { Row, Col, Card, CardDeck, CardBody, CardTitle } from 'reactstrap';
+import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
+import BackButton from 'app/shared/components/BackButton';
 
 import { getVehicle, updateVehicle, createVehicle, reset } from './vehicle.reducer';
 
-export interface IVehicleUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ vehicleId: string }> { }
+export interface IVehicleUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> { }
 
 export interface IVehicleUpdateState {
-    isNew: boolean;
-    vehicleId: string;
+    id: string;
 }
 
 export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicleUpdateState> {
     constructor(props) {
         super(props);
         this.state = {
-            vehicleId: this.props.match.params.vehicleId,
-            isNew: !this.props.match.params || !this.props.match.params.vehicleId
+            id: this.props.match.params.id
         };
     }
 
-    componentWillUpdate(nextProps, nextState) {
-        if (nextProps.updateSuccess !== this.props.updateSuccess && nextProps.updateSuccess) {
-            this.handleClose(event);
-        }
+    componentWillMount() {
+        this.props.getVehicle(this.props.match.params.id);
     }
-
-    componentDidMount() {
-        if (this.state.isNew) {
-            this.props.reset();
-        } else {
-            this.props.getVehicle(this.props.match.params.vehicleId);
-        }
-    }
-
-    saveEntity = (event, errors, values) => {
-        if (errors.length === 0) {
-            const { vehicleEntity } = this.props;
-            const entity = {
-                ...vehicleEntity,
-                ...this.state,
-                ...values
-            };
-
-            if (this.state.isNew) {
-                this.props.createVehicle(entity);
-            } else {
-                this.props.updateVehicle(entity);
-            }
-        }
-    };
 
     handleClose = event => {
         event.stopPropagation();
         this.props.history.goBack();
     };
 
+    prepareStringValue = (val: string): string => (
+        val.length !== 0 ? val : '-'
+    )
+
+    prepareValue = (val: number) => (
+        val !== 0 ? val : '-'
+    )
+
+    clickRepairs = () => {
+        this.props.history.push(`/app/repair/${this.state.id}`);
+    }
+
+    clickServices = () => {
+        this.props.history.push(`/app/service/${this.state.id}`);
+    }
+
+    clickInspections = () => {
+        this.props.history.push(`/app/inspection/${this.state.id}`);
+    }
+
+    clickInsurances = () => {
+        this.props.history.push(`/app/insurance/${this.state.id}`);
+    }
+
+    clickRefuels = () => {
+        this.props.history.push(`/app/refuel/${this.state.id}`);
+    }
+
     render() {
-        const { vehicleEntity, loading, updating } = this.props;
-        const { isNew } = this.state;
-        return (<div>
-            <Button id="go-back" onClick={this.handleClose} color="info">
-                <FontAwesomeIcon icon="arrow-left" />&nbsp;
-                  <span className="d-none d-md-inline">
-                    <Translate contentKey="entity.action.back">Back</Translate>
-                </span>
-            </Button>
-        </div>
+        const { vehicleEntity, loading, updating, match } = this.props;
+        const iconSize = '4x';
+        return (
+            <div>
+                {loading ? (
+                    <p>Loading...</p>
+                ) : (<div>
+                    <h2>{vehicleEntity.make} {vehicleEntity.model} - {vehicleEntity.licensePlate}</h2>
+                    <hr />
+                    <Row size="md">
+                        <Col md="4" sd="12">
+                            <dl className="jh-entity-details">
+                                <dt>
+                                    <Translate contentKey="carcare.vehicle.make">Model</Translate>
+                                </dt>
+                                <dd>{vehicleEntity.make}</dd>
+                                <dt>
+                                    <Translate contentKey="carcare.vehicle.model">Model</Translate>
+                                </dt>
+                                <dd>{vehicleEntity.model}</dd>
+                                <dt>
+                                    <Translate contentKey="carcare.vehicle-details.model-suffix">Model suffix</Translate>
+                                </dt>
+                                <dd>{this.prepareStringValue(vehicleEntity.vehicleDetails.modelSuffix)}</dd>
+                                <dt>
+                                    <Translate contentKey="carcare.vehicle.license-plate">License plate</Translate>
+                                </dt>
+                                <dd>{vehicleEntity.licensePlate}</dd>
+                            </dl>
+                        </Col>
+                        <Col md="4" sd="12">
+                            <dl className="jh-entity-details">
+                                <dt>
+                                    <Translate contentKey="carcare.vehicle-details.year-of-manufacture">Year of manufacture</Translate>
+                                </dt>
+                                <dd>{this.prepareValue(vehicleEntity.vehicleDetails.yearOfManufacture)}</dd>
+                                <dt>
+                                    <Translate contentKey="userManagement.createdBy">Created By</Translate>
+                                </dt>
+                                <dd>{this.prepareValue(vehicleEntity.vehicleDetails.enginePower)}</dd>
+                                <dt>
+                                    <Translate contentKey="userManagement.createdDate">Created Date</Translate>
+                                </dt>
+                                <dd>{this.prepareValue(vehicleEntity.vehicleDetails.engineVolume)}</dd>
+                                <dt>
+                                    <Translate contentKey="userManagement.lastModifiedBy">Last Modified By</Translate>
+                                </dt>
+                                <dd>{vehicleEntity.fuelType}</dd>
+                                <dt>
+                                    <Translate contentKey="userManagement.lastModifiedDate">Last Modified Date</Translate>
+                                </dt>
+                                <dd>{this.prepareValue(vehicleEntity.vehicleDetails.weight)}</dd>
+                            </dl>
+                        </Col>
+                        <Col md="4" sd="12">
+                            <dl className="jh-entity-details">
+                                <dt>
+                                    <Translate contentKey="userManagement.lastModifiedDate">Last Modified Date</Translate>
+                                </dt>
+                                <dd>{this.prepareStringValue(vehicleEntity.vehicleDetails.vinNumber)}</dd>
+                                <dt>
+                                    <Translate contentKey="userManagement.lastModifiedDate">Last Modified Date</Translate>
+                                </dt>
+                                <dd>{this.prepareStringValue(vehicleEntity.vehicleDetails.registrationCertificate)}</dd>
+                                <dt>
+                                    <Translate contentKey="userManagement.lastModifiedDate">Last Modified Date</Translate>
+                                </dt>
+                                <dd>{this.prepareStringValue(vehicleEntity.vehicleDetails.vehicleCard)}</dd>
+                            </dl>
+                        </Col>
+                    </Row>
+                    <Row size="md">
+                        <Col>
+                            <dl className="jh-entity-details">
+                                <dt>Notes</dt>
+                                <dd>{this.prepareStringValue(vehicleEntity.vehicleDetails.notes)}</dd>
+                            </dl>
+                        </Col>
+                    </Row>
+                    <hr />
+                    <CardDeck>
+                        <Card body inverse color="danger" text-center style={{ cursor: 'pointer' }} onClick={this.clickRepairs}>
+                            <CardBody>
+                                <FontAwesomeIcon size={iconSize} icon="screwdriver" />
+                                <hr />
+                                <CardTitle>
+                                    <Translate contentKey="carcare.repair.title">Repairs</Translate>
+                                </CardTitle>
+                            </CardBody>
+                        </Card>
+                        <Card body inverse color="warning" text-center style={{ cursor: 'pointer' }} onClick={this.clickServices}>
+                            <CardBody>
+                                <FontAwesomeIcon size={iconSize} icon="oil-can" />
+                                <hr />
+                                <CardTitle>
+                                    <Translate contentKey="carcare.service.title">Services</Translate>
+                                </CardTitle>
+                            </CardBody>
+                        </Card>
+                        <Card body inverse color="info" text-center style={{ cursor: 'pointer' }} onClick={this.clickInspections}>
+                            <CardBody>
+                                <FontAwesomeIcon size={iconSize} icon="check-double" />
+                                <hr />
+                                <CardTitle>
+                                    <Translate contentKey="carcare.inspection.title">Inspections</Translate>
+                                </CardTitle>
+                            </CardBody>
+                        </Card>
+                        <Card body inverse color="primary" text-center style={{ cursor: 'pointer' }} onClick={this.clickInsurances}>
+                            <CardBody>
+                                <FontAwesomeIcon size={iconSize} icon="file-invoice-dollar" />
+                                <hr />
+                                <CardTitle>
+                                    <Translate contentKey="carcare.insurance.title">Insurances</Translate>
+                                </CardTitle>
+                            </CardBody>
+                        </Card>
+                        <Card body inverse color="success" text-center style={{ cursor: 'pointer' }} onClick={this.clickRefuels}>
+                            <CardBody>
+                                <FontAwesomeIcon size={iconSize} icon="gas-pump" />
+                                <hr />
+                                <CardTitle>
+                                    <Translate contentKey="carcare.refuel.title">Refuels</Translate>
+                                </CardTitle>
+                            </CardBody>
+                        </Card>
+                    </CardDeck>
+
+                    {/* <Card body inverse color="success" text-center style={{ cursor: 'pointer' }} onClick={this.clickReports}>
+                        <CardBody>
+                            <FontAwesomeIcon size={iconSize} icon="file-excel" />
+                            <hr />
+                            <CardTitle>
+                                <Translate contentKey="carcare.reports.title">Reports</Translate>
+                            </CardTitle>
+                        </CardBody>
+                    </Card>
+                    <hr /> */}
+
+                    <hr />
+                    <BackButton handleFunction={this.handleClose} />
+                </div>
+                    )}
+            </div>
         );
     }
 }

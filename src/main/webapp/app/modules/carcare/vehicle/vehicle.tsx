@@ -24,7 +24,7 @@ export class Vehicle extends React.Component<IVehicleProps> {
   }
 
   handleClick = (vehicle: IVehicle) => {
-    this.props.history.push(`${this.props.match.url}/${vehicle.id}/details`);
+    this.props.history.push(`${this.props.match.url}/details/${vehicle.id}`);
   };
 
   handleButtonColumn = event => {

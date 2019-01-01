@@ -134,6 +134,12 @@
             "weight": "Masa ({{ unit }})",
             "notes": "Notatki",
             "image": "Zdjęcie"
+        },
+        "reports": {
+            "entity": "Raport",
+            "title": "Raporty",
+            "generate": "Generuj",
+            "download": "Pobierz"
         }
     }
 }
