@@ -7,7 +7,7 @@ import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { getVehicle, updateVehicle, createVehicle, reset } from './vehicle.reducer';
+import { getVehicle, updateVehicle, createVehicle, reset, getFuelTypes } from './vehicle.reducer';
 
 export interface IVehicleCreateProps extends StateProps, DispatchProps, RouteComponentProps<{ vehicleId: string }> { }
 
@@ -37,6 +37,7 @@ export class VehicleCreate extends React.Component<IVehicleCreateProps, IVehicle
         } else {
             this.props.getVehicle(this.props.match.params.vehicleId);
         }
+        this.props.getFuelTypes();
     }
 
     saveEntity = (event, errors, values) => {
@@ -62,7 +63,7 @@ export class VehicleCreate extends React.Component<IVehicleCreateProps, IVehicle
     };
 
     render() {
-        const { vehicleEntity, loading, updating } = this.props;
+        const { vehicleEntity, loading, updating, fuelTypes } = this.props;
         const { isNew } = this.state;
         return (
             <Modal isOpen toggle={this.handleClose}>
@@ -122,6 +123,28 @@ export class VehicleCreate extends React.Component<IVehicleCreateProps, IVehicle
                                         }}
                                     />
                                 </AvGroup>
+                                <AvGroup>
+                                    <Label id="fuelTypeLabel" for="fuelType">
+                                        <Translate contentKey="carcare.vehicle.fuel-type">Fuel type</Translate>
+                                    </Label>
+                                    <AvInput
+                                        id="vehicle-fuel-type"
+                                        type="select"
+                                        className="form-control"
+                                        name="fuelType"
+                                        validate={{
+                                            required: { value: true, errorMessage: translate('entity.validation.required') }
+                                        }}>
+                                        <option value="" key="0" />
+                                        {fuelTypes
+                                            ? fuelTypes.map(x => (
+                                                <option value={x} key={x}>
+                                                    {x}
+                                                </option>
+                                            ))
+                                            : null}
+                                    </AvInput>
+                                </AvGroup>
                                 <Button tag={Link} id="cancel-save" to={`/app`} replace color="info">
                                     <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
@@ -145,14 +168,16 @@ const mapStateToProps = (storeState: IRootState) => ({
     vehicleEntity: storeState.vehicles.vehicle,
     loading: storeState.vehicles.loading,
     updating: storeState.vehicles.updating,
-    updateSuccess: storeState.vehicles.updateSuccess
+    updateSuccess: storeState.vehicles.updateSuccess,
+    fuelTypes: storeState.vehicles.fuelTypes
 });
 
 const mapDispatchToProps = {
     getVehicle,
     updateVehicle,
     createVehicle,
-    reset
+    reset,
+    getFuelTypes
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
