@@ -105,19 +105,19 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                                 </dt>
                                 <dd>{this.prepareValue(vehicleEntity.vehicleDetails.yearOfManufacture)}</dd>
                                 <dt>
-                                    <Translate contentKey="userManagement.createdBy">Created By</Translate>
+                                    <Translate contentKey="carcare.vehicle-details.engine-power" interpolate={{ unit: 'kW' }}>Engine power (kW)</Translate>
                                 </dt>
                                 <dd>{this.prepareValue(vehicleEntity.vehicleDetails.enginePower)}</dd>
                                 <dt>
-                                    <Translate contentKey="userManagement.createdDate">Created Date</Translate>
+                                    <Translate contentKey="carcare.vehicle-details.engine-volume" interpolate={{ unit: 'cm3' }}>Engine volume (cm3)</Translate>
                                 </dt>
                                 <dd>{this.prepareValue(vehicleEntity.vehicleDetails.engineVolume)}</dd>
                                 <dt>
-                                    <Translate contentKey="userManagement.lastModifiedBy">Last Modified By</Translate>
+                                    <Translate contentKey="carcare.vehicle.fuel-type">Fuel type</Translate>
                                 </dt>
                                 <dd>{vehicleEntity.fuelType}</dd>
                                 <dt>
-                                    <Translate contentKey="userManagement.lastModifiedDate">Last Modified Date</Translate>
+                                    <Translate contentKey="carcare.vehicle-details.weight" interpolate={{ unit: 'kg' }}>Weight (kg)</Translate>
                                 </dt>
                                 <dd>{this.prepareValue(vehicleEntity.vehicleDetails.weight)}</dd>
                             </dl>
@@ -125,17 +125,24 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                         <Col md="3" sd="12">
                             <dl className="jh-entity-details">
                                 <dt>
-                                    <Translate contentKey="userManagement.lastModifiedDate">Last Modified Date</Translate>
+                                    <Translate contentKey="carcare.vehicle-details.vin-number">VIN</Translate>
                                 </dt>
                                 <dd>{this.prepareStringValue(vehicleEntity.vehicleDetails.vinNumber)}</dd>
                                 <dt>
-                                    <Translate contentKey="userManagement.lastModifiedDate">Last Modified Date</Translate>
+                                    <Translate contentKey="carcare.vehicle-details.registration-certificate">Registration certificate</Translate>
                                 </dt>
                                 <dd>{this.prepareStringValue(vehicleEntity.vehicleDetails.registrationCertificate)}</dd>
                                 <dt>
-                                    <Translate contentKey="userManagement.lastModifiedDate">Last Modified Date</Translate>
+                                    <Translate contentKey="carcare.vehicle-details.vehicle-card">Vehicle card</Translate>
                                 </dt>
                                 <dd>{this.prepareStringValue(vehicleEntity.vehicleDetails.vehicleCard)}</dd>
+                            </dl>
+                            <hr />
+                            <dl className="jh-entity-details">
+                                <dt>
+                                    <Translate contentKey="carcare.vehicle-details.notes">Notes</Translate>
+                                </dt>
+                                <dd>{this.prepareStringValue(vehicleEntity.vehicleDetails.notes)}</dd>
                             </dl>
                         </Col>
                         <Col md="3" sd="12" className="text-right">
@@ -144,10 +151,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                     </Row>
                     <Row size="md">
                         <Col>
-                            <dl className="jh-entity-details">
-                                <dt>Notes</dt>
-                                <dd>{this.prepareStringValue(vehicleEntity.vehicleDetails.notes)}</dd>
-                            </dl>
+  
                         </Col>
                     </Row>
                     <hr />
