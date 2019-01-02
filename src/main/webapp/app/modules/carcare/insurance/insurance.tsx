@@ -51,6 +51,7 @@ export class Insurance extends React.Component<IInsuranceProps, IInsuranceUpdate
     return (
       <div>
         <h2 id="user-management-page-heading">
+        <FontAwesomeIcon icon="file-invoice-dollar" />{' '}
           <Translate contentKey="carcare.insurance.title">Insurances</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
             <FontAwesomeIcon icon="plus" /> <Translate contentKey="carcare.common.add">Add</Translate>

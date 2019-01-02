@@ -51,6 +51,7 @@ export class Inspection extends React.Component<IInspectionProps, IInspectionUpd
     return (
       <div>
         <h2 id="user-management-page-heading">
+          <FontAwesomeIcon icon="check-double" />{' '}
           <Translate contentKey="carcare.inspection.title">Inspections</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
             <FontAwesomeIcon icon="plus" /> <Translate contentKey="carcare.common.add">Add</Translate>

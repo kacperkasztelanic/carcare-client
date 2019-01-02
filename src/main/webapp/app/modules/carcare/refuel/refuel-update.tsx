@@ -141,7 +141,7 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
                                         }}
                                     />
                                 </AvGroup>
-                                <Button tag={Link} id="cancel-save" to={`/carcare/refuel/${this.state.vehicleId}`} replace color="info">
+                                <Button onClick={this.handleClose} color="info">
                                     <FontAwesomeIcon icon="arrow-left" />&nbsp;
                   <span className="d-none d-md-inline">
                                         <Translate contentKey="entity.action.back">Back</Translate>

@@ -51,6 +51,7 @@ export class Service extends React.Component<IServiceProps, IServiceUpdateState>
     return (
       <div>
         <h2 id="user-management-page-heading">
+        <FontAwesomeIcon icon="oil-can" />{' '}
           <Translate contentKey="carcare.service.title">Services</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
             <FontAwesomeIcon icon="plus" /> <Translate contentKey="carcare.common.add">Add</Translate>

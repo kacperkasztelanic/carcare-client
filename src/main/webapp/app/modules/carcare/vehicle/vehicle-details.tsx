@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { Row, Col, Card, CardDeck, CardBody, CardTitle } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 import BackButton from 'app/shared/components/BackButton';
+import { image } from 'app/shared/other/image';
 
 import { getVehicle, updateVehicle, createVehicle, reset } from './vehicle.reducer';
 
@@ -68,10 +69,15 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                 {loading ? (
                     <p>Loading...</p>
                 ) : (<div>
-                    <h2>{vehicleEntity.make} {vehicleEntity.model} - {vehicleEntity.licensePlate}</h2>
+                    <h2>
+                        {vehicleEntity.make} {vehicleEntity.model} - {vehicleEntity.licensePlate}
+                        <Link to={`${match.url}/edit`} className="btn btn-primary float-right jh-create-entity">
+                            <FontAwesomeIcon icon="pencil-alt" /> <Translate contentKey="entity.action.edit">Edit</Translate>
+                        </Link>
+                    </h2>
                     <hr />
                     <Row size="md">
-                        <Col md="4" sd="12">
+                        <Col md="3" sd="12">
                             <dl className="jh-entity-details">
                                 <dt>
                                     <Translate contentKey="carcare.vehicle.make">Model</Translate>
@@ -91,7 +97,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                                 <dd>{vehicleEntity.licensePlate}</dd>
                             </dl>
                         </Col>
-                        <Col md="4" sd="12">
+                        <Col md="3" sd="12">
                             <dl className="jh-entity-details">
                                 <dt>
                                     <Translate contentKey="carcare.vehicle-details.year-of-manufacture">Year of manufacture</Translate>
@@ -115,7 +121,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                                 <dd>{this.prepareValue(vehicleEntity.vehicleDetails.weight)}</dd>
                             </dl>
                         </Col>
-                        <Col md="4" sd="12">
+                        <Col md="3" sd="12">
                             <dl className="jh-entity-details">
                                 <dt>
                                     <Translate contentKey="userManagement.lastModifiedDate">Last Modified Date</Translate>
@@ -131,6 +137,9 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                                 <dd>{this.prepareStringValue(vehicleEntity.vehicleDetails.vehicleCard)}</dd>
                             </dl>
                         </Col>
+                        <Col md="3" sd="12" className="text-right">
+                            <img src={`data:image/jpeg;base64,${image}`} style={{ height: '250px' }} />
+                        </Col>
                     </Row>
                     <Row size="md">
                         <Col>
@@ -142,7 +151,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                     </Row>
                     <hr />
                     <CardDeck>
-                        <Card body inverse color="danger" text-center style={{ cursor: 'pointer' }} onClick={this.clickRepairs}>
+                        <Card body inverse color="danger" style={{ cursor: 'pointer' }} onClick={this.clickRepairs}>
                             <CardBody>
                                 <FontAwesomeIcon size={iconSize} icon="screwdriver" />
                                 <hr />
@@ -151,7 +160,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                                 </CardTitle>
                             </CardBody>
                         </Card>
-                        <Card body inverse color="warning" text-center style={{ cursor: 'pointer' }} onClick={this.clickServices}>
+                        <Card body inverse color="warning" style={{ cursor: 'pointer' }} onClick={this.clickServices}>
                             <CardBody>
                                 <FontAwesomeIcon size={iconSize} icon="oil-can" />
                                 <hr />
@@ -160,7 +169,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                                 </CardTitle>
                             </CardBody>
                         </Card>
-                        <Card body inverse color="info" text-center style={{ cursor: 'pointer' }} onClick={this.clickInspections}>
+                        <Card body inverse color="info" style={{ cursor: 'pointer' }} onClick={this.clickInspections}>
                             <CardBody>
                                 <FontAwesomeIcon size={iconSize} icon="check-double" />
                                 <hr />
@@ -169,7 +178,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                                 </CardTitle>
                             </CardBody>
                         </Card>
-                        <Card body inverse color="primary" text-center style={{ cursor: 'pointer' }} onClick={this.clickInsurances}>
+                        <Card body inverse color="primary" style={{ cursor: 'pointer' }} onClick={this.clickInsurances}>
                             <CardBody>
                                 <FontAwesomeIcon size={iconSize} icon="file-invoice-dollar" />
                                 <hr />
@@ -178,7 +187,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                                 </CardTitle>
                             </CardBody>
                         </Card>
-                        <Card body inverse color="success" text-center style={{ cursor: 'pointer' }} onClick={this.clickRefuels}>
+                        <Card body inverse color="success" style={{ cursor: 'pointer' }} onClick={this.clickRefuels}>
                             <CardBody>
                                 <FontAwesomeIcon size={iconSize} icon="gas-pump" />
                                 <hr />
