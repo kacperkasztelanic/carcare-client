@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { Button, Label, Modal, ModalHeader, ModalBody, Col, Row } from 'reactstrap';
-import { AvForm, AvGroup, AvField } from 'availity-reactstrap-validation';
+import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 import ReactLoading from 'react-loading';
 import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { getInsurance, updateInsurance, createInsurance, reset } from './insurance.reducer';
+import { getInsurance, updateInsurance, createInsurance, reset, getInsuranceTypes } from './insurance.reducer';
 
 export interface IInsuranceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string, vehicleId: string }> { }
 
@@ -38,6 +38,7 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
         } else {
             this.props.getInsurance(this.props.match.params.id);
         }
+        this.props.getInsuranceTypes();
     }
 
     saveEntity = (event, errors, values) => {
@@ -63,7 +64,7 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
     };
 
     render() {
-        const { insuranceEntity, loading, updating } = this.props;
+        const { insuranceEntity, insuranceTypes, loading, updating } = this.props;
         const { isNew } = this.state;
         return (
             <Modal isOpen toggle={this.handleClose}>
@@ -106,19 +107,29 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
                                             />
                                         </AvGroup>
                                         <AvGroup>
-                                            <Label id="typeLabel" for="insuranceType">
+                                            <Label id="insuranceTypeLabel" for="insuranceType">
                                                 <Translate contentKey="carcare.insurance.type">Type</Translate>
                                             </Label>
                                             <AvField
-                                                id="insurance-number"
-                                                type="text"
+                                                id="insurance-type"
+                                                type="select"
+                                                className="form-control"
                                                 name="insuranceType"
+                                                value={insuranceEntity.insuranceType}
                                                 validate={{
-                                                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                                                    minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) },
-                                                    maxLength: { value: 20, errorMessage: translate('entity.validation.maxlength', { max: 20 }) }
-                                                }}
-                                            />
+                                                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                                                }}>
+                                                <option value="" disabled selected>
+                                                    <Translate contentKey="carcare.insurance.select-type">Select</Translate>
+                                                </option>option>
+                                                {insuranceTypes
+                                                    ? insuranceTypes.map(x => (
+                                                        <option value={x} key={x}>
+                                                            {x}
+                                                        </option>
+                                                    ))
+                                                    : null}
+                                            </AvField>
                                         </AvGroup>
                                         <AvGroup>
                                             <Label id="validFromLabel" for="validFrom">
@@ -205,6 +216,7 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
                                             <AvField
                                                 id="insurance-details"
                                                 type="textarea"
+                                                rows="5"
                                                 name="details"
                                                 validate={{
                                                     required: { value: true, errorMessage: translate('entity.validation.required') },
@@ -239,6 +251,7 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
 
 const mapStateToProps = (storeState: IRootState) => ({
     insuranceEntity: storeState.insurances.insurance,
+    insuranceTypes: storeState.insurances.insuranceTypes,
     loading: storeState.insurances.loading,
     updating: storeState.insurances.updating,
     updateSuccess: storeState.insurances.updateSuccess
@@ -248,7 +261,8 @@ const mapDispatchToProps = {
     getInsurance,
     updateInsurance,
     createInsurance,
-    reset
+    reset,
+    getInsuranceTypes
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;

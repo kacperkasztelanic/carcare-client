@@ -153,6 +153,7 @@ export class InspectionUpdate extends React.Component<IInspectionUpdateProps, II
                                     <AvField
                                         id="inspection-details"
                                         type="textarea"
+                                        rows="5"
                                         name="details"
                                         validate={{
                                             required: { value: true, errorMessage: translate('entity.validation.required') },

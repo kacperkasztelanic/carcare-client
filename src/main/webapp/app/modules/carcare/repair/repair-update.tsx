@@ -139,6 +139,7 @@ export class RepairUpdate extends React.Component<IRepairUpdateProps, IRepairUpd
                                     <AvField
                                         id="repair-details"
                                         type="textarea"
+                                        rows="5"
                                         name="details"
                                         validate={{
                                             required: { value: true, errorMessage: translate('entity.validation.required') },

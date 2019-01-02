@@ -10,7 +10,8 @@ export const ACTION_TYPES = {
     CREATE_INSURANCE: 'insurance/CREATE_INSURANCE',
     UPDATE_INSURANCE: 'insurance/UPDATE_INSURANCE',
     DELETE_INSURANCE: 'insurance/DELETE_INSURANCE',
-    RESET: 'insurance/RESET'
+    RESET: 'insurance/RESET',
+    FETCH_INSURANCETYPES: 'insurance/FETCH_INSURANCETYPES'
 };
 
 const initialState = {
@@ -20,7 +21,8 @@ const initialState = {
     insurance: defaultValue,
     updating: false,
     updateSuccess: false,
-    totalItems: 0
+    totalItems: 0,
+    insuranceTypes: [] as ReadonlyArray<string>
 };
 
 export type InsurancesState = Readonly<typeof initialState>;
@@ -29,6 +31,7 @@ export default (state: InsurancesState = initialState, action): InsurancesState 
     switch (action.type) {
         case REQUEST(ACTION_TYPES.FETCH_INSURANCES):
         case REQUEST(ACTION_TYPES.FETCH_INSURANCE):
+        case REQUEST(ACTION_TYPES.FETCH_INSURANCETYPES):
             return {
                 ...state,
                 errorMessage: null,
@@ -49,6 +52,7 @@ export default (state: InsurancesState = initialState, action): InsurancesState 
         case FAILURE(ACTION_TYPES.CREATE_INSURANCE):
         case FAILURE(ACTION_TYPES.UPDATE_INSURANCE):
         case FAILURE(ACTION_TYPES.DELETE_INSURANCE):
+        case FAILURE(ACTION_TYPES.FETCH_INSURANCETYPES):
             return {
                 ...state,
                 loading: false,
@@ -83,6 +87,12 @@ export default (state: InsurancesState = initialState, action): InsurancesState 
                 updating: false,
                 updateSuccess: true,
                 insurance: defaultValue
+            };
+        case SUCCESS(ACTION_TYPES.FETCH_INSURANCETYPES):
+            return {
+                ...state,
+                loading: false,
+                insuranceTypes: action.payload.data
             };
         case ACTION_TYPES.RESET:
             return {
@@ -161,6 +171,12 @@ export const deleteInsurance: ICrudDeleteAction<IInsurance> = id => async dispat
 
 export const reset = () => ({
     type: ACTION_TYPES.RESET
+});
+
+const insuranceTypeApiUrl = 'api/insurance-type';
+export const getInsuranceTypes: ICrudGetAllAction<string[]> = () => ({
+    type: ACTION_TYPES.FETCH_INSURANCETYPES,
+    payload: axios.get<string[]>(insuranceTypeApiUrl)
 });
 
 const prepareToDispatch = (insurance: IInsurance): IInsurance => ({

@@ -128,15 +128,18 @@ export class VehicleCreate extends React.Component<IVehicleCreateProps, IVehicle
                                     <Label id="fuelTypeLabel" for="fuelType">
                                         <Translate contentKey="carcare.vehicle.fuel-type">Fuel type</Translate>
                                     </Label>
-                                    <AvInput
+                                    <AvField
                                         id="vehicle-fuel-type"
                                         type="select"
                                         className="form-control"
                                         name="fuelType"
+                                        value={vehicleEntity.fuelType}
                                         validate={{
                                             required: { value: true, errorMessage: translate('entity.validation.required') }
                                         }}>
-                                        <option value="" key="0" />
+                                        <option value="" disabled selected>
+                                            <Translate contentKey="carcare.vehicle.select-fuel-type">Select</Translate>
+                                        </option>
                                         {fuelTypes
                                             ? fuelTypes.map(x => (
                                                 <option value={x} key={x}>
@@ -144,7 +147,7 @@ export class VehicleCreate extends React.Component<IVehicleCreateProps, IVehicle
                                                 </option>
                                             ))
                                             : null}
-                                    </AvInput>
+                                    </AvField>
                                 </AvGroup>
                                 <Button tag={Link} id="cancel-save" to={`/app`} replace color="info">
                                     <FontAwesomeIcon icon="arrow-left" />&nbsp;

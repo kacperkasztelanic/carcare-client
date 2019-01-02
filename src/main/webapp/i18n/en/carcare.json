@@ -90,6 +90,7 @@
             "valid-from": "Valid from",
             "valid-thru": "Valid thru",
             "details": "Details",
+            "select-type": "Select",
             "edit": {
                 "title": "Create or edit an insurance"
             },
@@ -119,6 +120,7 @@
             "license-plate": "License plate",
             "fuel-type": "Fuel type",
             "details": "Details",
+            "select-fuel-type": "Select",
             "edit": {
                 "title": "Create or edit a vehicle"
             },

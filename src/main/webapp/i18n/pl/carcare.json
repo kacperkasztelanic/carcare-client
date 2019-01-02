@@ -90,6 +90,7 @@
             "valid-from": "Ważne od",
             "valid-thru": "Ważne do",
             "details": "Szczegóły",
+            "select-type": "Wybierz",
             "edit": {
                 "title": "Utwórz lub edytuj ubezpieczenie"
             },
@@ -119,6 +120,7 @@
             "license-plate": "Nr rejestracyjny",
             "fuel-type": "Rodzaj paliwa",
             "details": "Szczegóły",
+            "select-fuel-type": "Wybierz",
             "edit": {
                 "title": "Utwórz lub edytuj pojazd"
             },

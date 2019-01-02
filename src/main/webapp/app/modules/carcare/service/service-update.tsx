@@ -174,6 +174,7 @@ export class ServiceUpdate extends React.Component<IServiceUpdateProps, IService
                                             <AvField
                                                 id="service-details"
                                                 type="textarea"
+                                                rows="5"
                                                 name="details"
                                                 validate={{
                                                     required: { value: true, errorMessage: translate('entity.validation.required') },
