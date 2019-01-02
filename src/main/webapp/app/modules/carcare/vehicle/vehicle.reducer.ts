@@ -11,7 +11,8 @@ export const ACTION_TYPES = {
     UPDATE_VEHICLE: 'vehicle/UPDATE_VEHICLE',
     DELETE_VEHICLE: 'vehicle/DELETE_VEHICLE',
     RESET: 'vehicle/RESET',
-    FETCH_FUELTYPES: 'vehicle/FETCH_FUELTYPES'
+    FETCH_FUELTYPES: 'vehicle/FETCH_FUELTYPES',
+    OPEN_DETAILS: 'vehicle/OPEN_DETAILS'
 };
 
 const initialState = {
@@ -94,6 +95,11 @@ export default (state: VehiclesState = initialState, action): VehiclesState => {
                 loading: false,
                 fuelTypes: action.payload.data
             };
+        case ACTION_TYPES.OPEN_DETAILS:
+            return {
+                ...state,
+                loading: true
+            }
         case ACTION_TYPES.RESET:
             return {
                 ...state,
@@ -164,4 +170,8 @@ const fuelTypeApiUrl = 'api/fuel-type';
 export const getFuelTypes: ICrudGetAllAction<string[]> = () => ({
     type: ACTION_TYPES.FETCH_FUELTYPES,
     payload: axios.get<string[]>(fuelTypeApiUrl)
+});
+
+export const openDetails = () => ({
+    type: ACTION_TYPES.OPEN_DETAILS
 });

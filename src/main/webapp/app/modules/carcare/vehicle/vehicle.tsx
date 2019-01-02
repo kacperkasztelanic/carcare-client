@@ -6,7 +6,7 @@ import { Translate, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getVehicles } from './vehicle.reducer';
+import { getVehicles, openDetails } from './vehicle.reducer';
 import TableSummary from 'app/shared/components/TableSummary';
 import { IVehicle } from 'app/shared/model/vehicle.model';
 import { image } from 'app/shared/other/image';
@@ -23,6 +23,7 @@ export class Vehicle extends React.Component<IVehicleProps> {
   }
 
   handleClick = (vehicle: IVehicle) => {
+    this.props.openDetails();
     this.props.history.push(`${this.props.match.url}/details/${vehicle.id}`);
   };
 
@@ -101,7 +102,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   totalItems: storeState.vehicles.totalItems
 });
 
-const mapDispatchToProps = { getVehicles };
+const mapDispatchToProps = { getVehicles, openDetails };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
