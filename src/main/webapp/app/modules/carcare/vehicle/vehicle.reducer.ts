@@ -99,7 +99,7 @@ export default (state: VehiclesState = initialState, action): VehiclesState => {
             return {
                 ...state,
                 loading: true
-            }
+            };
         case ACTION_TYPES.RESET:
             return {
                 ...state,

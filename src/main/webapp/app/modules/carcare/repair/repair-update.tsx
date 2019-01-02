@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { Button, Label, Modal, ModalHeader, ModalBody } from 'reactstrap';
-import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
+import { AvForm, AvGroup, AvField } from 'availity-reactstrap-validation';
 import { Translate, translate } from 'react-jhipster';
+import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
@@ -71,7 +72,7 @@ export class RepairUpdate extends React.Component<IRepairUpdateProps, IRepairUpd
                 </ModalHeader>
                 <ModalBody>
                     {loading ? (
-                        <p>Loading...</p>
+                        <ReactLoading type="bubbles" color="353D47" />
                     ) : (
                             <AvForm model={isNew ? {} : repairEntity} onSubmit={this.saveEntity}>
                                 <AvGroup>

@@ -4,6 +4,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Label, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
 import { Translate, translate } from 'react-jhipster';
+import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
@@ -72,7 +73,7 @@ export class VehicleCreate extends React.Component<IVehicleCreateProps, IVehicle
                 </ModalHeader>
                 <ModalBody>
                     {loading ? (
-                        <p>Loading...</p>
+                        <ReactLoading type="bubbles" color="353D47" />
                     ) : (
                             <AvForm model={isNew ? {} : vehicleEntity} onSubmit={this.saveEntity}>
                                 <AvGroup>

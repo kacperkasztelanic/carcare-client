@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { Button, Label, Modal, ModalHeader, ModalBody, Col, Row } from 'reactstrap';
 import { AvForm, AvGroup, AvField } from 'availity-reactstrap-validation';
+import ReactLoading from 'react-loading';
 import { Translate, translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
@@ -71,7 +72,7 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
                 </ModalHeader>
                 <ModalBody>
                     {loading ? (
-                        <p>Loading...</p>
+                        <ReactLoading type="bubbles" color="353D47" />
                     ) : (
                             <AvForm model={isNew ? {} : insuranceEntity} onSubmit={this.saveEntity}>
                                 <Row>

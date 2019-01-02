@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { Button, Label, Modal, ModalHeader, ModalBody } from 'reactstrap';
-import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
+import { AvForm, AvGroup, AvField } from 'availity-reactstrap-validation';
 import { Translate, translate } from 'react-jhipster';
+import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { getRefuel, updateRefuel, createRefuel, reset } from './refuel.reducer';
-import value from '*.json';
 
 export interface IRefuelUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string, vehicleId: string }> { }
 
@@ -67,7 +67,7 @@ export class RefuelUpdate extends React.Component<IRefuelUpdateProps, IRefuelUpd
                 </ModalHeader>
                 <ModalBody>
                     {loading ? (
-                        <p>Loading...</p>
+                        <ReactLoading type="bubbles" color="353D47" />
                     ) : (
                             <AvForm model={isNew ? {} : refuelEntity} onSubmit={this.saveEntity}>
                                 <AvGroup>

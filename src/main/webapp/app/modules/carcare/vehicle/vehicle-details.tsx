@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Row, Col, Card, CardDeck, CardBody, CardTitle } from 'reactstrap';
 import { Translate } from 'react-jhipster';
+import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 import BackButton from 'app/shared/components/BackButton';
@@ -67,7 +68,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
         return (
             <div>
                 {loading ? (
-                    <p>Loading...</p>
+                    <ReactLoading type="bubbles" color="353D47" />
                 ) : (<div>
                     <h2>
                         {vehicleEntity.make} {vehicleEntity.model} - {vehicleEntity.licensePlate}
