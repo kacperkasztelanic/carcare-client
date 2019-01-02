@@ -28,6 +28,11 @@
             "created": "Routine service added",
             "updated": "Routine service updated",
             "deleted": "Routine service deleted"
+        },
+        "vehicle": {
+            "created": "Vehicle added",
+            "updated": "Vehicle updated",
+            "deleted": "Vehicle deleted"
         }
     },
     "carcare": {

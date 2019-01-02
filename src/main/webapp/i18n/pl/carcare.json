@@ -28,6 +28,11 @@
             "created": "Rutynowa obsługa dodana",
             "updated": "Rutynowa obsługa zaktualizowana",
             "deleted": "Rutynowa obsługa usunięta"
+        },
+        "vehicle": {
+            "created": "Pojazd dodany",
+            "updated": "Pojazd zaktualizowany",
+            "deleted": "Pojazd usunięty"
         }
     },
     "carcare": {
