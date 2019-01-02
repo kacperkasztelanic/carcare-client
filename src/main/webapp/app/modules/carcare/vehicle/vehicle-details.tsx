@@ -63,7 +63,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
     }
 
     render() {
-        const { vehicleEntity, loading, updating, match } = this.props;
+        const { vehicleEntity, loading, match } = this.props;
         const iconSize = '4x';
         return (
             <div>

@@ -6,6 +6,7 @@ import Vehicle from './vehicle';
 import VehicleDeleteDialog from './vehicle-delete-dialog';
 import VehicleCreate from './vehicle-create';
 import VehicleDetails from './vehicle-details';
+import VehicleDetailsUpdate from './vehicle-details-update';
 
 const Routes = ({ match }) => (
     <>
@@ -13,6 +14,7 @@ const Routes = ({ match }) => (
             <ErrorBoundaryRoute path={`${match.url}/details/:id`} component={VehicleDetails} />
             <ErrorBoundaryRoute path={`${match.url}`} component={Vehicle} />
         </Switch>
+        <ErrorBoundaryRoute path={`${match.url}/details/:id/edit`} component={VehicleDetailsUpdate} />
         <ErrorBoundaryRoute path={`${match.url}/:id/delete`} component={VehicleDeleteDialog} />
         <ErrorBoundaryRoute path={`${match.url}/new`} component={VehicleCreate} />
         <ErrorBoundaryRoute path={`${match.url}/:id/edit`} component={VehicleCreate} />
