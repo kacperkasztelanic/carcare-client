@@ -2,8 +2,8 @@
     "userManagement": {
         "home": {
             "title": "Użytkownicy",
-            "createLabel": "Stwórz nowego użytkownika",
-            "createOrEditLabel": "Stwórz lub edytuj użytkownika"
+            "createLabel": "Utwórz nowego użytkownika",
+            "createOrEditLabel": "Utwórz lub edytuj użytkownika"
         },
         "created": "Utworzono nowego użytkownika z identyfikatorem {{ param }}",
         "updated": "Uaktualniono użytkownika z identyfikatorem {{ param }}",
@@ -22,6 +22,7 @@
         "deactivated": "Nieaktywny",
         "profiles": "Profile",
         "langKey": "Język",
+        "select-langKey": "Wybierz",
         "createdBy": "Utworzony przez",
         "createdDate": "Data utworzenia",
         "lastModifiedBy": "Zmodyfikowany przez",

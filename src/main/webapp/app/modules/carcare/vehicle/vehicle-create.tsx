@@ -137,9 +137,6 @@ export class VehicleCreate extends React.Component<IVehicleCreateProps, IVehicle
                                         validate={{
                                             required: { value: true, errorMessage: translate('entity.validation.required') }
                                         }}>
-                                        <option value="" disabled selected>
-                                            <Translate contentKey="carcare.vehicle.select-fuel-type">Select</Translate>
-                                        </option>
                                         {fuelTypes
                                             ? fuelTypes.map(x => (
                                                 <option value={x} key={x}>

@@ -119,9 +119,6 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
                                                 validate={{
                                                     required: { value: true, errorMessage: translate('entity.validation.required') }
                                                 }}>
-                                                <option value="" disabled selected>
-                                                    <Translate contentKey="carcare.insurance.select-type">Select</Translate>
-                                                </option>option>
                                                 {insuranceTypes
                                                     ? insuranceTypes.map(x => (
                                                         <option value={x} key={x}>

@@ -22,6 +22,7 @@
         "deactivated": "Deactivated",
         "profiles": "Profiles",
         "langKey": "Language",
+        "select-langKey": "Select",
         "createdBy": "Created by",
         "createdDate": "Created date",
         "lastModifiedBy": "Modified by",
