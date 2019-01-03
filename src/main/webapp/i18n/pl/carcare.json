@@ -140,7 +140,8 @@
             "engine-power": "Moc silnika ({{ unit }})",
             "weight": "Masa ({{ unit }})",
             "notes": "Notatki",
-            "image": "Zdjęcie"
+            "image": "Zdjęcie",
+            "edit-title":"Edytuj pojazd"
         },
         "reports": {
             "entity": "Raport",

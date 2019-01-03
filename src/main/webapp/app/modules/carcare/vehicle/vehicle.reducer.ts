@@ -3,6 +3,7 @@ import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } 
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { IVehicle, defaultValue } from 'app/shared/model/vehicle.model';
+import vehicleDetails from './vehicle-details';
 
 export const ACTION_TYPES = {
     FETCH_VEHICLES: 'vehicle/FETCH_VEHICLES',
@@ -144,6 +145,13 @@ export const createVehicle: ICrudPutAction<IVehicle> = vehicle => async dispatch
 
 export const updateVehicle: ICrudPutAction<IVehicle> = vehicle => async dispatch => {
     const requestUrl = `${apiUrl}/${vehicle.id}`;
+    vehicle = {
+        ...vehicle,
+        vehicleDetails: {
+            ...vehicle.vehicleDetails,
+            modelSuffix: vehicle.vehicleDetails.modelSuffix.trim()
+        }
+    };
     const result = await dispatch({
         type: ACTION_TYPES.UPDATE_VEHICLE,
         payload: axios.put(requestUrl, vehicle)

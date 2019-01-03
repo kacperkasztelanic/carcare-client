@@ -140,7 +140,8 @@
             "engine-power": "Engine power ({{ unit }})",
             "weight": "Weight ({{ unit }})",
             "notes": "Notes",
-            "image": "Image"
+            "image": "Image",
+            "edit-title":"Edit vehicle"
         },
         "reports": {
             "entity": "Report",
