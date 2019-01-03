@@ -13,7 +13,8 @@ export const ACTION_TYPES = {
     DELETE_VEHICLE: 'vehicle/DELETE_VEHICLE',
     RESET: 'vehicle/RESET',
     FETCH_FUELTYPES: 'vehicle/FETCH_FUELTYPES',
-    OPEN_DETAILS: 'vehicle/OPEN_DETAILS'
+    OPEN_DETAILS: 'vehicle/OPEN_DETAILS',
+    SET_BLOB: 'photo/SET_BLOB'
 };
 
 const initialState = {
@@ -101,6 +102,19 @@ export default (state: VehiclesState = initialState, action): VehiclesState => {
                 ...state,
                 loading: true
             };
+        case ACTION_TYPES.SET_BLOB:
+            const { name, data, contentType } = action.payload;
+            return {
+                ...state,
+                vehicle: {
+                    ...state.vehicle,
+                    vehicleDetails: {
+                        ...state.vehicle.vehicleDetails,
+                        image: data,
+                        imageContentType: contentType
+                    }
+                }
+            };
         case ACTION_TYPES.RESET:
             return {
                 ...state,
@@ -160,7 +174,7 @@ export const updateVehicle: ICrudPutAction<IVehicle> = vehicle => async dispatch
         type: ACTION_TYPES.UPDATE_VEHICLE,
         payload: axios.put(requestUrl, vehicle)
     });
-    dispatch(getVehicles());
+    dispatch(getVehicle(vehicle.id));
     return result;
 };
 
@@ -186,4 +200,13 @@ export const getFuelTypes: ICrudGetAllAction<string[]> = () => ({
 
 export const openDetails = () => ({
     type: ACTION_TYPES.OPEN_DETAILS
+});
+
+export const setBlob = (name, data, contentType?) => ({
+    type: ACTION_TYPES.SET_BLOB,
+    payload: {
+        name,
+        data,
+        contentType
+    }
 });

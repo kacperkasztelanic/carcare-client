@@ -7,7 +7,6 @@ import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 import BackButton from 'app/shared/components/BackButton';
-import { image } from 'app/shared/other/image';
 
 import { getVehicle, updateVehicle, createVehicle, reset } from './vehicle.reducer';
 
@@ -167,7 +166,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                             </dl>
                         </Col>
                         <Col md="3" sd="12" className="text-right">
-                            <img src={`data:image/jpeg;base64,${image}`} style={{ height: '250px' }} />
+                            <img src={`data:image/jpeg;base64,${vehicleEntity.vehicleDetails.image}`} style={{ height: '250px' }} />
                         </Col>
                     </Row>
                     <hr />

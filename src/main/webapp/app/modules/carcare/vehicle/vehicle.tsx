@@ -9,7 +9,6 @@ import { IRootState } from 'app/shared/reducers';
 import { getVehicles, openDetails } from './vehicle.reducer';
 import TableSummary from 'app/shared/components/TableSummary';
 import { IVehicle } from 'app/shared/model/vehicle.model';
-import { image } from 'app/shared/other/image';
 
 export interface IVehicleProps extends StateProps, DispatchProps, RouteComponentProps<{}> { }
 
@@ -66,8 +65,7 @@ export class Vehicle extends React.Component<IVehicleProps> {
               <tr id={vehicle.id} key={`vehicle-${i}`} className="hand" onClick={this.handleClick.bind(this, vehicle)}>
                 <th>{i + 1}</th>
                 <td>
-                  {/* <img src={`data:${vehicle.vehicleDetails.imageContentType};base64,${vehicle.vehicleDetails.image}`} style={{ maxHeight: '30px' }} /> */}
-                  <img src={`data:image/jpeg;base64,${image}`} style={{ maxHeight: '90px' }} />
+                  <img src={`data:${vehicle.vehicleDetails.imageContentType};base64,${vehicle.vehicleDetails.image}`} style={{ maxHeight: '90px' }} />
                 </td>
                 <td>{vehicle.licensePlate}</td>
                 <td>{vehicle.make}</td>

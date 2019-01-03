@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Label, Modal, ModalHeader, ModalBody, Col, Row } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate } from 'react-jhipster';
+import { Translate, translate, setFileData, openFile, byteSize } from 'react-jhipster';
 import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { getVehicle, updateVehicle, reset, getFuelTypes } from './vehicle.reducer';
+import { getVehicle, updateVehicle, reset, getFuelTypes, setBlob } from './vehicle.reducer';
 
 export interface IVehicleDetailsUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> { }
 
@@ -38,18 +38,21 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
     saveEntity = (event, errors, values) => {
         if (errors.length === 0) {
             const { vehicleEntity } = this.props;
-            const entity = {
-                ...vehicleEntity,
-                ...this.state,
-                ...values
-            };
-            this.props.updateVehicle(entity);
+            this.props.updateVehicle(vehicleEntity);
         }
     };
 
     handleClose = event => {
         event.stopPropagation();
         this.props.history.goBack();
+    };
+
+    onBlobChange = (isAnImage, name) => event => {
+        setFileData(event, (contentType, data) => this.props.setBlob(name, data, contentType), isAnImage);
+    };
+
+    clearBlob = name => () => {
+        this.props.setBlob(name, undefined, undefined);
     };
 
     render() {
@@ -263,7 +266,7 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col md="12">
+                                    <Col md="6" sd="12">
                                         <AvGroup>
                                             <Label id="notesLabel" for="vehicleDetails.notes">
                                                 <Translate contentKey="carcare.vehicle-details.notes">Notes</Translate>
@@ -274,6 +277,17 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
                                                 rows="5"
                                                 name="vehicleDetails.notes"
                                             />
+                                        </AvGroup>
+                                    </Col>
+                                    <Col md="6" sd="12">
+                                        <AvGroup>
+                                            <AvGroup>
+                                                <Label id="imageLabel" for="vehicleDetails.image">
+                                                    <Translate contentKey="carcare.vehicle-details.image">Image</Translate>
+                                                </Label>
+                                                <br />
+                                                <input id="vehicleDetails.image" type="file" onChange={this.onBlobChange(true, 'vehicleDetaiils.Image')} accept="image/*" />
+                                            </AvGroup>
                                         </AvGroup>
                                     </Col>
                                 </Row>
@@ -312,7 +326,8 @@ const mapDispatchToProps = {
     getVehicle,
     updateVehicle,
     reset,
-    getFuelTypes
+    getFuelTypes,
+    setBlob
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
