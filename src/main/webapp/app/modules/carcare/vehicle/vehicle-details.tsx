@@ -151,7 +151,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                                     <Translate contentKey="carcare.vehicle-details.notes">Notes</Translate>
                                 </dt>
                                 <dd style={{ whiteSpace: 'pre-wrap' }}>
-                                    {vehicleEntity.vehicleDetails.notes.slice(0, 120)}
+                                    {this.prepareStringValue(vehicleEntity.vehicleDetails.notes).slice(0, 120)}
                                     {(vehicleEntity.vehicleDetails.notes.length > 120 ? (
                                         <div>
                                             <br />
