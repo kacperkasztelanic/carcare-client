@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Row, Col, Card, CardDeck, CardBody, CardTitle } from 'reactstrap';
+import { Row, Col, Card, CardDeck, CardBody, CardTitle, Popover, PopoverHeader, PopoverBody, Button } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,14 +15,22 @@ export interface IVehicleUpdateProps extends StateProps, DispatchProps, RouteCom
 
 export interface IVehicleUpdateState {
     id: string;
+    detailsPopoverOpen: boolean;
 }
 
 export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicleUpdateState> {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.match.params.id
+            id: this.props.match.params.id,
+            detailsPopoverOpen: false
         };
+    }
+
+    toogleDetailsPopover = () => {
+        this.setState({
+            detailsPopoverOpen: !this.state.detailsPopoverOpen
+        });
     }
 
     componentWillMount() {
@@ -35,11 +43,11 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
     };
 
     prepareStringValue = (val: string): string => (
-        val.length !== 0 ? val : '-'
+        val !== null && val.trim().length !== 0 ? val : '-'
     )
 
     prepareValue = (val: number) => (
-        val !== 0 ? val : '-'
+        val !== null && val !== 0 ? val : '-'
     )
 
     clickRepairs = () => {
@@ -142,16 +150,24 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                                 <dt>
                                     <Translate contentKey="carcare.vehicle-details.notes">Notes</Translate>
                                 </dt>
-                                <dd>{this.prepareStringValue(vehicleEntity.vehicleDetails.notes)}</dd>
+                                <dd style={{ whiteSpace: 'pre-wrap' }}>
+                                    {vehicleEntity.vehicleDetails.notes.slice(0, 120)}
+                                    {(vehicleEntity.vehicleDetails.notes.length > 120 ? (
+                                        <div>
+                                            <br />
+                                            <div className="text-center">
+                                                <Button id="details-popover" type="button" color="info" onClick={this.toogleDetailsPopover}>...</Button>
+                                                <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
+                                                    <PopoverHeader><Translate contentKey="carcare.insurance.details">Details</Translate></PopoverHeader>
+                                                    <PopoverBody style={{ whiteSpace: 'pre-wrap' }}>{this.prepareStringValue(vehicleEntity.vehicleDetails.notes)}</PopoverBody>
+                                                </Popover>
+                                            </div>
+                                        </div>) : '')}
+                                </dd>
                             </dl>
                         </Col>
                         <Col md="3" sd="12" className="text-right">
                             <img src={`data:image/jpeg;base64,${image}`} style={{ height: '250px' }} />
-                        </Col>
-                    </Row>
-                    <Row size="md">
-                        <Col>
-  
                         </Col>
                     </Row>
                     <hr />
