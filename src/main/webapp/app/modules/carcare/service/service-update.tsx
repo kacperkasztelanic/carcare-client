@@ -101,6 +101,7 @@ export class ServiceUpdate extends React.Component<IServiceUpdateProps, IService
                                                 name="vehicleEvent.mileage"
                                                 validate={{
                                                     required: { value: true, errorMessage: translate('entity.validation.required') },
+                                                    pattern: { value: '^[0-9]*$', errorMessage: translate('entity.validation.number') },
                                                     min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
                                                 }}
                                             />
@@ -132,6 +133,7 @@ export class ServiceUpdate extends React.Component<IServiceUpdateProps, IService
                                                 name="costInCents"
                                                 validate={{
                                                     required: { value: true, errorMessage: translate('entity.validation.required') },
+                                                    pattern: { value: '^[0-9.]*$', errorMessage: translate('entity.validation.number') },
                                                     min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
                                                 }}
                                             />
@@ -159,6 +161,7 @@ export class ServiceUpdate extends React.Component<IServiceUpdateProps, IService
                                                 name="nextByMileage"
                                                 validate={{
                                                     required: { value: true, errorMessage: translate('entity.validation.required') },
+                                                    pattern: { value: '^[0-9]*$', errorMessage: translate('entity.validation.number') },
                                                     min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
                                                 }}
                                             />

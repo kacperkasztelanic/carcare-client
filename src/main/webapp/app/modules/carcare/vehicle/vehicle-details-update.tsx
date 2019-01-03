@@ -140,6 +140,7 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
                                                 className="form-control"
                                                 name="vehicleDetails.yearOfManufacture"
                                                 validate={{
+                                                    pattern: { value: '^[0-9]*$', errorMessage: translate('entity.validation.number') },
                                                     min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) },
                                                     max: { value: 99999, errorMessage: translate('entity.validation.max', { max: 99999 }) }
                                                 }}
@@ -155,6 +156,7 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
                                                 className="form-control"
                                                 name="vehicleDetails.enginePower"
                                                 validate={{
+                                                    pattern: { value: '^[0-9]*$', errorMessage: translate('entity.validation.number') },
                                                     min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) },
                                                     max: { value: 99999, errorMessage: translate('entity.validation.max', { max: 99999 }) }
                                                 }}
@@ -170,6 +172,7 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
                                                 className="form-control"
                                                 name="vehicleDetails.engineVolume"
                                                 validate={{
+                                                    pattern: { value: '^[0-9]*$', errorMessage: translate('entity.validation.number') },
                                                     min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) },
                                                     max: { value: 99999, errorMessage: translate('entity.validation.max', { max: 99999 }) }
                                                 }}
@@ -207,6 +210,7 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
                                                 className="form-control"
                                                 name="vehicleDetails.weight"
                                                 validate={{
+                                                    pattern: { value: '^[0-9]*$', errorMessage: translate('entity.validation.number') },
                                                     min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) },
                                                     max: { value: 99999, errorMessage: translate('entity.validation.max', { max: 99999 }) }
                                                 }}
@@ -214,7 +218,7 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
                                         </AvGroup>
                                     </Col>
                                     <Col md="4" sd="12">
-                                    <AvGroup>
+                                        <AvGroup>
                                             <Label id="vinLabel" for="vehicleDetails.vinNumber">
                                                 <Translate contentKey="carcare.vehicle-details.vin-number">VIN</Translate>
                                             </Label>
@@ -260,7 +264,7 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
                                 </Row>
                                 <Row>
                                     <Col md="12">
-                                    <AvGroup>
+                                        <AvGroup>
                                             <Label id="notesLabel" for="vehicleDetails.notes">
                                                 <Translate contentKey="carcare.vehicle-details.notes">Notes</Translate>
                                             </Label>

@@ -99,6 +99,7 @@ export class InspectionUpdate extends React.Component<IInspectionUpdateProps, II
                                         name="vehicleEvent.mileage"
                                         validate={{
                                             required: { value: true, errorMessage: translate('entity.validation.required') },
+                                            pattern: { value: '^[0-9]*$', errorMessage: translate('entity.validation.number') },
                                             min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
                                         }}
                                     />
@@ -113,6 +114,7 @@ export class InspectionUpdate extends React.Component<IInspectionUpdateProps, II
                                         name="costInCents"
                                         validate={{
                                             required: { value: true, errorMessage: translate('entity.validation.required') },
+                                            pattern: { value: '^[0-9.]*$', errorMessage: translate('entity.validation.number') },
                                             min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
                                         }}
                                     />

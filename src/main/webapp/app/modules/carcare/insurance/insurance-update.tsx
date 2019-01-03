@@ -102,6 +102,7 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
                                                 name="vehicleEvent.mileage"
                                                 validate={{
                                                     required: { value: true, errorMessage: translate('entity.validation.required') },
+                                                    pattern: { value: '^[0-9]*$', errorMessage: translate('entity.validation.number') },
                                                     min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
                                                 }}
                                             />
@@ -154,6 +155,7 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
                                                 name="costInCents"
                                                 validate={{
                                                     required: { value: true, errorMessage: translate('entity.validation.required') },
+                                                    pattern: { value: '^[0-9.]*$', errorMessage: translate('entity.validation.number') },
                                                     min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) }
                                                 }}
                                             />

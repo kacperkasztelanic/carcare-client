@@ -149,7 +149,11 @@ export const updateVehicle: ICrudPutAction<IVehicle> = vehicle => async dispatch
         ...vehicle,
         vehicleDetails: {
             ...vehicle.vehicleDetails,
-            modelSuffix: vehicle.vehicleDetails.modelSuffix.trim()
+            modelSuffix: vehicle.vehicleDetails.modelSuffix.trim(),
+            vinNumber: vehicle.vehicleDetails.vinNumber.trim(),
+            vehicleCard: vehicle.vehicleDetails.vehicleCard.trim(),
+            registrationCertificate: vehicle.vehicleDetails.registrationCertificate.trim(),
+            notes: vehicle.vehicleDetails.notes.trim()
         }
     };
     const result = await dispatch({
