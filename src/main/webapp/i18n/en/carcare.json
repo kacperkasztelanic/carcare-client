@@ -141,13 +141,18 @@
             "weight": "Weight ({{ unit }})",
             "notes": "Notes",
             "image": "Image",
-            "edit-title":"Edit vehicle"
+            "edit-title": "Edit vehicle"
         },
         "reports": {
             "entity": "Report",
             "title": "Reports",
             "generate": "Generate",
-            "download": "Download"
+            "download": "Download",
+            "vehicle-select": "Vehicle"
+        },
+        "statistics": {
+            "entity": "Statistics",
+            "title": "Statistics"
         }
     }
 }

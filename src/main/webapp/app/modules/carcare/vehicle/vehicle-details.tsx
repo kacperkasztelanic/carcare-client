@@ -217,18 +217,6 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                             </CardBody>
                         </Card>
                     </CardDeck>
-
-                    {/* <Card body inverse color="success" text-center style={{ cursor: 'pointer' }} onClick={this.clickReports}>
-                        <CardBody>
-                            <FontAwesomeIcon size={iconSize} icon="file-excel" />
-                            <hr />
-                            <CardTitle>
-                                <Translate contentKey="carcare.reports.title">Reports</Translate>
-                            </CardTitle>
-                        </CardBody>
-                    </Card>
-                    <hr /> */}
-
                     <hr />
                     <BackButton handleFunction={this.handleClose} />
                 </div>

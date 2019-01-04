@@ -36,6 +36,7 @@ import { faCheckDouble } from '@fortawesome/free-solid-svg-icons/faCheckDouble';
 import { faFileInvoiceDollar } from '@fortawesome/free-solid-svg-icons/faFileInvoiceDollar';
 import { faFileExcel } from '@fortawesome/free-solid-svg-icons/faFileExcel';
 import { faCar } from '@fortawesome/free-solid-svg-icons/faCar';
+import { faChartBar } from '@fortawesome/free-solid-svg-icons/faChartBar';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 
@@ -78,6 +79,7 @@ export const loadIcons = () => {
     faCheckDouble,
     faFileInvoiceDollar,
     faFileExcel,
-    faCar
+    faCar,
+    faChartBar
   );
 };

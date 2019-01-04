@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Table } from 'reactstrap';
-import { Translate, TextFormat } from 'react-jhipster';
+import { Button, Table, Row, Col, Card, CardDeck, CardBody, CardTitle } from 'reactstrap';
+import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -30,66 +30,93 @@ export class Vehicle extends React.Component<IVehicleProps> {
     event.stopPropagation();
   };
 
+  clickReports = () => {
+    this.props.history.push(`${this.props.match.url}/reports`);
+  }
+
+  clickStatistics = () => {
+  }
+
   render() {
     const { vehicles, totalItems, match } = this.props;
+    const iconSize = '3x';
     return (
       <div>
-        <h2 id="user-management-page-heading">
-          <FontAwesomeIcon icon="car" />{' '}
-          <Translate contentKey="carcare.vehicle.title">Vehicles</Translate>
-          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
-            <FontAwesomeIcon icon="plus" /> <Translate contentKey="carcare.common.add">Add</Translate>
-          </Link>
-        </h2>
-        <Table responsive className="table-hover">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>
-                <Translate contentKey="carcare.vehicle-details.image">Image</Translate>
-              </th>
-              <th>
-                <Translate contentKey="carcare.vehicle.license-plate">License Plate</Translate>
-              </th>
-              <th>
-                <Translate contentKey="carcare.vehicle.make">Make</Translate>
-              </th>
-              <th >
-                <Translate contentKey="carcare.vehicle.model">Model</Translate>
-              </th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {vehicles.map((vehicle, i) => (
-              <tr id={vehicle.id} key={`vehicle-${i}`} className="hand" onClick={this.handleClick.bind(this, vehicle)}>
-                <th>{i + 1}</th>
-                <td>
-                  <img src={`data:${vehicle.vehicleDetails.imageContentType};base64,${vehicle.vehicleDetails.image}`} style={{ maxHeight: '90px' }} />
-                </td>
-                <td>{vehicle.licensePlate}</td>
-                <td>{vehicle.make}</td>
-                <td>{vehicle.model}</td>
-                <td className="text-right" style={{ cursor: 'default' }} onClick={this.handleButtonColumn}>
-                  <div className="btn-group flex-btn-group-container">
-                    <Button
-                      tag={Link}
-                      to={`${match.url}/${vehicle.id}/delete`}
-                      color="danger"
-                      size="sm"
-                    >
-                      <FontAwesomeIcon icon="trash" />{' '}
-                      <span className="d-none d-md-inline">
-                        <Translate contentKey="entity.action.delete">Delete</Translate>
-                      </span>
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <TableSummary totalItems={totalItems} />
+        <Row>
+          <Col md="12">
+            <h2 id="user-management-page-heading">
+              <FontAwesomeIcon icon="car" />{' '}
+              <Translate contentKey="carcare.vehicle.title">Vehicles</Translate>
+              <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
+                <FontAwesomeIcon icon="plus" /> <Translate contentKey="carcare.common.add">Add</Translate>
+              </Link>
+            </h2>
+            <Table responsive className="table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>
+                    <Translate contentKey="carcare.vehicle-details.image">Image</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="carcare.vehicle.license-plate">License Plate</Translate>
+                  </th>
+                  <th>
+                    <Translate contentKey="carcare.vehicle.make">Make</Translate>
+                  </th>
+                  <th >
+                    <Translate contentKey="carcare.vehicle.model">Model</Translate>
+                  </th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                {vehicles.map((vehicle, i) => (
+                  <tr id={vehicle.id} key={`vehicle-${i}`} className="hand" onClick={this.handleClick.bind(this, vehicle)}>
+                    <th>{i + 1}</th>
+                    <td>
+                      <img src={`data:${vehicle.vehicleDetails.imageContentType};base64,${vehicle.vehicleDetails.image}`} style={{ maxHeight: '90px' }} />
+                    </td>
+                    <td>{vehicle.licensePlate}</td>
+                    <td>{vehicle.make}</td>
+                    <td>{vehicle.model}</td>
+                    <td className="text-right" style={{ cursor: 'default' }} onClick={this.handleButtonColumn}>
+                      <div className="btn-group flex-btn-group-container">
+                        <Button
+                          tag={Link}
+                          to={`${match.url}/${vehicle.id}/delete`}
+                          color="danger"
+                          size="sm"
+                        >
+                          <FontAwesomeIcon icon="trash" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.delete">Delete</Translate>
+                          </span>
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            <TableSummary totalItems={totalItems} />
+            <hr />
+          </Col>
+        </Row>
+        <Row>
+          <Col md="6" sd="12">
+            <Button color="success" style={{ paddingTop: '20px', width: '100%' }} onClick={this.clickReports}>
+              <FontAwesomeIcon size={iconSize} icon="file-excel" />
+              <h4><Translate contentKey="carcare.reports.title">Reports</Translate></h4>
+            </Button>
+          </Col>
+          <Col md="6" sd="12">
+            <Button color="info" style={{ paddingTop: '20px', width: '100%' }} onClick={this.clickStatistics}>
+              <FontAwesomeIcon size={iconSize} icon="chart-bar" />
+              <h4><Translate contentKey="carcare.statistics.title">Statistics</Translate></h4>
+            </Button>
+          </Col>
+        </Row>
       </div>
     );
   }
