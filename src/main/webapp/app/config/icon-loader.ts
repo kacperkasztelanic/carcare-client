@@ -38,6 +38,7 @@ import { faFileExcel } from '@fortawesome/free-solid-svg-icons/faFileExcel';
 import { faCar } from '@fortawesome/free-solid-svg-icons/faCar';
 import { faChartBar } from '@fortawesome/free-solid-svg-icons/faChartBar';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons/faDollarSign';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 
@@ -82,6 +83,7 @@ export const loadIcons = () => {
     faFileExcel,
     faCar,
     faChartBar,
-    faDollarSign
+    faDollarSign,
+    faCalendarAlt
   );
 };

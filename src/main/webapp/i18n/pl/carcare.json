@@ -158,6 +158,14 @@
         "statistics": {
             "entity": "Statystyki",
             "title": "Statystyki"
+        },
+        "forthcoming-events": {
+            "entity": "Nadchodzące zdarzenie",
+            "title": "Nadchodzące zdarzenia",
+            "vehicles-select": "Pojazdy",
+            "date-from": "Od",
+            "date-to": "Do",
+            "show": "Pokaż"
         }
     }
 }

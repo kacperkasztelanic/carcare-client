@@ -158,6 +158,14 @@
         "statistics": {
             "entity": "Statistics",
             "title": "Statistics"
+        },
+        "forthcoming-events": {
+            "entity": "Forthcoming event",
+            "title": "Forthcoming events",
+            "vehicles-select": "Vehicles",
+            "date-from": "From",
+            "date-to": "To",
+            "show": "Show"
         }
     }
 }

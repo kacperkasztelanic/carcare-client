@@ -37,6 +37,10 @@ export class Vehicle extends React.Component<IVehicleProps> {
   clickStatistics = () => {
   }
 
+  clickEvents = () => {
+    this.props.history.push(`${this.props.match.url}/events`);
+  }
+
   render() {
     const { vehicles, totalItems, match } = this.props;
     const iconSize = '3x';
@@ -104,16 +108,22 @@ export class Vehicle extends React.Component<IVehicleProps> {
           </Col>
         </Row>
         <Row>
-          <Col md="6" sd="12">
-            <Button color="success" style={{ paddingTop: '20px', width: '100%' }} onClick={this.clickReports}>
-              <FontAwesomeIcon size={iconSize} icon="file-excel" />
-              <h4><Translate contentKey="carcare.reports.title">Reports</Translate></h4>
+          <Col md="4" sd="12">
+            <Button color="primary" style={{ paddingTop: '20px', width: '100%' }} onClick={this.clickEvents}>
+              <FontAwesomeIcon size={iconSize} icon="calendar-alt" />
+              <h4><Translate contentKey="carcare.forthcoming-events.title">Forthcoming events</Translate></h4>
             </Button>
           </Col>
-          <Col md="6" sd="12">
+          <Col md="4" sd="12">
             <Button color="info" style={{ paddingTop: '20px', width: '100%' }} onClick={this.clickStatistics}>
               <FontAwesomeIcon size={iconSize} icon="chart-bar" />
               <h4><Translate contentKey="carcare.statistics.title">Statistics</Translate></h4>
+            </Button>
+          </Col>
+          <Col md="4" sd="12">
+            <Button color="success" style={{ paddingTop: '20px', width: '100%' }} onClick={this.clickReports}>
+              <FontAwesomeIcon size={iconSize} icon="file-excel" />
+              <h4><Translate contentKey="carcare.reports.title">Reports</Translate></h4>
             </Button>
           </Col>
         </Row>
