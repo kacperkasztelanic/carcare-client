@@ -148,7 +148,12 @@
             "title": "Reports",
             "generate": "Generate",
             "download": "Download",
-            "vehicle-select": "Vehicle"
+            "vehicle-select": "Vehicle",
+            "vehicle-report": "Vehicle details",
+            "cost-report": "Costs",
+            "date-from": "From",
+            "date-to": "To",
+            "vehicles-select": "Vehicles"
         },
         "statistics": {
             "entity": "Statistics",

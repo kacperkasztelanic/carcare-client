@@ -1,29 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Table, Row, Col, Card, CardDeck, CardBody, CardTitle, Form, FormGroup, Label, Input } from 'reactstrap';
-import { Translate, translate } from 'react-jhipster';
+import { RouteComponentProps } from 'react-router-dom';
+import { Button, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { getVehicles, openDetails } from '../vehicle/vehicle.reducer';
 import { downloadReport, downloadCostReport } from './reports.reducer';
-import TableSummary from 'app/shared/components/TableSummary';
-import { IVehicle } from 'app/shared/model/vehicle.model';
 import BackButton from 'app/shared/components/BackButton';
 
 export interface IReportsProps extends StateProps, DispatchProps, RouteComponentProps<{}> { }
 
 export interface IReportsState {
     selectedVehicle: any;
+    dateFrom: Date;
+    dateTo: Date;
+    selectedVehicles: any[];
 }
 
 export class Reports extends React.Component<IReportsProps, IReportsState> {
     constructor(props) {
         super(props);
         this.state = {
-            selectedVehicle: ''
+            selectedVehicle: {
+                id: ''
+            },
+            dateFrom: undefined,
+            dateTo: undefined,
+            selectedVehicles: []
         };
+        this.onDateFromChange.bind(this);
+        this.onDateToChange.bind(this);
+        this.onVehiclesSelect.bind(this);
+        this.onVehicleSelect.bind(this);
     }
 
     componentDidMount() {
@@ -38,6 +48,31 @@ export class Reports extends React.Component<IReportsProps, IReportsState> {
     onVehicleSelect = event => {
         this.setState({
             selectedVehicle: this.props.vehicles.find(x => x.id == event.target.value)
+        });
+    }
+
+    onVehiclesSelect = event => {
+        const options = event.target.options;
+        const value = [];
+        for (const option of options) {
+            if (option.selected) {
+                value.push(option.value);
+            }
+        }
+        this.setState({
+            selectedVehicles: value
+        });
+    }
+
+    onDateFromChange = event => {
+        this.setState({
+            dateFrom: event.target.value
+        });
+    }
+
+    onDateToChange = event => {
+        this.setState({
+            dateTo: event.target.value
         });
     }
 
@@ -56,12 +91,16 @@ export class Reports extends React.Component<IReportsProps, IReportsState> {
     }
 
     render() {
-        const { vehicles, totalItems, match } = this.props;
-        const iconSize = '3x';
+        const { vehicles } = this.props;
         return (
             <div>
                 <Row>
                     <Col md="6" sd="12">
+                        <h3>
+                            <FontAwesomeIcon icon="car" />{' '}
+                            <Translate contentKey="carcare.reports.vehicle-report">Vehicle report</Translate>
+                        </h3>
+                        <hr />
                         <Form>
                             <FormGroup>
                                 <Label for="vehicleSelect">
@@ -78,36 +117,53 @@ export class Reports extends React.Component<IReportsProps, IReportsState> {
                                         : null}
                                 </Input>
                             </FormGroup>
-                            <Button color="primary" id="generate-report" type="submit" disabled={!this.state.selectedVehicle} onClick={this.generateClick}>
-                                <FontAwesomeIcon icon="file-excel" />&nbsp;
-                  <Translate contentKey="carcare.reports.generate">Generate</Translate>
-                            </Button>
+                            <div className="text-center">
+                                <Button
+                                    color="primary"
+                                    id="generate-report"
+                                    type="submit"
+                                    disabled={!this.state.selectedVehicle.id}
+                                    onClick={this.generateClick}>
+                                    <FontAwesomeIcon icon="file-excel" />{' '}
+                                    <Translate contentKey="carcare.reports.generate">Generate</Translate>
+                                </Button>
+                            </div>
                         </Form>
                     </Col>
                     <Col md="6" sd="12">
+                        <h3>
+                            <FontAwesomeIcon icon="dollar-sign" />{' '}
+                            <Translate contentKey="carcare.reports.cost-report">Cost report</Translate>
+                        </h3>
+                        <hr />
                         <Form>
                             <FormGroup>
-                                <Label for="fromDate">Date</Label>
+                                <Label for="fromDate">
+                                    <Translate contentKey="carcare.reports.date-from">From</Translate>
+                                </Label>
                                 <Input
                                     type="date"
                                     name="fromDate"
                                     id="fromDate"
-                                    placeholder="from Date"
+                                    onChange={this.onDateFromChange}
                                 />
                             </FormGroup>
                             <FormGroup>
-                                <Label for="toDate">Date</Label>
+                                <Label for="toDate">
+                                    <Translate contentKey="carcare.reports.date-from">To</Translate>
+                                </Label>
                                 <Input
                                     type="date"
                                     name="toDate"
                                     id="toDate"
+                                    onChange={this.onDateToChange}
                                 />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="vehicleSelect">
-                                    <Translate contentKey="carcare.reports.vehicle-select">Vehicle</Translate>
+                                    <Translate contentKey="carcare.reports.vehicles-select">Vehicle</Translate>
                                 </Label>
-                                <Input type="select" multiple name="selectMultiple" id="vehicleSelectMultiple">
+                                <Input type="select" multiple name="selectMultiple" id="vehicleSelectMultiple" onChange={this.onVehiclesSelect}>
                                     <option disabled hidden />
                                     {vehicles
                                         ? vehicles.map(x => (
@@ -118,10 +174,17 @@ export class Reports extends React.Component<IReportsProps, IReportsState> {
                                         : null}
                                 </Input>
                             </FormGroup>
-                            <Button color="primary" id="generate-report" type="submit" disabled={false} onClick={this.generateCostReportClick}>
-                                <FontAwesomeIcon icon="file-excel" />&nbsp;
-                  <Translate contentKey="carcare.reports.generate">Generate</Translate>
-                            </Button>
+                            <div className="text-center">
+                                <Button
+                                    color="primary"
+                                    id="generate-report"
+                                    type="submit"
+                                    disabled={this.state.selectedVehicles.length === 0 || !this.state.dateFrom || !this.state.dateTo}
+                                    onClick={this.generateCostReportClick}>
+                                    <FontAwesomeIcon icon="file-excel" />{' '}
+                                    <Translate contentKey="carcare.reports.generate">Generate</Translate>
+                                </Button>
+                            </div>
                         </Form>
                     </Col>
                 </Row>

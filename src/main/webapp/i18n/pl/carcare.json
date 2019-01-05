@@ -147,7 +147,17 @@
             "entity": "Raport",
             "title": "Raporty",
             "generate": "Generuj",
-            "download": "Pobierz"
+            "download": "Pobierz",
+            "vehicle-select": "Pojazd",
+            "vehicle-report": "Szczegóły pojazdu",
+            "cost-report": "Koszty",
+            "date-from": "Od",
+            "date-to": "Do",
+            "vehicles-select": "Pojazdy"
+        },
+        "statistics": {
+            "entity": "Statystyki",
+            "title": "Statystyki"
         }
     }
 }
