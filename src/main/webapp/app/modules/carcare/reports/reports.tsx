@@ -46,19 +46,10 @@ export class Reports extends React.Component<IReportsProps, IReportsState> {
     };
 
     onVehicleSelect = event => {
-        let a = undefined;
-        for (const i of this.props.vehicles) {
-            console.log(i);
-            if (i.id == event.target.value) {
-                a = i;
-            }
-        }
-        console.log(a);
         this.setState({
-            // selectedVehicle: this.props.vehicles.find(x => x.id === event.target.value)
-            selectedVehicle: a
+            ...this.state,
+            selectedVehicle: this.props.vehicles.find(x => x.id == event.target.value)
         });
-        console.log(event.target.value + ' | ' + this.state.selectedVehicle.id + ' | ' + this.state.selectedVehicle.licensePlate);
     }
 
     onVehiclesSelect = event => {
@@ -70,18 +61,21 @@ export class Reports extends React.Component<IReportsProps, IReportsState> {
             }
         }
         this.setState({
+            ...this.state,
             selectedVehicles: value
         });
     }
 
     onDateFromChange = event => {
         this.setState({
+            ...this.state,
             dateFrom: event.target.value
         });
     }
 
     onDateToChange = event => {
         this.setState({
+            ...this.state,
             dateTo: event.target.value
         });
     }
