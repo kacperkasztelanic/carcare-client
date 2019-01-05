@@ -85,8 +85,8 @@ export class Reports extends React.Component<IReportsProps, IReportsState> {
 
     generateCostReportClick = event => {
         event.preventDefault();
-        if (this.state.selectedVehicle !== null) {
-            this.props.downloadCostReport([], new Date(), new Date());
+        if (this.state.selectedVehicles.length !== 0 && this.state.dateFrom !== undefined && this.state.dateTo !== undefined) {
+            this.props.downloadCostReport(this.state.selectedVehicles, this.state.dateFrom, this.state.dateTo);
         }
     }
 
@@ -150,7 +150,7 @@ export class Reports extends React.Component<IReportsProps, IReportsState> {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="toDate">
-                                    <Translate contentKey="carcare.reports.date-from">To</Translate>
+                                    <Translate contentKey="carcare.reports.date-to">To</Translate>
                                 </Label>
                                 <Input
                                     type="date"
