@@ -3,7 +3,6 @@ import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } 
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { IVehicle, defaultValue } from 'app/shared/model/vehicle.model';
-import vehicleDetails from './vehicle-details';
 
 export const ACTION_TYPES = {
     FETCH_VEHICLES: 'vehicle/FETCH_VEHICLES',
@@ -13,8 +12,7 @@ export const ACTION_TYPES = {
     DELETE_VEHICLE: 'vehicle/DELETE_VEHICLE',
     RESET: 'vehicle/RESET',
     FETCH_FUELTYPES: 'vehicle/FETCH_FUELTYPES',
-    OPEN_DETAILS: 'vehicle/OPEN_DETAILS',
-    SET_BLOB: 'photo/SET_BLOB'
+    OPEN_DETAILS: 'vehicle/OPEN_DETAILS'
 };
 
 const initialState = {
@@ -102,19 +100,6 @@ export default (state: VehiclesState = initialState, action): VehiclesState => {
                 ...state,
                 loading: true
             };
-        case ACTION_TYPES.SET_BLOB:
-            const { name, data, contentType } = action.payload;
-            return {
-                ...state,
-                vehicle: {
-                    ...state.vehicle,
-                    vehicleDetails: {
-                        ...state.vehicle.vehicleDetails,
-                        image: data,
-                        imageContentType: contentType
-                    }
-                }
-            };
         case ACTION_TYPES.RESET:
             return {
                 ...state,
@@ -200,13 +185,4 @@ export const getFuelTypes: ICrudGetAllAction<string[]> = () => ({
 
 export const openDetails = () => ({
     type: ACTION_TYPES.OPEN_DETAILS
-});
-
-export const setBlob = (name, data, contentType?) => ({
-    type: ACTION_TYPES.SET_BLOB,
-    payload: {
-        name,
-        data,
-        contentType
-    }
 });

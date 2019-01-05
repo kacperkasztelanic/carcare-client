@@ -3,24 +3,28 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Label, Modal, ModalHeader, ModalBody, Col, Row } from 'reactstrap';
 import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate, setFileData, openFile, byteSize } from 'react-jhipster';
+import { Translate, translate, setFileData } from 'react-jhipster';
 import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
-import { getVehicle, updateVehicle, reset, getFuelTypes, setBlob } from './vehicle.reducer';
+import { getVehicle, updateVehicle, reset, getFuelTypes } from './vehicle.reducer';
 
 export interface IVehicleDetailsUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> { }
 
 export interface IVehicleDetailsUpdateState {
     id: string;
+    blobData: any;
+    blobDataContentType: any;
 }
 
 export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateProps, IVehicleDetailsUpdateState> {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.match.params.id
+            id: this.props.match.params.id,
+            blobData: this.props.vehicleEntity.vehicleDetails.image,
+            blobDataContentType: this.props.vehicleEntity.vehicleDetails.imageContentType
         };
     }
 
@@ -38,7 +42,16 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
     saveEntity = (event, errors, values) => {
         if (errors.length === 0) {
             const { vehicleEntity } = this.props;
-            this.props.updateVehicle(vehicleEntity);
+            const entity = {
+                ...vehicleEntity,
+                ...values,
+                vehicleDetails: {
+                    ...values.vehicleDetails,
+                    image: this.state.blobData,
+                    imageContentType: this.state.blobDataContentType
+                }
+            };
+            this.props.updateVehicle(entity);
         }
     };
 
@@ -48,11 +61,12 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
     };
 
     onBlobChange = (isAnImage, name) => event => {
-        setFileData(event, (contentType, data) => this.props.setBlob(name, data, contentType), isAnImage);
-    };
-
-    clearBlob = name => () => {
-        this.props.setBlob(name, undefined, undefined);
+        setFileData(event, (contentType, data) => (
+            this.setState({
+                ...this.state,
+                blobData: data,
+                blobDataContentType: contentType
+            })), isAnImage);
     };
 
     render() {
@@ -326,8 +340,7 @@ const mapDispatchToProps = {
     getVehicle,
     updateVehicle,
     reset,
-    getFuelTypes,
-    setBlob
+    getFuelTypes
 };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
