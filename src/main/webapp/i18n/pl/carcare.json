@@ -157,7 +157,11 @@
         },
         "statistics": {
             "entity": "Statystyki",
-            "title": "Statystyki"
+            "title": "Statystyki",
+            "vehicle-select": "Pojazd",
+            "date-from": "Od",
+            "date-to": "Do",
+            "calculate": "Oblicz"
         },
         "forthcoming-events": {
             "entity": "Nadchodzące zdarzenie",
@@ -165,7 +169,7 @@
             "vehicles-select": "Pojazdy",
             "date-from": "Od",
             "date-to": "Do",
-            "show": "Pokaż"
+            "search": "Wyszukaj"
         }
     }
 }

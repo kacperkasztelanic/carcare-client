@@ -35,6 +35,7 @@ export class Vehicle extends React.Component<IVehicleProps> {
   }
 
   clickStatistics = () => {
+    this.props.history.push(`${this.props.match.url}/statistics`);
   }
 
   clickEvents = () => {

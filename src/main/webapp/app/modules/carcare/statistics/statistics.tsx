@@ -7,28 +7,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { getVehicles, openDetails } from '../vehicle/vehicle.reducer';
-import { fetchEvents } from './events.reducer';
+import { calculateConsumption } from './statistics.reducer';
 import BackButton from 'app/shared/components/BackButton';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-export interface IEventsProps extends StateProps, DispatchProps, RouteComponentProps<{}> { }
+export interface IStatisticsProps extends StateProps, DispatchProps, RouteComponentProps<{}> { }
 
-export interface IEventsState {
+export interface IStatisticsState {
+    selectedVehicle: any;
     dateFrom: Date;
     dateTo: Date;
-    selectedVehicles: any[];
 }
 
-export class Events extends React.Component<IEventsProps, IEventsState> {
+export class Statistics extends React.Component<IStatisticsProps, IStatisticsState> {
     constructor(props) {
         super(props);
         this.state = {
+            selectedVehicle: {
+                id: ''
+            },
             dateFrom: undefined,
-            dateTo: undefined,
-            selectedVehicles: []
+            dateTo: undefined
         };
         this.onDateFromChange.bind(this);
         this.onDateToChange.bind(this);
-        this.onVehiclesSelect.bind(this);
+        // this.onVehicleSelect.bind(this);
     }
 
     componentDidMount() {
@@ -40,17 +43,11 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
         this.props.history.goBack();
     };
 
-    onVehiclesSelect = event => {
-        const options = event.target.options;
-        const value = [];
-        for (const option of options) {
-            if (option.selected) {
-                value.push(option.value);
-            }
-        }
+    onVehicleSelect = event => {
         this.setState({
-            selectedVehicles: value
+            selectedVehicle: this.props.vehicles.find(x => x.id == event.target.value)
         });
+        console.log(this.state.selectedVehicle.id + ' ' + this.state.selectedVehicle.licensePlate);
     }
 
     onDateFromChange = event => {
@@ -65,22 +62,34 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
         });
     }
 
-    fetchEventsClick = event => {
+    calculateClick = event => {
         event.preventDefault();
-        if (this.state.selectedVehicles.length !== 0 && this.state.dateFrom !== undefined && this.state.dateTo !== undefined) {
-            this.props.fetchEvents(this.state.selectedVehicles, this.state.dateFrom, this.state.dateTo);
+        if (this.state.selectedVehicle.id !== '' && this.state.dateFrom !== undefined && this.state.dateTo !== undefined) {
+            this.props.calculateConsumption(this.state.selectedVehicle, this.state.dateFrom, this.state.dateTo);
         }
+    }
+
+    prepareConsumptionData = () => {
+        const result = [];
+        for (const consumptionResult of this.props.consumptionResults) {
+            result.push({
+                name: consumptionResult.periodVehicle.dateTo,
+                fc: consumptionResult.averageConsumption
+            });
+        }
+        return result;
     }
 
     render() {
         const { vehicles } = this.props;
+        const consumptionData = this.prepareConsumptionData();
         return (
             <div>
                 <Row>
                     <Col md="12" sd="12">
                         <h3>
                             <FontAwesomeIcon icon="calendar-alt" />{' '}
-                            <Translate contentKey="carcare.forthcoming-events.title">Forthcoming events</Translate>
+                            <Translate contentKey="carcare.statistics.title">Forthcoming events</Translate>
                         </h3>
                         <hr />
                     </Col>
@@ -90,10 +99,10 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
                         <Col md="4" sd="12">
                             <FormGroup>
                                 <Label for="vehicleSelect">
-                                    <Translate contentKey="carcare.forthcoming-events.vehicles-select">Vehicles</Translate>
+                                    <Translate contentKey="carcare.statistics.vehicle-select">Vehicle</Translate>
                                 </Label>
-                                <Input type="select" multiple name="selectMultiple" id="vehicleSelectMultiple" onChange={this.onVehiclesSelect}>
-                                    <option disabled hidden />
+                                <Input type="select" name="select" id="vehicleSelect" onChange={this.onVehicleSelect}>
+                                    {/* <option disabled hidden /> */}
                                     {vehicles
                                         ? vehicles.map(x => (
                                             <option value={x.id} key={x.id}>
@@ -107,7 +116,7 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
                         <Col md="4" sd="12">
                             <FormGroup>
                                 <Label for="fromDate">
-                                    <Translate contentKey="carcare.forthcoming-events.date-from">From</Translate>
+                                    <Translate contentKey="carcare.statistics.date-from">From</Translate>
                                 </Label>
                                 <Input
                                     type="date"
@@ -120,7 +129,7 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
                         <Col md="4" sd="12">
                             <FormGroup>
                                 <Label for="toDate">
-                                    <Translate contentKey="carcare.forthcoming-events.date-to">To</Translate>
+                                    <Translate contentKey="carcare.statistics.date-to">To</Translate>
                                 </Label>
                                 <Input
                                     type="date"
@@ -129,15 +138,19 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
                                     onChange={this.onDateToChange}
                                 />
                             </FormGroup>
-                            <div className="text-right">
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md="12" sd="12">
+                            <div className="text-center">
                                 <Button
                                     color="primary"
                                     id="generate-report"
                                     type="submit"
-                                    disabled={this.state.selectedVehicles.length === 0 || !this.state.dateFrom || !this.state.dateTo}
-                                    onClick={this.fetchEventsClick}>
-                                    <FontAwesomeIcon icon="search" />{' '}
-                                    <Translate contentKey="carcare.forthcoming-events.search">Search</Translate>
+                                    disabled={this.state.selectedVehicle.id !== '' || !this.state.dateFrom || !this.state.dateTo}
+                                    onClick={this.calculateClick}>
+                                    <FontAwesomeIcon icon="calculator" />{' '}
+                                    <Translate contentKey="carcare.statistics.calculate">Calculate</Translate>
                                 </Button>
                             </div>
                         </Col>
@@ -149,9 +162,21 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md="6" sd="12">
-                    </Col>
-                    <Col md="6" sd="12">
+                    <Col md="12" sd="12">
+                        <div className="text-center"><h4>
+                            <Translate contentKey="carcare.statistics.title">Fuel consumption</Translate>
+                        </h4></div>
+                        <ResponsiveContainer width="100%" aspect={15 / 5}>
+                            <BarChart data={consumptionData}
+                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                <Bar dataKey="fc" fill="#8884d8" />
+                            </BarChart>
+                        </ResponsiveContainer>
+
                     </Col>
                 </Row>
                 <hr />
@@ -163,10 +188,11 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
 
 const mapStateToProps = (storeState: IRootState) => ({
     vehicles: storeState.vehicles.vehicles,
-    totalItems: storeState.vehicles.totalItems
+    totalItems: storeState.vehicles.totalItems,
+    consumptionResults: storeState.statistics.consumptionResults
 });
 
-const mapDispatchToProps = { getVehicles, openDetails, fetchEvents };
+const mapDispatchToProps = { getVehicles, openDetails, calculateConsumption };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
@@ -174,4 +200,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Events);
+)(Statistics);
