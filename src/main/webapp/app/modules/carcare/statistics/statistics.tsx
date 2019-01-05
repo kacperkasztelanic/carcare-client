@@ -31,7 +31,7 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
         };
         this.onDateFromChange.bind(this);
         this.onDateToChange.bind(this);
-        // this.onVehicleSelect.bind(this);
+        this.onVehicleSelect.bind(this);
     }
 
     componentDidMount() {
@@ -45,19 +45,21 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
 
     onVehicleSelect = event => {
         this.setState({
+            ...this.state,
             selectedVehicle: this.props.vehicles.find(x => x.id == event.target.value)
         });
-        console.log(this.state.selectedVehicle.id + ' ' + this.state.selectedVehicle.licensePlate);
     }
 
     onDateFromChange = event => {
         this.setState({
+            ...this.state,
             dateFrom: event.target.value
         });
     }
 
     onDateToChange = event => {
         this.setState({
+            ...this.state,
             dateTo: event.target.value
         });
     }
@@ -101,8 +103,8 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
                                 <Label for="vehicleSelect">
                                     <Translate contentKey="carcare.statistics.vehicle-select">Vehicle</Translate>
                                 </Label>
-                                <Input type="select" name="select" id="vehicleSelect" onChange={this.onVehicleSelect}>
-                                    {/* <option disabled hidden /> */}
+                                <Input type="select" name="select" id="vehicleSelect" value={this.state.selectedVehicle.id} onChange={this.onVehicleSelect}>
+                                    <option disabled hidden />
                                     {vehicles
                                         ? vehicles.map(x => (
                                             <option value={x.id} key={x.id}>
@@ -147,7 +149,7 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
                                     color="primary"
                                     id="generate-report"
                                     type="submit"
-                                    disabled={this.state.selectedVehicle.id !== '' || !this.state.dateFrom || !this.state.dateTo}
+                                    disabled={this.state.selectedVehicle.id === '' || !this.state.dateFrom || !this.state.dateTo}
                                     onClick={this.calculateClick}>
                                     <FontAwesomeIcon icon="calculator" />{' '}
                                     <Translate contentKey="carcare.statistics.calculate">Calculate</Translate>

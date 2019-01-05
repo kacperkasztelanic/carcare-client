@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { IVehicle } from 'app/shared/model/vehicle.model';
-import { ICostRequest } from 'app/shared/model/cost-request.model'
+import { ICostRequest } from 'app/shared/model/cost-request.model';
 
 export const ACTION_TYPES = {
     DOWNLOAD_REPORT: 'reports/DOWNLOAD_REPORT',
