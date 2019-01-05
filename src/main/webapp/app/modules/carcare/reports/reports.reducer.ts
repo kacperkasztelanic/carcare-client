@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { IVehicle } from 'app/shared/model/vehicle.model';
+import { ICostRequest } from 'app/shared/model/cost-request.model'
 
 export const ACTION_TYPES = {
     DOWNLOAD_REPORT: 'reports/DOWNLOAD_REPORT',
@@ -38,10 +39,10 @@ export const downloadCostReport = (ids: any[], from: Date, to: Date) => {
     const config = {
         responseType: 'blob'
     };
-    const body = {
-        ids,
-        from,
-        to
+    const body: ICostRequest = {
+        vehicleIds: ids,
+        dateFrom: from,
+        dateTo: to
     };
     return {
         type: ACTION_TYPES.COSTS_REPORT,
