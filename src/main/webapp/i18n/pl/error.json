@@ -3,6 +3,7 @@
         "title": "Strona błędu!",
         "http": {
             "400": "Nieprawidłowe żądanie.",
+            "401": "Nie masz praw dostępu do tej strony.",
             "403": "Nie masz praw dostępu do tej strony.",
             "405": "Typ żądania HTTP nie jest obsługiwany przez ten adres.",
             "500": "Wewnętrzny błąd serwera."
