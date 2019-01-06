@@ -10,7 +10,7 @@ import { IRootState } from 'app/shared/reducers';
 import { getVehicles } from '../vehicle/vehicle.reducer';
 import { calculateConsumption, reset } from './statistics.reducer';
 import BackButton from 'app/shared/components/BackButton';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
 
 export interface IStatisticsProps extends StateProps, DispatchProps, RouteComponentProps<{}> { }
 
@@ -75,19 +75,22 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
     }
 
     prepareConsumptionData = () => {
-        const result = [];
-        for (const consumptionResult of this.props.consumptionResults) {
-            result.push({
-                name: consumptionResult.periodVehicle.dateTo,
-                fc: consumptionResult.averageConsumption
-            });
-        }
-        return result;
+        return this.props.consumptionResults.map(x => ({ name: x.periodVehicle.dateTo, fc: x.averageConsumption }));
+    }
+
+    prepareCostData = () => {
+        return null;
+    }
+
+    prepareMileageData = () => {
+        return null;
     }
 
     render() {
         const { vehicles, loading, calculated } = this.props;
         const consumptionData = this.prepareConsumptionData();
+        const costData = this.prepareCostData();
+        const mileageData = this.prepareMileageData();
         return (
             <div>
                 <Row>
@@ -172,11 +175,11 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
                 {calculated ? (
                     <div>
                         <Row>
-                            <Col md="12" sd="12">
+                            <Col md="6" sd="12">
                                 <div className="text-center"><h4>
-                                    <Translate contentKey="carcare.statistics.title">Fuel consumption</Translate>
+                                    <Translate contentKey="carcare.statistics.fuel-consumption" interpolate={{ unit: 'dm3/100km' }}>Fuel consumption</Translate>
                                 </h4></div>
-                                <ResponsiveContainer width="100%" aspect={15 / 5}>
+                                <ResponsiveContainer width="100%" aspect={16 / 9}>
                                     <BarChart data={consumptionData}
                                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                                         <CartesianGrid strokeDasharray="3 3" />
@@ -186,7 +189,35 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
                                         <Bar dataKey="fc" fill="#8884d8" />
                                     </BarChart>
                                 </ResponsiveContainer>
-
+                            </Col>
+                            <Col md="6" sd="12">
+                                <div className="text-center"><h4>
+                                    <Translate contentKey="carcare.statistics.costs" interpolate={{ unit: 'PLN' }}>Costs</Translate>
+                                </h4></div>
+                                <ResponsiveContainer width="100%" aspect={16 / 9}>
+                                    <BarChart data={costData}
+                                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="name" />
+                                        <YAxis />
+                                        <Tooltip />
+                                        <Bar dataKey="fc" fill="#8884d8" />
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md="12" sd="12">
+                                <ResponsiveContainer width="100%" aspect={16 / 9}>
+                                    <LineChart width={600} height={300} data={mileageData}
+                                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                                        <XAxis dataKey="name" />
+                                        <YAxis />
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <Tooltip />
+                                        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                                    </LineChart>
+                                </ResponsiveContainer>
                             </Col>
                         </Row>
                     </div>) : null}

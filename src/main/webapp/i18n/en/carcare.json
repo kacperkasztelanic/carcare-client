@@ -161,7 +161,8 @@
             "vehicle-select": "Vehicle",
             "date-from": "From",
             "date-to": "To",
-            "calculate": "Calculate"
+            "calculate": "Calculate",
+            "fuel-consumption": "Fuel consumption ({{ unit }})"
         },
         "forthcoming-events": {
             "entity": "Forthcoming event",
