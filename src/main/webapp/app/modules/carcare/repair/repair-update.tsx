@@ -26,12 +26,6 @@ export class RepairUpdate extends React.Component<IRepairUpdateProps, IRepairUpd
         };
     }
 
-    componentWillUpdate(nextProps, nextState) {
-        if (nextProps.updateSuccess !== this.props.updateSuccess && nextProps.updateSuccess) {
-            this.handleClose(event);
-        }
-    }
-
     componentDidMount() {
         if (this.state.isNew) {
             this.props.reset();
@@ -54,6 +48,7 @@ export class RepairUpdate extends React.Component<IRepairUpdateProps, IRepairUpd
             } else {
                 this.props.updateRepair(entity);
             }
+            this.handleClose(event);
         }
     };
 

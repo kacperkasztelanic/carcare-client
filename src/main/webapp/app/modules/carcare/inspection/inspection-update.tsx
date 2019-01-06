@@ -26,12 +26,6 @@ export class InspectionUpdate extends React.Component<IInspectionUpdateProps, II
         };
     }
 
-    componentWillUpdate(nextProps, nextState) {
-        if (nextProps.updateSuccess !== this.props.updateSuccess && nextProps.updateSuccess) {
-            this.handleClose(event);
-        }
-    }
-
     componentDidMount() {
         if (this.state.isNew) {
             this.props.reset();
@@ -54,6 +48,7 @@ export class InspectionUpdate extends React.Component<IInspectionUpdateProps, II
             } else {
                 this.props.updateInspection(entity);
             }
+            this.handleClose(event);
         }
     };
 

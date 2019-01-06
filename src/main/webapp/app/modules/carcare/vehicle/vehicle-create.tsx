@@ -26,12 +26,6 @@ export class VehicleCreate extends React.Component<IVehicleCreateProps, IVehicle
         };
     }
 
-    componentWillUpdate(nextProps, nextState) {
-        if (nextProps.updateSuccess !== this.props.updateSuccess && nextProps.updateSuccess) {
-            this.handleClose(event);
-        }
-    }
-
     componentDidMount() {
         if (this.state.isNew) {
             this.props.reset();
@@ -55,6 +49,7 @@ export class VehicleCreate extends React.Component<IVehicleCreateProps, IVehicle
             } else {
                 this.props.updateVehicle(entity);
             }
+            this.handleClose(event);
         }
     };
 

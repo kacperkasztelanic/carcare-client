@@ -26,12 +26,6 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
         };
     }
 
-    componentWillUpdate(nextProps, nextState) {
-        if (nextProps.updateSuccess !== this.props.updateSuccess && nextProps.updateSuccess) {
-            this.handleClose(event);
-        }
-    }
-
     componentDidMount() {
         if (this.state.isNew) {
             this.props.reset();
@@ -55,6 +49,7 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
             } else {
                 this.props.updateInsurance(entity);
             }
+            this.handleClose(event);
         }
     };
 

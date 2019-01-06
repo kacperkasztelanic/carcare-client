@@ -26,12 +26,6 @@ export class ServiceUpdate extends React.Component<IServiceUpdateProps, IService
         };
     }
 
-    componentWillUpdate(nextProps, nextState) {
-        if (nextProps.updateSuccess !== this.props.updateSuccess && nextProps.updateSuccess) {
-            this.handleClose(event);
-        }
-    }
-
     componentDidMount() {
         if (this.state.isNew) {
             this.props.reset();
@@ -54,6 +48,7 @@ export class ServiceUpdate extends React.Component<IServiceUpdateProps, IService
             } else {
                 this.props.updateService(entity);
             }
+            this.handleClose(event);
         }
     };
 
