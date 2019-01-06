@@ -8,9 +8,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { getVehicles } from '../vehicle/vehicle.reducer';
-import { calculateConsumption, reset } from './statistics.reducer';
+import { calculateConsumption, calculateCosts, calculateMileage, reset } from './statistics.reducer';
 import BackButton from 'app/shared/components/BackButton';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, LabelList } from 'recharts';
+import { APP_COLOR_GREEN, APP_COLOR_BLUE, APP_COLOR_CYAN, APP_COLOR_RED, APP_COLOR_YELLOW } from 'app/config/constants';
 
 export interface IStatisticsProps extends StateProps, DispatchProps, RouteComponentProps<{}> { }
 
@@ -36,7 +37,6 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
     }
 
     componentDidMount() {
-        console.log('ComponentDidMount');
         this.props.reset();
         this.props.getVehicles();
     }
@@ -71,33 +71,20 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
         event.preventDefault();
         if (this.state.selectedVehicle.id !== '' && this.state.dateFrom !== undefined && this.state.dateTo !== undefined) {
             this.props.calculateConsumption(this.state.selectedVehicle, this.state.dateFrom, this.state.dateTo);
+            this.props.calculateCosts(this.state.selectedVehicle, this.state.dateFrom, this.state.dateTo);
+            this.props.calculateMileage(this.state.selectedVehicle, this.state.dateFrom, this.state.dateTo);
         }
     }
 
-    prepareConsumptionData = () => {
-        return this.props.consumptionResults.map(x => ({ name: x.periodVehicle.dateTo, fc: x.averageConsumption }));
-    }
-
-    prepareCostData = () => {
-        return null;
-    }
-
-    prepareMileageData = () => {
-        return null;
-    }
-
     render() {
-        const { vehicles, loading, calculated } = this.props;
-        const consumptionData = this.prepareConsumptionData();
-        const costData = this.prepareCostData();
-        const mileageData = this.prepareMileageData();
+        const { vehicles, loading, calculated, consumptionResults, costsResults, mileageResults, minMileage } = this.props;
         return (
             <div>
                 <Row>
                     <Col md="12" sd="12">
                         <h3>
-                            <FontAwesomeIcon icon="calendar-alt" />{' '}
-                            <Translate contentKey="carcare.statistics.title">Forthcoming events</Translate>
+                            <FontAwesomeIcon icon="chart-bar" />{' '}
+                            <Translate contentKey="carcare.statistics.title">Statistics</Translate>
                         </h3>
                         <hr />
                     </Col>
@@ -176,46 +163,74 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
                     <div>
                         <Row>
                             <Col md="6" sd="12">
-                                <div className="text-center"><h4>
-                                    <Translate contentKey="carcare.statistics.fuel-consumption" interpolate={{ unit: 'dm3/100km' }}>Fuel consumption</Translate>
-                                </h4></div>
+                                <div className="text-center">
+                                    <h4>
+                                        <Translate contentKey="carcare.statistics.fuel-consumption" interpolate={{ unit: 'dm3/100km' }}>Fuel consumption</Translate>
+                                    </h4>
+                                </div>
                                 <ResponsiveContainer width="100%" aspect={16 / 9}>
-                                    <BarChart data={consumptionData}
+                                    <BarChart data={consumptionResults}
                                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                                         <CartesianGrid strokeDasharray="3 3" />
                                         <XAxis dataKey="name" />
                                         <YAxis />
                                         <Tooltip />
-                                        <Bar dataKey="fc" fill="#8884d8" />
+                                        <Bar dataKey="consumption" fill={APP_COLOR_CYAN}>
+                                            <LabelList dataKey="consumption" position="inside" />
+                                        </Bar>
                                     </BarChart>
                                 </ResponsiveContainer>
                             </Col>
                             <Col md="6" sd="12">
-                                <div className="text-center"><h4>
-                                    <Translate contentKey="carcare.statistics.costs" interpolate={{ unit: 'PLN' }}>Costs</Translate>
-                                </h4></div>
+                                <div className="text-center">
+                                    <h4>
+                                        <Translate contentKey="carcare.statistics.costs" interpolate={{ unit: 'PLN' }}>Costs</Translate>
+                                    </h4>
+                                </div>
                                 <ResponsiveContainer width="100%" aspect={16 / 9}>
-                                    <BarChart data={costData}
+                                    <BarChart data={costsResults}
                                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                                         <CartesianGrid strokeDasharray="3 3" />
                                         <XAxis dataKey="name" />
                                         <YAxis />
                                         <Tooltip />
-                                        <Bar dataKey="fc" fill="#8884d8" />
+                                        <Bar dataKey="refuels" fill={APP_COLOR_GREEN}>
+                                            <LabelList dataKey="refuels" position="inside" />
+                                        </Bar>
+                                        <Bar dataKey="insurances" fill={APP_COLOR_BLUE}>
+                                            <LabelList dataKey="insurances" position="inside" />
+                                        </Bar>
+                                        <Bar dataKey="inspections" fill={APP_COLOR_CYAN}>
+                                            <LabelList dataKey="inspections" position="inside" />
+                                        </Bar>
+                                        <Bar dataKey="services" fill={APP_COLOR_YELLOW}>
+                                            <LabelList dataKey="services" position="inside" />
+                                        </Bar>
+                                        <Bar dataKey="repairs" fill={APP_COLOR_RED}>
+                                            <LabelList dataKey="repairs" position="inside" />
+                                        </Bar>
+                                        <Legend layout="vertical" verticalAlign="middle" align="right" />
                                     </BarChart>
                                 </ResponsiveContainer>
                             </Col>
                         </Row>
                         <Row>
                             <Col md="12" sd="12">
-                                <ResponsiveContainer width="100%" aspect={16 / 9}>
-                                    <LineChart width={600} height={300} data={mileageData}
+                                <div className="text-center">
+                                    <h4>
+                                        <Translate contentKey="carcare.statistics.mileage" interpolate={{ unit: 'km' }}>Mileage</Translate>
+                                    </h4>
+                                </div>
+                                <ResponsiveContainer width="100%" aspect={32 / 9}>
+                                    <LineChart data={mileageResults}
                                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                                         <XAxis dataKey="name" />
-                                        <YAxis />
+                                        <YAxis domain={[minMileage, 'auto']} />
                                         <CartesianGrid strokeDasharray="3 3" />
                                         <Tooltip />
-                                        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                                        <Line type="monotone" dataKey="mileage" stroke={APP_COLOR_CYAN}>
+                                            <LabelList dataKey="mileage" position="bottom" />
+                                        </Line>
                                     </LineChart>
                                 </ResponsiveContainer>
                             </Col>
@@ -232,11 +247,14 @@ const mapStateToProps = (storeState: IRootState) => ({
     vehicles: storeState.vehicles.vehicles,
     totalItems: storeState.vehicles.totalItems,
     consumptionResults: storeState.statistics.consumptionResults,
+    costsResults: storeState.statistics.costsResults,
+    mileageResults: storeState.statistics.mileageResults,
+    minMileage: storeState.statistics.minMileage,
     calculated: storeState.statistics.calculated,
-    loading: storeState.statistics.loading,
+    loading: storeState.statistics.loading
 });
 
-const mapDispatchToProps = { getVehicles, calculateConsumption, reset };
+const mapDispatchToProps = { getVehicles, calculateConsumption, calculateCosts, calculateMileage, reset };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

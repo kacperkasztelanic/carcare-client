@@ -162,7 +162,9 @@
             "date-from": "From",
             "date-to": "To",
             "calculate": "Calculate",
-            "fuel-consumption": "Fuel consumption ({{ unit }})"
+            "fuel-consumption": "Fuel consumption ({{ unit }})",
+            "costs": "Costs ({{ unit }})",
+            "mileage": "Mileage ({{ unit }})"
         },
         "forthcoming-events": {
             "entity": "Forthcoming event",

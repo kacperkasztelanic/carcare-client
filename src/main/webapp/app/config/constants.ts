@@ -24,3 +24,9 @@ export const APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT = '0,0.[00]';
 export const APP_TWO_DIGITS_AFTER_POINT_NUMBER_FORMAT_ALWAYS = '0,0.00';
 
 export const APP_COMPACT_DETAILS_LENGTH = 50;
+
+export const APP_COLOR_GREEN = '#28A745';
+export const APP_COLOR_BLUE = '#007BFF';
+export const APP_COLOR_CYAN = '#17A2B8';
+export const APP_COLOR_YELLOW = '#FFC107';
+export const APP_COLOR_RED = '#DC3545';

@@ -10,6 +10,7 @@
     "removeComments": false,
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
+    "downlevelIteration": true,
     "outDir": "build/www/app",
     "lib": ["es2015", "es2017", "dom"],
     "typeRoots": [

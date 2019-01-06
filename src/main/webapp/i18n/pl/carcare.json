@@ -161,7 +161,10 @@
             "vehicle-select": "Pojazd",
             "date-from": "Od",
             "date-to": "Do",
-            "calculate": "Oblicz"
+            "calculate": "Oblicz",
+            "fuel-consumption": "Zużycie paliwa ({{ unit }})",
+            "costs": "Koszty ({{ unit }})",
+            "mileage": "Przebieg ({{ unit }})"
         },
         "forthcoming-events": {
             "entity": "Nadchodzące zdarzenie",
