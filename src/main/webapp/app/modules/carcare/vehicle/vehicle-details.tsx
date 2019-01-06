@@ -166,7 +166,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                             </dl>
                         </Col>
                         <Col md="3" sd="12" className="text-right">
-                            <img src={`data:image/jpeg;base64,${vehicleEntity.vehicleDetails.image}`} style={{ height: '250px' }} />
+                            <img src={`data:image/jpeg;base64,${vehicleEntity.vehicleDetails.image}`} style={{ width: '90%' }} />
                         </Col>
                     </Row>
                     <hr />
