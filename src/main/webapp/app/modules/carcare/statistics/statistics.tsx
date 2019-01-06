@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Translate } from 'react-jhipster';
+import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
-import { getVehicles, openDetails } from '../vehicle/vehicle.reducer';
-import { calculateConsumption } from './statistics.reducer';
+import { getVehicles } from '../vehicle/vehicle.reducer';
+import { calculateConsumption, reset } from './statistics.reducer';
 import BackButton from 'app/shared/components/BackButton';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
@@ -35,6 +36,8 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
     }
 
     componentDidMount() {
+        console.log('ComponentDidMount');
+        this.props.reset();
         this.props.getVehicles();
     }
 
@@ -83,7 +86,7 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
     }
 
     render() {
-        const { vehicles } = this.props;
+        const { vehicles, loading, calculated } = this.props;
         const consumptionData = this.prepareConsumptionData();
         return (
             <div>
@@ -163,24 +166,30 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
                         <hr />
                     </Col>
                 </Row>
-                <Row>
-                    <Col md="12" sd="12">
-                        <div className="text-center"><h4>
-                            <Translate contentKey="carcare.statistics.title">Fuel consumption</Translate>
-                        </h4></div>
-                        <ResponsiveContainer width="100%" aspect={15 / 5}>
-                            <BarChart data={consumptionData}
-                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                <Bar dataKey="fc" fill="#8884d8" />
-                            </BarChart>
-                        </ResponsiveContainer>
+                {loading ? (
+                    <ReactLoading type="bubbles" color="17A2B8" />
+                ) : null}
+                {calculated ? (
+                    <div>
+                        <Row>
+                            <Col md="12" sd="12">
+                                <div className="text-center"><h4>
+                                    <Translate contentKey="carcare.statistics.title">Fuel consumption</Translate>
+                                </h4></div>
+                                <ResponsiveContainer width="100%" aspect={15 / 5}>
+                                    <BarChart data={consumptionData}
+                                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="name" />
+                                        <YAxis />
+                                        <Tooltip />
+                                        <Bar dataKey="fc" fill="#8884d8" />
+                                    </BarChart>
+                                </ResponsiveContainer>
 
-                    </Col>
-                </Row>
+                            </Col>
+                        </Row>
+                    </div>) : null}
                 <hr />
                 <BackButton handleFunction={this.handleClose} />
             </div >
@@ -191,10 +200,12 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
 const mapStateToProps = (storeState: IRootState) => ({
     vehicles: storeState.vehicles.vehicles,
     totalItems: storeState.vehicles.totalItems,
-    consumptionResults: storeState.statistics.consumptionResults
+    consumptionResults: storeState.statistics.consumptionResults,
+    calculated: storeState.statistics.calculated,
+    loading: storeState.statistics.loading,
 });
 
-const mapDispatchToProps = { getVehicles, openDetails, calculateConsumption };
+const mapDispatchToProps = { getVehicles, calculateConsumption, reset };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

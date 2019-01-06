@@ -11,6 +11,7 @@ export const ACTION_TYPES = {
 
 const initialState = {
     loading: false,
+    calculated: false,
     errorMessage: null,
     consumptionResults: [] as ReadonlyArray<IAverageConumptionResult>
 };
@@ -29,16 +30,21 @@ export default (state: StatisticsState = initialState, action): StatisticsState 
             return {
                 ...state,
                 loading: false,
+                calculated: false,
                 errorMessage: action.payload
             };
         case SUCCESS(ACTION_TYPES.CALCULATE_CONSUMPTION):
             return {
                 ...state,
                 loading: false,
+                calculated: true,
                 consumptionResults: action.payload.data
             };
         case ACTION_TYPES.RESET:
-            return initialState;
+            console.log('RESET CALLED KURWA');
+            return {
+                ...initialState
+            }
         default:
             return state;
     }
