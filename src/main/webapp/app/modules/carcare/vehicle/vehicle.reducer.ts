@@ -3,6 +3,7 @@ import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } 
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { IVehicle, defaultValue } from 'app/shared/model/vehicle.model';
+import { IFuelType } from 'app/shared/model/fuel-type.model';
 
 export const ACTION_TYPES = {
     FETCH_VEHICLES: 'vehicle/FETCH_VEHICLES',
@@ -23,7 +24,8 @@ const initialState = {
     updating: false,
     updateSuccess: false,
     totalItems: 0,
-    fuelTypes: [] as ReadonlyArray<string>
+    fuelTypes: [] as ReadonlyArray<IFuelType>,
+    fuelTypesLoading: false
 };
 
 export type VehiclesState = Readonly<typeof initialState>;
@@ -32,12 +34,19 @@ export default (state: VehiclesState = initialState, action): VehiclesState => {
     switch (action.type) {
         case REQUEST(ACTION_TYPES.FETCH_VEHICLES):
         case REQUEST(ACTION_TYPES.FETCH_VEHICLE):
-        case REQUEST(ACTION_TYPES.FETCH_FUELTYPES):
             return {
                 ...state,
                 errorMessage: null,
                 updateSuccess: false,
                 loading: true
+            };
+        case REQUEST(ACTION_TYPES.FETCH_FUELTYPES):
+            return {
+                ...state,
+                errorMessage: null,
+                updateSuccess: false,
+                loading: true,
+                fuelTypesLoading: true
             };
         case REQUEST(ACTION_TYPES.CREATE_VEHICLE):
         case REQUEST(ACTION_TYPES.UPDATE_VEHICLE):
@@ -53,13 +62,13 @@ export default (state: VehiclesState = initialState, action): VehiclesState => {
         case FAILURE(ACTION_TYPES.CREATE_VEHICLE):
         case FAILURE(ACTION_TYPES.UPDATE_VEHICLE):
         case FAILURE(ACTION_TYPES.DELETE_VEHICLE):
-        case FAILURE(ACTION_TYPES.FETCH_FUELTYPES):
             return {
                 ...state,
                 loading: false,
                 updating: false,
                 updateSuccess: false,
-                errorMessage: action.payload
+                errorMessage: action.payload,
+                fuelTypesLoading: false
             };
         case SUCCESS(ACTION_TYPES.FETCH_VEHICLES):
             return {
@@ -92,8 +101,8 @@ export default (state: VehiclesState = initialState, action): VehiclesState => {
         case SUCCESS(ACTION_TYPES.FETCH_FUELTYPES):
             return {
                 ...state,
-                loading: false,
-                fuelTypes: action.payload.data
+                fuelTypes: action.payload.data,
+                fuelTypesLoading: false
             };
         case ACTION_TYPES.OPEN_DETAILS:
             return {
@@ -134,9 +143,16 @@ export const getVehicle: ICrudGetAction<IVehicle> = id => {
 };
 
 export const createVehicle: ICrudPutAction<IVehicle> = vehicle => async dispatch => {
+    const updated = {
+        ...vehicle,
+        fuelType: {
+            type: vehicle.fuelType,
+            translation: ''
+        }
+    };
     const result = await dispatch({
         type: ACTION_TYPES.CREATE_VEHICLE,
-        payload: axios.post(apiUrl, vehicle)
+        payload: axios.post(apiUrl, updated)
     });
     dispatch(getVehicles());
     return result;
@@ -144,8 +160,12 @@ export const createVehicle: ICrudPutAction<IVehicle> = vehicle => async dispatch
 
 export const updateVehicle: ICrudPutAction<IVehicle> = vehicle => async dispatch => {
     const requestUrl = `${apiUrl}/${vehicle.id}`;
-    vehicle = {
+    const updated = {
         ...vehicle,
+        fuelType: {
+            type: vehicle.fuelType,
+            translation: ''
+        },
         vehicleDetails: {
             ...vehicle.vehicleDetails,
             modelSuffix: vehicle.vehicleDetails.modelSuffix.trim(),
@@ -157,7 +177,7 @@ export const updateVehicle: ICrudPutAction<IVehicle> = vehicle => async dispatch
     };
     const result = await dispatch({
         type: ACTION_TYPES.UPDATE_VEHICLE,
-        payload: axios.put(requestUrl, vehicle)
+        payload: axios.put(requestUrl, updated)
     });
     dispatch(getVehicle(vehicle.id));
     return result;
@@ -178,9 +198,9 @@ export const reset = () => ({
 });
 
 const fuelTypeApiUrl = 'api/fuel-type';
-export const getFuelTypes: ICrudGetAllAction<string[]> = () => ({
+export const getFuelTypes: ICrudGetAllAction<IFuelType[]> = () => ({
     type: ACTION_TYPES.FETCH_FUELTYPES,
-    payload: axios.get<string[]>(fuelTypeApiUrl)
+    payload: axios.get<IFuelType[]>(fuelTypeApiUrl)
 });
 
 export const openDetails = () => ({

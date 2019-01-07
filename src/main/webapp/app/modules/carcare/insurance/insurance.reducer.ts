@@ -3,6 +3,7 @@ import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } 
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 import { IInsurance, defaultValue } from 'app/shared/model/insurance.model';
+import { IInsuranceType } from 'app/shared/model/insurance-type.model';
 
 export const ACTION_TYPES = {
     FETCH_INSURANCES: 'insurance/FETCH_INSURANCES',
@@ -22,7 +23,7 @@ const initialState = {
     updating: false,
     updateSuccess: false,
     totalItems: 0,
-    insuranceTypes: [] as ReadonlyArray<string>
+    insuranceTypes: [] as ReadonlyArray<IInsuranceType>
 };
 
 export type InsurancesState = Readonly<typeof initialState>;
@@ -134,10 +135,10 @@ export const getInsurance: ICrudGetAction<IInsurance> = id => {
 
 export const createInsurance: ICrudPutAction<IInsurance> = insurance => async dispatch => {
     const requestUrl = `${apiUrl}/${insurance.vehicleId}`;
-    insurance = prepareToDispatch(insurance);
+    const updated = prepareToDispatchOnCreate(insurance);
     const result = await dispatch({
         type: ACTION_TYPES.CREATE_INSURANCE,
-        payload: axios.post(requestUrl, insurance)
+        payload: axios.post(requestUrl, updated)
     });
     dispatch(getInsurances(insurance.vehicleId));
     return result;
@@ -145,16 +146,17 @@ export const createInsurance: ICrudPutAction<IInsurance> = insurance => async di
 
 export const updateInsurance: ICrudPutAction<IInsurance> = insurance => async dispatch => {
     const requestUrl = `${apiUrl}/${insurance.id}`;
-    insurance = prepareToDispatch(insurance);
+    const updated = prepareToDispatchOnUpdate(insurance);
     const result = await dispatch({
         type: ACTION_TYPES.UPDATE_INSURANCE,
-        payload: axios.put(requestUrl, insurance)
+        payload: axios.put(requestUrl, updated)
     });
     dispatch(getInsurances(insurance.vehicleId));
     return result;
 };
 
 export const deleteInsurance: ICrudDeleteAction<IInsurance> = id => async dispatch => {
+    console.log(id);
     const requestUrl = `${apiUrl}/${id}`;
     const insurance = await dispatch({
         type: ACTION_TYPES.FETCH_INSURANCE,
@@ -174,17 +176,26 @@ export const reset = () => ({
 });
 
 const insuranceTypeApiUrl = 'api/insurance-type';
-export const getInsuranceTypes: ICrudGetAllAction<string[]> = () => ({
+export const getInsuranceTypes: ICrudGetAllAction<IInsuranceType[]> = () => ({
     type: ACTION_TYPES.FETCH_INSURANCETYPES,
-    payload: axios.get<string[]>(insuranceTypeApiUrl)
+    payload: axios.get<IInsuranceType[]>(insuranceTypeApiUrl)
 });
 
-const prepareToDispatch = (insurance: IInsurance): IInsurance => ({
+const prepareToDispatchOnCreate = (insurance: IInsurance) => ({
+    ...insurance,
+    costInCents: insurance.costInCents * 100,
+    insuranceType: {
+        type: insurance.insuranceType,
+        translation: ''
+    }
+});
+
+const prepareToDispatchOnUpdate = (insurance: IInsurance) => ({
     ...insurance,
     costInCents: insurance.costInCents * 100
 });
 
-const prepareAfterReceive = (insurance: IInsurance): IInsurance => ({
+const prepareAfterReceive = (insurance: IInsurance) => ({
     ...insurance,
     costInCents: insurance.costInCents / 100
 });

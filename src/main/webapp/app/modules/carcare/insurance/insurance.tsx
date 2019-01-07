@@ -102,7 +102,7 @@ export class Insurance extends React.Component<IInsuranceProps, IInsuranceUpdate
                   <TextFormat value={insurance.vehicleEvent.date} type="date" format={APP_LOCAL_DATE_FORMAT} blankOnInvalid />
                 </td>
                 <td>{insurance.vehicleEvent.mileage}</td>
-                <td>{insurance.insuranceType}</td>
+                <td>{insurance.insuranceType.translation}</td>
                 <td>
                   <TextFormat value={insurance.validFrom} type="date" format={APP_LOCAL_DATE_FORMAT} blankOnInvalid />
                 </td>

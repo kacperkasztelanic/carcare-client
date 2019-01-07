@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { getVehicle, updateVehicle, reset, getFuelTypes } from './vehicle.reducer';
+import { IFuelType } from 'app/shared/model/fuel-type.model';
 
 export interface IVehicleDetailsUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> { }
 
@@ -198,14 +199,15 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
                                                 type="select"
                                                 className="form-control"
                                                 name="fuelType"
-                                                value={vehicleEntity.fuelType}
+                                                value={vehicleEntity.fuelType ? vehicleEntity.fuelType.type : ''}
                                                 validate={{
                                                     required: { value: true, errorMessage: translate('entity.validation.required') }
                                                 }}>
+                                                <option disabled hidden />
                                                 {fuelTypes
-                                                    ? fuelTypes.map(x => (
-                                                        <option value={x} key={x}>
-                                                            {x}
+                                                    ? fuelTypes.map((x: IFuelType) => (
+                                                        <option value={x.type} key={x.type}>
+                                                            {x.translation}
                                                         </option>
                                                     ))
                                                     : null}

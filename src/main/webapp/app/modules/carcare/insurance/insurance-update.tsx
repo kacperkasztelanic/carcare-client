@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { getInsurance, updateInsurance, createInsurance, reset, getInsuranceTypes } from './insurance.reducer';
+import { IInsuranceType } from 'app/shared/model/insurance-type.model';
 
 export interface IInsuranceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string, vehicleId: string }> { }
 
@@ -111,14 +112,15 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
                                                 type="select"
                                                 className="form-control"
                                                 name="insuranceType"
-                                                value={insuranceEntity.insuranceType}
+                                                value={insuranceEntity.insuranceType ? insuranceEntity.insuranceType : ''}
                                                 validate={{
                                                     required: { value: true, errorMessage: translate('entity.validation.required') }
                                                 }}>
+                                                <option disabled hidden />
                                                 {insuranceTypes
-                                                    ? insuranceTypes.map(x => (
-                                                        <option value={x} key={x}>
-                                                            {x}
+                                                    ? insuranceTypes.map((x: IInsuranceType) => (
+                                                        <option value={x.type} key={x.type}>
+                                                            {x.translation}
                                                         </option>
                                                     ))
                                                     : null}

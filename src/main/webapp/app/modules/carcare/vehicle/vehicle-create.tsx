@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Label, Modal, ModalHeader, ModalBody } from 'reactstrap';
-import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
+import { AvForm, AvGroup, AvField } from 'availity-reactstrap-validation';
 import { Translate, translate } from 'react-jhipster';
 import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
 import { getVehicle, updateVehicle, createVehicle, reset, getFuelTypes } from './vehicle.reducer';
+import { IFuelType } from 'app/shared/model/fuel-type.model';
 
 export interface IVehicleCreateProps extends StateProps, DispatchProps, RouteComponentProps<{ vehicleId: string }> { }
 
@@ -27,12 +28,12 @@ export class VehicleCreate extends React.Component<IVehicleCreateProps, IVehicle
     }
 
     componentDidMount() {
+        this.props.getFuelTypes();
         if (this.state.isNew) {
             this.props.reset();
         } else {
             this.props.getVehicle(this.props.match.params.vehicleId);
         }
-        this.props.getFuelTypes();
     }
 
     saveEntity = (event, errors, values) => {
@@ -59,7 +60,7 @@ export class VehicleCreate extends React.Component<IVehicleCreateProps, IVehicle
     };
 
     render() {
-        const { vehicleEntity, loading, updating, fuelTypes } = this.props;
+        const { vehicleEntity, loading, updating, fuelTypes, fuelTypesLoading } = this.props;
         const { isNew } = this.state;
         return (
             <Modal isOpen toggle={this.handleClose}>
@@ -67,7 +68,7 @@ export class VehicleCreate extends React.Component<IVehicleCreateProps, IVehicle
                     <Translate contentKey="carcare.vehicle.edit.title">Create or edit a vehicle</Translate>
                 </ModalHeader>
                 <ModalBody>
-                    {loading ? (
+                    {loading || fuelTypesLoading ? (
                         <ReactLoading type="bubbles" color="353D47" />
                     ) : (
                             <AvForm model={isNew ? {} : vehicleEntity} onSubmit={this.saveEntity}>
@@ -128,14 +129,15 @@ export class VehicleCreate extends React.Component<IVehicleCreateProps, IVehicle
                                         type="select"
                                         className="form-control"
                                         name="fuelType"
-                                        value={vehicleEntity.fuelType}
+                                        value={vehicleEntity.fuelType !== undefined ? vehicleEntity.fuelType.type : ''}
                                         validate={{
                                             required: { value: true, errorMessage: translate('entity.validation.required') }
                                         }}>
+                                        <option disabled hidden />
                                         {fuelTypes
-                                            ? fuelTypes.map(x => (
-                                                <option value={x} key={x}>
-                                                    {x}
+                                            ? fuelTypes.map((x: IFuelType) => (
+                                                <option value={x.type} key={x.type}>
+                                                    {x.translation}
                                                 </option>
                                             ))
                                             : null}
@@ -165,7 +167,8 @@ const mapStateToProps = (storeState: IRootState) => ({
     loading: storeState.vehicles.loading,
     updating: storeState.vehicles.updating,
     updateSuccess: storeState.vehicles.updateSuccess,
-    fuelTypes: storeState.vehicles.fuelTypes
+    fuelTypes: storeState.vehicles.fuelTypes,
+    fuelTypesLoading: storeState.vehicles.fuelTypesLoading
 });
 
 const mapDispatchToProps = {

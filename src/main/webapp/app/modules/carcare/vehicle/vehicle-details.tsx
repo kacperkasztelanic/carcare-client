@@ -122,7 +122,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                                 <dt>
                                     <Translate contentKey="carcare.vehicle.fuel-type">Fuel type</Translate>
                                 </dt>
-                                <dd>{vehicleEntity.fuelType}</dd>
+                                <dd>{vehicleEntity.fuelType.translation}</dd>
                                 <dt>
                                     <Translate contentKey="carcare.vehicle-details.weight" interpolate={{ unit: 'kg' }}>Weight (kg)</Translate>
                                 </dt>

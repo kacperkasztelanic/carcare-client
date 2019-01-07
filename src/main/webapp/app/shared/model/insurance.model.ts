@@ -1,4 +1,5 @@
 import { IVehicleEvent } from './vehicle-event.model.ts';
+import { IInsuranceType } from './insurance-type.model';
 
 export interface IInsurance {
     id?: any;
@@ -9,7 +10,7 @@ export interface IInsurance {
     number?: string;
     insurer?: string;
     details?: string;
-    insuranceType?: string;
+    insuranceType?: IInsuranceType;
     vehicleId?: any;
 }
 
