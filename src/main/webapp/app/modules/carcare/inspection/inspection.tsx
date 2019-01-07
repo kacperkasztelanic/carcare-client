@@ -23,7 +23,7 @@ export class Inspection extends React.Component<IInspectionProps, IInspectionUpd
     super(props);
     this.state = {
       vehicleId: this.props.match.params.vehicleId,
-      openPopovers: [],
+      openPopovers: []
     };
   }
 
