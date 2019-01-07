@@ -15,7 +15,7 @@ export interface IInspectionProps extends StateProps, DispatchProps, RouteCompon
 
 export interface IInspectionUpdateState {
   vehicleId: string;
-  detailsPopoverOpen: boolean;
+  openPopovers: number[];
 }
 
 export class Inspection extends React.Component<IInspectionProps, IInspectionUpdateState> {
@@ -23,15 +23,19 @@ export class Inspection extends React.Component<IInspectionProps, IInspectionUpd
     super(props);
     this.state = {
       vehicleId: this.props.match.params.vehicleId,
-      detailsPopoverOpen: false
+      openPopovers: [],
     };
   }
 
-  toogleDetailsPopover = () => {
+  toggleDetailsPopover = (id: number) => {
     this.setState({
-      detailsPopoverOpen: !this.state.detailsPopoverOpen
+      ...this.state,
+      openPopovers: this.state.openPopovers.includes(id) ?
+        [...this.state.openPopovers].filter(x => x !== id) : [...this.state.openPopovers, id]
     });
   }
+
+  isDetailsPopoverOpen = (id: number) => this.state.openPopovers.includes(id);
 
   handleClose = event => {
     event.stopPropagation();
@@ -98,13 +102,13 @@ export class Inspection extends React.Component<IInspectionProps, IInspectionUpd
                 </td>
                 <td>{inspection.station}</td>
                 <td>
-                  <Button id="details-popover" type="button" outline color="info" onClick={this.toogleDetailsPopover}>
+                  <Button id={`details-popover-${i}`} type="button" outline color="info" onClick={() => this.toggleDetailsPopover(i)}>
                     <span className="d-none d-md-inline">
                       {inspection.details.slice(0, APP_COMPACT_DETAILS_LENGTH - 3) + (inspection.details.length > APP_COMPACT_DETAILS_LENGTH ? '...' : '')}
                     </span>
                     <span className="d-sd-inline d-md-none"><FontAwesomeIcon icon="question" /></span>
                   </Button>
-                  <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
+                  <Popover placement="right" isOpen={this.isDetailsPopoverOpen(i)} target={`details-popover-${i}`}>
                     <PopoverHeader><Translate contentKey="carcare.inspection.details">Details</Translate></PopoverHeader>
                     <PopoverBody style={{ whiteSpace: 'pre-wrap' }}>{inspection.details}</PopoverBody>
                   </Popover>
