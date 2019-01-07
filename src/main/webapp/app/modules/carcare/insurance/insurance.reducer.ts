@@ -191,7 +191,10 @@ const prepareToDispatchOnCreate = (insurance: IInsurance) => ({
 
 const prepareToDispatchOnUpdate = (insurance: IInsurance) => ({
     ...insurance,
-    costInCents: insurance.costInCents * 100
+    costInCents: insurance.costInCents * 100,
+    insurer: insurance.insurer.trim(),
+    number: insurance.number.trim(),
+    details: insurance.details.trim()
 });
 
 const prepareAfterReceive = (insurance: IInsurance) => ({

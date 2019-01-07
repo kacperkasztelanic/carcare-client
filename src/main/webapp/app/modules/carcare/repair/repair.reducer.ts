@@ -165,7 +165,9 @@ export const reset = () => ({
 
 const prepareToDispatch = (repair: IRepair): IRepair => ({
     ...repair,
-    costInCents: repair.costInCents * 100
+    costInCents: repair.costInCents * 100,
+    station: repair.station.trim(),
+    details: repair.details.trim()
 });
 
 const prepareAfterReceive = (repair: IRepair): IRepair => ({

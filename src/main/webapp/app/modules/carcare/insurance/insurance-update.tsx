@@ -166,8 +166,6 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
                                                 type="text"
                                                 name="insurer"
                                                 validate={{
-                                                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                                                    minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) },
                                                     maxLength: { value: 20, errorMessage: translate('entity.validation.maxlength', { max: 20 }) }
                                                 }}
                                             />
@@ -181,8 +179,6 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
                                                 type="text"
                                                 name="number"
                                                 validate={{
-                                                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                                                    minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) },
                                                     maxLength: { value: 20, errorMessage: translate('entity.validation.maxlength', { max: 20 }) }
                                                 }}
                                             />
@@ -215,8 +211,7 @@ export class InsuranceUpdate extends React.Component<IInsuranceUpdateProps, IIns
                                                 rows="5"
                                                 name="details"
                                                 validate={{
-                                                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                                                    minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) }
+                                                    maxLength: { value: 65535, errorMessage: translate('entity.validation.maxlength', { max: 65535 }) }
                                                 }}
                                             />
                                         </AvGroup>

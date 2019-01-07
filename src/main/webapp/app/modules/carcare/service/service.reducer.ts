@@ -165,7 +165,9 @@ export const reset = () => ({
 
 const prepareToDispatch = (service: IService): IService => ({
     ...service,
-    costInCents: service.costInCents * 100
+    costInCents: service.costInCents * 100,
+    station: service.station.trim(),
+    details: service.details.trim()
 });
 
 const prepareAfterReceive = (service: IService): IService => ({

@@ -165,7 +165,9 @@ export const reset = () => ({
 
 const prepareToDispatch = (inspection: IInspection): IInspection => ({
     ...inspection,
-    costInCents: inspection.costInCents * 100
+    costInCents: inspection.costInCents * 100,
+    details: inspection.details.trim(),
+    station: inspection.station.trim()
 });
 
 const prepareAfterReceive = (inspection: IInspection): IInspection => ({

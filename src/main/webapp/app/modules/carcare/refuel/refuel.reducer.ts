@@ -124,10 +124,10 @@ export const getRefuel: ICrudGetAction<IRefuel> = id => {
 
 export const createRefuel: ICrudPutAction<IRefuel> = refuel => async dispatch => {
     const requestUrl = `${apiUrl}/${refuel.vehicleId}`;
-    refuel = prepareToDispatch(refuel);
+    const updated = prepareToDispatch(refuel);
     const result = await dispatch({
         type: ACTION_TYPES.CREATE_REFUEL,
-        payload: axios.post(requestUrl, refuel)
+        payload: axios.post(requestUrl, updated)
     });
     dispatch(getRefuels(refuel.vehicleId));
     return result;
@@ -166,7 +166,8 @@ export const reset = () => ({
 const prepareToDispatch = (refuel: IRefuel): IRefuel => ({
     ...refuel,
     costInCents: refuel.costInCents * 100,
-    volume: refuel.volume * 1000
+    volume: refuel.volume * 1000,
+    station: refuel.station.trim()
 });
 
 const prepareAfterReceive = (refuel: IRefuel): IRefuel => ({

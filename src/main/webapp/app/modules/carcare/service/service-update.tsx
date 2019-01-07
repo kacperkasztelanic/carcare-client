@@ -110,9 +110,7 @@ export class ServiceUpdate extends React.Component<IServiceUpdateProps, IService
                                                 type="text"
                                                 name="station"
                                                 validate={{
-                                                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                                                    minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) },
-                                                    maxLength: { value: 20, errorMessage: translate('entity.validation.maxlength', { max: 20 }) }
+                                                    maxLength: { value: 30, errorMessage: translate('entity.validation.maxlength', { max: 30 }) }
                                                 }}
                                             />
                                         </AvGroup>
@@ -176,7 +174,8 @@ export class ServiceUpdate extends React.Component<IServiceUpdateProps, IService
                                                 name="details"
                                                 validate={{
                                                     required: { value: true, errorMessage: translate('entity.validation.required') },
-                                                    minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) }
+                                                    minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) },
+                                                    maxLength: { value: 65535, errorMessage: translate('entity.validation.maxlength', { max: 65535 }) }
                                                 }}
                                             />
                                         </AvGroup>
