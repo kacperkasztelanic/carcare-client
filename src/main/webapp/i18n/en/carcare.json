@@ -177,7 +177,8 @@
             "by-date": "By date",
             "by-mileage": "By mileage ({{ unit }})",
             "details": "Details",
-            "type": "Type"
+            "type": "Type",
+            "notification-info": "E-mail notifications are sent {{ days }} days before each event."
         }
     }
 }

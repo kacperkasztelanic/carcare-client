@@ -156,7 +156,6 @@ export const updateInsurance: ICrudPutAction<IInsurance> = insurance => async di
 };
 
 export const deleteInsurance: ICrudDeleteAction<IInsurance> = id => async dispatch => {
-    console.log(id);
     const requestUrl = `${apiUrl}/${id}`;
     const insurance = await dispatch({
         type: ACTION_TYPES.FETCH_INSURANCE,

@@ -40,6 +40,7 @@ import { faChartBar } from '@fortawesome/free-solid-svg-icons/faChartBar';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons/faDollarSign';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
 import { faCalculator } from '@fortawesome/free-solid-svg-icons/faCalculator';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 
@@ -86,6 +87,7 @@ export const loadIcons = () => {
     faChartBar,
     faDollarSign,
     faCalendarAlt,
-    faCalculator
+    faCalculator,
+    faInfoCircle
   );
 };

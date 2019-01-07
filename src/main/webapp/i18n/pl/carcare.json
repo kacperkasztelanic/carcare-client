@@ -177,7 +177,8 @@
             "by-date": "Data",
             "by-mileage": "Przy przebiegu ({{ unit }})",
             "details": "Szczegóły",
-            "type": "Typ"
+            "type": "Typ",
+            "notification-info": "Powiadomienia e-mail wysyłane są {{ days }} dni przed wydarzeniem."
         }
     }
 }

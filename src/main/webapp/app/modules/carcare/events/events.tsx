@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { getVehicles, openDetails } from '../vehicle/vehicle.reducer';
-import { fetchEvents, reset } from './events.reducer';
+import { fetchEvents, fetchAdvances, reset } from './events.reducer';
 import { APP_LOCAL_DATE_FORMAT, APP_COMPACT_DETAILS_LENGTH } from 'app/config/constants';
 import TableSummary from 'app/shared/components/TableSummary';
 import BackButton from 'app/shared/components/BackButton';
@@ -48,6 +48,7 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
     componentDidMount() {
         this.props.reset();
         this.props.getVehicles();
+        this.props.fetchAdvances();
     }
 
     handleClose = event => {
@@ -88,7 +89,7 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
     }
 
     render() {
-        const { vehicles, events, totalItems, loading, vehiclesLoading, fetched } = this.props;
+        const { vehicles, events, totalItems, loading, vehiclesLoading, fetched, loadingAdvances, fetchedAdvances, advances } = this.props;
         return (
             <div>
                 <Row>
@@ -227,6 +228,23 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
                             </Col>
                         </Row>
                     </div>) : null}
+                {loadingAdvances ? (
+                    <Row>
+                        <Col md="12" sd="12">
+                            <hr />
+                            <ReactLoading type="bubbles" color="17A2B8" />
+                        </Col>
+                    </Row>
+                ) : null}
+                {fetchedAdvances ? (
+                    <div className="text-center">
+                        <hr />
+                        <FontAwesomeIcon icon="info-circle" />{' '}
+                        <Translate contentKey="carcare.forthcoming-events.notification-info" interpolate={{ days: advances }}>
+                            E-mail notifications are sent {advances} days before each event.
+                        </Translate>
+                    </div>
+                ) : null}
                 <Row>
                     <Col md="12" sd="12">
                         <hr />
@@ -244,10 +262,13 @@ const mapStateToProps = (storeState: IRootState) => ({
     totalItems: storeState.events.totalItems,
     events: storeState.events.events,
     fetched: storeState.events.fetched,
-    loading: storeState.events.loading
+    loading: storeState.events.loading,
+    loadingAdvances: storeState.events.loadingAdvances,
+    fetchedAdvances: storeState.events.fetchedAdvances,
+    advances: storeState.events.advances
 });
 
-const mapDispatchToProps = { getVehicles, openDetails, fetchEvents, reset };
+const mapDispatchToProps = { getVehicles, openDetails, fetchEvents, fetchAdvances, reset };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
