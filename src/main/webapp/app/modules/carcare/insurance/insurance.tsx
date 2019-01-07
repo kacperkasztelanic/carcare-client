@@ -29,7 +29,6 @@ export class Insurance extends React.Component<IInsuranceProps, IInsuranceUpdate
 
   toggleDetailsPopover = (id: number) => {
     this.setState({
-      ...this.state,
       openPopovers: this.state.openPopovers.includes(id) ?
         [...this.state.openPopovers].filter(x => x !== id) : [...this.state.openPopovers, id]
     });

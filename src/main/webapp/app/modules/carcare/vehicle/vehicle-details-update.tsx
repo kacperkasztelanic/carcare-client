@@ -58,7 +58,6 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
     onBlobChange = (isAnImage, name) => event => {
         setFileData(event, (contentType, data) => (
             this.setState({
-                ...this.state,
                 blobData: data,
                 blobDataContentType: contentType
             })), isAnImage);

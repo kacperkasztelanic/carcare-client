@@ -48,21 +48,18 @@ export class Statistics extends React.Component<IStatisticsProps, IStatisticsSta
 
     onVehicleSelect = event => {
         this.setState({
-            ...this.state,
             selectedVehicle: this.props.vehicles.find(x => x.id == event.target.value)
         });
     }
 
     onDateFromChange = event => {
         this.setState({
-            ...this.state,
             dateFrom: event.target.value
         });
     }
 
     onDateToChange = event => {
         this.setState({
-            ...this.state,
             dateTo: event.target.value
         });
     }

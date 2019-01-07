@@ -47,7 +47,6 @@ export class Reports extends React.Component<IReportsProps, IReportsState> {
 
     onVehicleSelect = event => {
         this.setState({
-            ...this.state,
             selectedVehicle: this.props.vehicles.find(x => x.id == event.target.value)
         });
     }
@@ -61,21 +60,18 @@ export class Reports extends React.Component<IReportsProps, IReportsState> {
             }
         }
         this.setState({
-            ...this.state,
             selectedVehicles: value
         });
     }
 
     onDateFromChange = event => {
         this.setState({
-            ...this.state,
             dateFrom: event.target.value
         });
     }
 
     onDateToChange = event => {
         this.setState({
-            ...this.state,
             dateTo: event.target.value
         });
     }
