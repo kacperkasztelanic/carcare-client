@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getRepair, deleteRepair } from './repair.reducer';
 import { IRootState } from 'app/shared/reducers';
 
-export interface IRefuelDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IRefuelDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> { }
 
 export class RepairDeleteDialog extends React.Component<IRefuelDeleteDialogProps> {
   componentDidMount() {
@@ -16,7 +16,7 @@ export class RepairDeleteDialog extends React.Component<IRefuelDeleteDialogProps
   }
 
   confirmDelete = event => {
-    this.props.deleteRepair(this.props.refuel.id);
+    this.props.deleteRepair(this.props.repair.id);
     this.handleClose(event);
   };
 
@@ -54,7 +54,7 @@ export class RepairDeleteDialog extends React.Component<IRefuelDeleteDialogProps
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
-  refuel: storeState.refuels.refuel
+  repair: storeState.repairs.repair
 });
 
 const mapDispatchToProps = { getRepair, deleteRepair };
