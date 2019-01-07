@@ -19,6 +19,7 @@ export interface IEventsState {
     dateFrom: Date;
     dateTo: Date;
     selectedVehicles: any[];
+    openPopovers: number[];
 }
 
 export class Events extends React.Component<IEventsProps, IEventsState> {
@@ -27,12 +28,22 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
         this.state = {
             dateFrom: undefined,
             dateTo: undefined,
-            selectedVehicles: []
+            selectedVehicles: [],
+            openPopovers: []
         };
         this.onDateFromChange.bind(this);
         this.onDateToChange.bind(this);
         this.onVehiclesSelect.bind(this);
     }
+
+    toggleDetailsPopover = (id: number) => {
+        this.setState({
+            openPopovers: this.state.openPopovers.includes(id) ?
+                [...this.state.openPopovers].filter(x => x !== id) : [...this.state.openPopovers, id]
+        });
+    }
+
+    isDetailsPopoverOpen = (id: number) => this.state.openPopovers.includes(id);
 
     componentDidMount() {
         this.props.reset();
@@ -147,13 +158,13 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
                         </Col>
                     </Row>
                 </Form>
-                <Row>
-                    <Col md="12" sd="12">
-                        <hr />
-                    </Col>
-                </Row>
-                {loading ? (
-                    <ReactLoading type="bubbles" color="17A2B8" />
+                {loading || vehiclesLoading ? (
+                    <Row>
+                        <Col md="12" sd="12">
+                            <hr />
+                            <ReactLoading type="bubbles" color="17A2B8" />
+                        </Col>
+                    </Row>
                 ) : null}
                 {fetched ? (
                     <div>
@@ -163,26 +174,21 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th />
                                             <th>
-                                                <Translate contentKey="carcare.common.date">Date</Translate>
+                                                <Translate contentKey="carcare.forthcoming-events.type" >Type</Translate>
                                             </th>
                                             <th>
-                                                <Translate contentKey="carcare.common.mileage" interpolate={{ unit: 'km' }}>Mileage (km)</Translate>
+                                                <Translate contentKey="carcare.vehicle.entity">Vehicle</Translate>
                                             </th>
                                             <th>
-                                                <Translate contentKey="carcare.common.cost" interpolate={{ unit: 'PLN' }}>Cost (PLN)</Translate>
+                                                <Translate contentKey="carcare.forthcoming-events.by-date">By date</Translate>
                                             </th>
                                             <th>
-                                                <Translate contentKey="carcare.service.next-by-date">Next by date</Translate>
+                                                <Translate contentKey="carcare.forthcoming-events.by-mileage" interpolate={{ unit: 'km' }}>By mileage</Translate>
                                             </th>
                                             <th>
-                                                <Translate contentKey="carcare.service.next-by-mileage" interpolate={{ unit: 'km' }}>Next by mileage</Translate>
-                                            </th>
-                                            <th>
-                                                <Translate contentKey="carcare.service.station">Station</Translate>
-                                            </th>
-                                            <th>
-                                                <Translate contentKey="carcare.service.details">Details</Translate>
+                                                <Translate contentKey="carcare.forthcoming-events.details">Details</Translate>
                                             </th>
                                         </tr>
                                     </thead>
@@ -190,21 +196,25 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
                                         {events.map((e, i) => (
                                             <tr id={`i`} key={`event-${i}`}>
                                                 <th>{i + 1}</th>
-                                                <td>{e.eventType}</td>
-                                                <td>{e.eventType}</td>
+                                                <td>
+                                                    <FontAwesomeIcon icon={e.eventTypeIcon} size="2x" />{' '}
+                                                </td>
+                                                <td>
+                                                    <Translate contentKey={e.eventTypeTranslationString}>{e.eventType}</Translate>
+                                                </td>
                                                 <td>{e.vehicleId}</td>
                                                 <td>
                                                     <TextFormat value={e.dateThru} type="date" format={APP_LOCAL_DATE_FORMAT} blankOnInvalid />
                                                 </td>
-                                                <td>{e.mileageThru}</td>
+                                                <td>{e.mileageThru !== 0 ? e.mileageThru : ''}</td>
                                                 <td>
-                                                    <Button id="details-popover" type="button" outline color="info" onClick={this.toogleDetailsPopover}>
-                                                        <span className="d-none d-md-inline">
-                                                            {e.details.slice(0, APP_COMPACT_DETAILS_LENGTH - 3) + (e.details.length > APP_COMPACT_DETAILS_LENGTH ? '...' : '')}
-                                                        </span>
-                                                        <span className="d-sd-inline d-md-none"><FontAwesomeIcon icon="question" /></span>
-                                                    </Button>
-                                                    <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
+                                                    <Button id={`details-popover-${i}`} type="button" color="info" onClick={() => this.toggleDetailsPopover(i)}>
+                                                        <FontAwesomeIcon icon="search" />
+                                                    </Button>{' '}
+                                                    <span className="d-none d-md-inline">
+                                                        {e.details.slice(0, APP_COMPACT_DETAILS_LENGTH * 2 - 3) + (e.details.length > APP_COMPACT_DETAILS_LENGTH * 2 ? '...' : '')}
+                                                    </span>
+                                                    <Popover placement="right" isOpen={this.isDetailsPopoverOpen(i)} target={`details-popover-${i}`}>
                                                         <PopoverHeader><Translate contentKey="carcare.service.details">Details</Translate></PopoverHeader>
                                                         <PopoverBody style={{ whiteSpace: 'pre-wrap' }}>{e.details}</PopoverBody>
                                                     </Popover>
@@ -219,6 +229,7 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
                     </div>) : null}
                 <Row>
                     <Col md="12" sd="12">
+                        <hr />
                         <BackButton handleFunction={this.handleClose} />
                     </Col>
                 </Row>

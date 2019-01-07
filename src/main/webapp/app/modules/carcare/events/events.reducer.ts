@@ -2,6 +2,7 @@ import axios from 'axios';
 import { IForthcomingEvent } from 'app/shared/model/forthcoming-event-model';
 import { IPeriodVehicle } from 'app/shared/model/period-vehicle.model';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 export const ACTION_TYPES = {
     FETCH_EVENTS: 'events/FETCH_EVENTS',
@@ -37,8 +38,8 @@ export default (state: EventsState = initialState, action): EventsState => {
             return {
                 ...state,
                 loading: false,
-                fetched: action.payload.data,
-                events: action.payload.data,
+                fetched: true,
+                events: action.payload.data.map((x: IForthcomingEvent) => prepareEvent(x)),
                 totalItems: action.payload.headers['x-total-count']
             };
         case ACTION_TYPES.RESET:
@@ -68,3 +69,35 @@ export const fetchEvents = (ids: any[], from: Date, to: Date) => {
 export const reset = () => ({
     type: ACTION_TYPES.RESET
 });
+
+const prepareEvent = (e: IForthcomingEvent): IForthcomingEvent => ({
+    ...e,
+    eventTypeIcon: getEventTypeIcon(e.eventType),
+    eventTypeTranslationString: mapEventTypeToTranslation(e.eventType)
+});
+
+const getEventTypeIcon = (type: string): IconProp => {
+    switch (type.toUpperCase()) {
+        case 'SERVICE':
+            return 'oil-can';
+        case 'INSPECTION':
+            return 'check-double';
+        case 'INSURANCE':
+            return 'file-invoice-dollar';
+        default:
+            return 'question';
+    }
+};
+
+const mapEventTypeToTranslation = (type: string): string => {
+    switch (type.toUpperCase()) {
+        case 'SERVICE':
+            return 'carcare.service.entity';
+        case 'INSPECTION':
+            return 'carcare.inspection.entity';
+        case 'INSURANCE':
+            return 'carcare.insurance.entity';
+        default:
+            return 'carcare.common.other';
+    }
+};

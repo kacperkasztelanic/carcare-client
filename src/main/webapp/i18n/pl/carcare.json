@@ -41,7 +41,8 @@
             "date": "Data",
             "cost": "Koszt ({{ unit }})",
             "mileage": "Przebieg ({{ unit }})",
-            "table-summary": "Liczba elementów"
+            "table-summary": "Liczba elementów",
+            "other": "Inne"
         },
         "refuel": {
             "entity": "Tankowanie",
@@ -141,7 +142,7 @@
             "weight": "Masa ({{ unit }})",
             "notes": "Notatki",
             "image": "Zdjęcie",
-            "edit-title":"Edytuj pojazd"
+            "edit-title": "Edytuj pojazd"
         },
         "reports": {
             "entity": "Raport",
@@ -172,7 +173,11 @@
             "vehicles-select": "Pojazdy",
             "date-from": "Od",
             "date-to": "Do",
-            "search": "Wyszukaj"
+            "search": "Wyszukaj",
+            "by-date": "Data",
+            "by-mileage": "Przy przebiegu ({{ unit }})",
+            "details": "Szczegóły",
+            "type": "Typ"
         }
     }
 }

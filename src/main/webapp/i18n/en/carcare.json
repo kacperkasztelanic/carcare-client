@@ -41,7 +41,8 @@
             "date": "Date",
             "cost": "Cost ({{ unit }})",
             "mileage": "Mileage ({{ unit }})",
-            "table-summary": "Number of elements"
+            "table-summary": "Number of elements",
+            "other": "Other"
         },
         "refuel": {
             "entity": "Refuel",
@@ -172,7 +173,11 @@
             "vehicles-select": "Vehicles",
             "date-from": "From",
             "date-to": "To",
-            "search": "Search"
+            "search": "Search",
+            "by-date": "By date",
+            "by-mileage": "By mileage ({{ unit }})",
+            "details": "Details",
+            "type": "Type"
         }
     }
 }
