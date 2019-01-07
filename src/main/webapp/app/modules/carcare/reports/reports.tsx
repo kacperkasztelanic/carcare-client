@@ -163,7 +163,7 @@ export class Reports extends React.Component<IReportsProps, IReportsState> {
                                 <Label for="vehicleSelect">
                                     <Translate contentKey="carcare.reports.vehicles-select">Vehicle</Translate>
                                 </Label>
-                                <Input type="select" multiple name="selectMultiple" id="vehicleSelectMultiple" onChange={this.onVehiclesSelect}>
+                                <Input type="select" multiple name="selectMultiple" value={this.state.selectedVehicles} id="vehicleSelectMultiple" onChange={this.onVehiclesSelect}>
                                     <option disabled hidden />
                                     {vehicles
                                         ? vehicles.map(x => (
