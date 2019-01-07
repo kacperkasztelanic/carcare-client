@@ -1,13 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
-import { Translate } from 'react-jhipster';
+import { Button, Row, Col, Form, FormGroup, Label, Input, Table, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
+import { Translate, TextFormat } from 'react-jhipster';
+import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
 import { getVehicles, openDetails } from '../vehicle/vehicle.reducer';
-import { fetchEvents } from './events.reducer';
+import { fetchEvents, reset } from './events.reducer';
+import { APP_LOCAL_DATE_FORMAT, APP_COMPACT_DETAILS_LENGTH } from 'app/config/constants';
+import TableSummary from 'app/shared/components/TableSummary';
 import BackButton from 'app/shared/components/BackButton';
 
 export interface IEventsProps extends StateProps, DispatchProps, RouteComponentProps<{}> { }
@@ -32,6 +35,7 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
     }
 
     componentDidMount() {
+        this.props.reset();
         this.props.getVehicles();
     }
 
@@ -73,7 +77,7 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
     }
 
     render() {
-        const { vehicles } = this.props;
+        const { vehicles, events, totalItems, loading, vehiclesLoading, fetched } = this.props;
         return (
             <div>
                 <Row>
@@ -148,25 +152,91 @@ export class Events extends React.Component<IEventsProps, IEventsState> {
                         <hr />
                     </Col>
                 </Row>
+                {loading ? (
+                    <ReactLoading type="bubbles" color="17A2B8" />
+                ) : null}
+                {fetched ? (
+                    <div>
+                        <Row>
+                            <Col md="12" sd="12">
+                                <Table responsive striped>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>
+                                                <Translate contentKey="carcare.common.date">Date</Translate>
+                                            </th>
+                                            <th>
+                                                <Translate contentKey="carcare.common.mileage" interpolate={{ unit: 'km' }}>Mileage (km)</Translate>
+                                            </th>
+                                            <th>
+                                                <Translate contentKey="carcare.common.cost" interpolate={{ unit: 'PLN' }}>Cost (PLN)</Translate>
+                                            </th>
+                                            <th>
+                                                <Translate contentKey="carcare.service.next-by-date">Next by date</Translate>
+                                            </th>
+                                            <th>
+                                                <Translate contentKey="carcare.service.next-by-mileage" interpolate={{ unit: 'km' }}>Next by mileage</Translate>
+                                            </th>
+                                            <th>
+                                                <Translate contentKey="carcare.service.station">Station</Translate>
+                                            </th>
+                                            <th>
+                                                <Translate contentKey="carcare.service.details">Details</Translate>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {events.map((e, i) => (
+                                            <tr id={`i`} key={`event-${i}`}>
+                                                <th>{i + 1}</th>
+                                                <td>{e.eventType}</td>
+                                                <td>{e.eventType}</td>
+                                                <td>{e.vehicleId}</td>
+                                                <td>
+                                                    <TextFormat value={e.dateThru} type="date" format={APP_LOCAL_DATE_FORMAT} blankOnInvalid />
+                                                </td>
+                                                <td>{e.mileageThru}</td>
+                                                <td>
+                                                    <Button id="details-popover" type="button" outline color="info" onClick={this.toogleDetailsPopover}>
+                                                        <span className="d-none d-md-inline">
+                                                            {e.details.slice(0, APP_COMPACT_DETAILS_LENGTH - 3) + (e.details.length > APP_COMPACT_DETAILS_LENGTH ? '...' : '')}
+                                                        </span>
+                                                        <span className="d-sd-inline d-md-none"><FontAwesomeIcon icon="question" /></span>
+                                                    </Button>
+                                                    <Popover placement="right" isOpen={this.state.detailsPopoverOpen} target="details-popover">
+                                                        <PopoverHeader><Translate contentKey="carcare.service.details">Details</Translate></PopoverHeader>
+                                                        <PopoverBody style={{ whiteSpace: 'pre-wrap' }}>{e.details}</PopoverBody>
+                                                    </Popover>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </Table>
+                                <TableSummary totalItems={totalItems} />
+                            </Col>
+                        </Row>
+                    </div>) : null}
                 <Row>
-                    <Col md="6" sd="12">
-                    </Col>
-                    <Col md="6" sd="12">
+                    <Col md="12" sd="12">
+                        <BackButton handleFunction={this.handleClose} />
                     </Col>
                 </Row>
-                <hr />
-                <BackButton handleFunction={this.handleClose} />
-            </div >
+            </div>
         );
     }
 }
 
 const mapStateToProps = (storeState: IRootState) => ({
     vehicles: storeState.vehicles.vehicles,
-    totalItems: storeState.vehicles.totalItems
+    vehiclesLoading: storeState.vehicles.loading,
+    totalItems: storeState.events.totalItems,
+    events: storeState.events.events,
+    fetched: storeState.events.fetched,
+    loading: storeState.events.loading
 });
 
-const mapDispatchToProps = { getVehicles, openDetails, fetchEvents };
+const mapDispatchToProps = { getVehicles, openDetails, fetchEvents, reset };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

@@ -27,7 +27,7 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
             blobDataContentType: this.props.vehicleEntity.vehicleDetails.imageContentType
         };
     }
-    
+
     componentDidMount() {
         this.props.getVehicle(this.props.match.params.id);
         this.props.getFuelTypes();

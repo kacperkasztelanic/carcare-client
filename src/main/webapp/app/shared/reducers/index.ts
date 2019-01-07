@@ -19,6 +19,7 @@ import inspections, { InspectionsState } from 'app/modules/carcare/inspection/in
 import insurances, { InsurancesState } from 'app/modules/carcare/insurance/insurance.reducer';
 import services, { ServicesState } from 'app/modules/carcare/service/service.reducer';
 import statistics, { StatisticsState } from 'app/modules/carcare/statistics/statistics.reducer';
+import events, { EventsState } from 'app/modules/carcare/events/events.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -39,6 +40,7 @@ export interface IRootState {
   readonly insurances: InsurancesState;
   readonly services: ServicesState;
   readonly statistics: StatisticsState;
+  readonly events: EventsState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -61,6 +63,7 @@ const rootReducer = combineReducers<IRootState>({
   insurances,
   services,
   statistics,
+  events,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });
