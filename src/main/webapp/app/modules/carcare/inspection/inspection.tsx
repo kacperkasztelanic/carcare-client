@@ -101,12 +101,12 @@ export class Inspection extends React.Component<IInspectionProps, IInspectionUpd
                 </td>
                 <td>{inspection.station}</td>
                 <td>
-                  <Button id={`details-popover-${i}`} type="button" outline color="info" onClick={() => this.toggleDetailsPopover(i)}>
-                    <span className="d-none d-md-inline">
-                      {inspection.details.slice(0, APP_COMPACT_DETAILS_LENGTH - 3) + (inspection.details.length > APP_COMPACT_DETAILS_LENGTH ? '...' : '')}
-                    </span>
-                    <span className="d-sd-inline d-md-none"><FontAwesomeIcon icon="question" /></span>
-                  </Button>
+                  <Button id={`details-popover-${i}`} type="button" color="info" onClick={() => this.toggleDetailsPopover(i)}>
+                    <FontAwesomeIcon icon="search" />
+                  </Button>{' '}
+                  <span className="d-none d-md-inline">
+                    {inspection.details.slice(0, APP_COMPACT_DETAILS_LENGTH - 3) + (inspection.details.length > APP_COMPACT_DETAILS_LENGTH ? '...' : '')}
+                  </span>
                   <Popover placement="right" isOpen={this.isDetailsPopoverOpen(i)} target={`details-popover-${i}`}>
                     <PopoverHeader><Translate contentKey="carcare.inspection.details">Details</Translate></PopoverHeader>
                     <PopoverBody style={{ whiteSpace: 'pre-wrap' }}>{inspection.details}</PopoverBody>
