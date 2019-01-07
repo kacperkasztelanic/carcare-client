@@ -41,10 +41,10 @@ export class Refuel extends React.Component<IRepairProps, IRepairUpdateState> {
   };
 
   componentDidMount() {
-    this.getRefuels(this.state.vehicleId);
+    this.getRepairs(this.state.vehicleId);
   }
 
-  getRefuels = vehicleId => {
+  getRepairs = vehicleId => {
     this.props.getRepairs(vehicleId);
   };
 

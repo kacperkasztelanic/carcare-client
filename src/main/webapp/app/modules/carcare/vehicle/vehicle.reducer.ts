@@ -166,6 +166,9 @@ export const updateVehicle: ICrudPutAction<IVehicle> = vehicle => async dispatch
             type: vehicle.fuelType,
             translation: ''
         },
+        make: vehicle.make.trim(),
+        model: vehicle.model.trim(),
+        licensePlate: vehicle.licensePlate.trim(),
         vehicleDetails: {
             ...vehicle.vehicleDetails,
             modelSuffix: vehicle.vehicleDetails.modelSuffix.trim(),

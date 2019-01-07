@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Label, Modal, ModalHeader, ModalBody, Col, Row } from 'reactstrap';
-import { AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
+import { AvForm, AvGroup, AvField } from 'availity-reactstrap-validation';
 import { Translate, translate, setFileData } from 'react-jhipster';
 import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -40,6 +40,7 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
             const entity = {
                 ...vehicleEntity,
                 ...values,
+                model: values.model,
                 vehicleDetails: {
                     ...values.vehicleDetails,
                     image: this.state.blobData,
@@ -136,7 +137,7 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
                                                 validate={{
                                                     required: { value: true, errorMessage: translate('entity.validation.required') },
                                                     minLength: { value: 1, errorMessage: translate('entity.validation.minlength', { min: 1 }) },
-                                                    maxLength: { value: 20, errorMessage: translate('entity.validation.maxlength', { max: 20 }) }
+                                                    maxLength: { value: 20, errorMessage: translate('entity.validation.maxlength', { max: 10 }) }
                                                 }}
                                             />
                                         </AvGroup>
