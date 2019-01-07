@@ -1,5 +1,5 @@
 const config = {
-  VERSION: process.env.VERSION
+  VERSION: '0.9.0'
 };
 
 export default config;

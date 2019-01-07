@@ -1,7 +1,10 @@
 {
   "name": "carcare",
-  "version": "0.0.0",
-  "description": "Description for carcare",
+  "version": "0.9.0",
+  "description": "Vehicle fleet management application",
+  "author": {
+    "name": "Kacper Kasztelanic"
+  },
   "private": true,
   "license": "UNLICENSED",
   "cacheDirectories": [
