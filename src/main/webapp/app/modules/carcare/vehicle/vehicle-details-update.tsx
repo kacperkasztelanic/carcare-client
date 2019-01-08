@@ -69,6 +69,13 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
     );
   };
 
+  deleteBlob = () => {
+    this.setState({
+      blobData: undefined,
+      blobDataContentType: undefined
+    });
+  };
+
   render() {
     const { vehicleEntity, fuelTypes, loading, updating } = this.props;
     return (
@@ -304,6 +311,14 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
                       </Label>
                       <br />
                       <input id="vehicleDetails.image" type="file" onChange={this.onBlobChange(true)} accept="image/*" />
+                      {this.state.blobData ? (
+                        <Button color="danger" size="sm" onClick={this.deleteBlob}>
+                          <FontAwesomeIcon icon="trash" />{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.delete">Delete</Translate>
+                          </span>
+                        </Button>
+                      ) : null}
                     </AvGroup>
                   </AvGroup>
                 </Col>
