@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Table, Row, Col, Card, CardDeck, CardBody, CardTitle } from 'reactstrap';
+import { Button, Table, Row, Col } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -10,7 +10,7 @@ import { getVehicles, openDetails } from './vehicle.reducer';
 import TableSummary from 'app/shared/components/TableSummary';
 import { IVehicle } from 'app/shared/model/vehicle.model';
 
-export interface IVehicleProps extends StateProps, DispatchProps, RouteComponentProps<{}> { }
+export interface IVehicleProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
 
 export class Vehicle extends React.Component<IVehicleProps> {
   constructor(props) {
@@ -32,15 +32,15 @@ export class Vehicle extends React.Component<IVehicleProps> {
 
   clickReports = () => {
     this.props.history.push(`${this.props.match.url}/reports`);
-  }
+  };
 
   clickStatistics = () => {
     this.props.history.push(`${this.props.match.url}/statistics`);
-  }
+  };
 
   clickEvents = () => {
     this.props.history.push(`${this.props.match.url}/events`);
-  }
+  };
 
   render() {
     const { vehicles, totalItems, match } = this.props;
@@ -50,8 +50,7 @@ export class Vehicle extends React.Component<IVehicleProps> {
         <Row>
           <Col md="12">
             <h2 id="user-management-page-heading">
-              <FontAwesomeIcon icon="car" />{' '}
-              <Translate contentKey="carcare.vehicle.title">Vehicles</Translate>
+              <FontAwesomeIcon icon="car" /> <Translate contentKey="carcare.vehicle.title">Vehicles</Translate>
               <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity">
                 <FontAwesomeIcon icon="plus" /> <Translate contentKey="carcare.common.add">Add</Translate>
               </Link>
@@ -69,7 +68,7 @@ export class Vehicle extends React.Component<IVehicleProps> {
                   <th>
                     <Translate contentKey="carcare.vehicle.make">Make</Translate>
                   </th>
-                  <th >
+                  <th>
                     <Translate contentKey="carcare.vehicle.model">Model</Translate>
                   </th>
                   <th />
@@ -80,19 +79,17 @@ export class Vehicle extends React.Component<IVehicleProps> {
                   <tr id={vehicle.id} key={`vehicle-${i}`} className="hand" onClick={this.handleClick.bind(this, vehicle)}>
                     <th>{i + 1}</th>
                     <td>
-                      <img src={`data:${vehicle.vehicleDetails.imageContentType};base64,${vehicle.vehicleDetails.image}`} style={{ maxHeight: '90px' }} />
+                      <img
+                        src={`data:${vehicle.vehicleDetails.imageContentType};base64,${vehicle.vehicleDetails.image}`}
+                        style={{ maxHeight: '90px' }}
+                      />
                     </td>
                     <td>{vehicle.licensePlate}</td>
                     <td>{vehicle.make}</td>
                     <td>{vehicle.model}</td>
                     <td className="text-right" style={{ cursor: 'default' }} onClick={this.handleButtonColumn}>
                       <div className="btn-group flex-btn-group-container">
-                        <Button
-                          tag={Link}
-                          to={`${match.url}/${vehicle.id}/delete`}
-                          color="danger"
-                          size="sm"
-                        >
+                        <Button tag={Link} to={`${match.url}/${vehicle.id}/delete`} color="danger" size="sm">
                           <FontAwesomeIcon icon="trash" />{' '}
                           <span className="d-none d-md-inline">
                             <Translate contentKey="entity.action.delete">Delete</Translate>
@@ -109,22 +106,34 @@ export class Vehicle extends React.Component<IVehicleProps> {
           </Col>
         </Row>
         <Row>
-          <Col md="4" sd="12">
-            <Button color="primary" style={{ paddingTop: '20px', width: '100%' }} onClick={this.clickEvents}>
+          <Col md="4" sm="12">
+            <Button color="primary" style={{ paddingTop: '20px', paddingBottom: '10px', width: '100%' }} onClick={this.clickEvents}>
               <FontAwesomeIcon size={iconSize} icon="calendar-alt" />
-              <h4><Translate contentKey="carcare.forthcoming-events.title">Forthcoming events</Translate></h4>
+              <h4>
+                <strong>
+                  <Translate contentKey="carcare.forthcoming-events.title">Forthcoming events</Translate>
+                </strong>
+              </h4>
             </Button>
           </Col>
-          <Col md="4" sd="12">
-            <Button color="info" style={{ paddingTop: '20px', width: '100%' }} onClick={this.clickStatistics}>
+          <Col md="4" sm="12">
+            <Button color="info" style={{ paddingTop: '20px', paddingBottom: '10px', width: '100%' }} onClick={this.clickStatistics}>
               <FontAwesomeIcon size={iconSize} icon="chart-bar" />
-              <h4><Translate contentKey="carcare.statistics.title">Statistics</Translate></h4>
+              <h4>
+                <strong>
+                  <Translate contentKey="carcare.statistics.title">Statistics</Translate>
+                </strong>
+              </h4>
             </Button>
           </Col>
-          <Col md="4" sd="12">
-            <Button color="success" style={{ paddingTop: '20px', width: '100%' }} onClick={this.clickReports}>
+          <Col md="4" sm="12">
+            <Button color="success" style={{ paddingTop: '20px', paddingBottom: '10px', width: '100%' }} onClick={this.clickReports}>
               <FontAwesomeIcon size={iconSize} icon="file-excel" />
-              <h4><Translate contentKey="carcare.reports.title">Reports</Translate></h4>
+              <h4>
+                <strong>
+                  <Translate contentKey="carcare.reports.title">Reports</Translate>
+                </strong>
+              </h4>
             </Button>
           </Col>
         </Row>
