@@ -22,7 +22,7 @@ class LoginComponent extends React.Component<ILoginComponentProps> {
       <div>
         <AvForm onSubmit={this.handleSubmit}>
           <Row>
-            <Col md="6" sd="12">
+            <Col md="6" sm="12">
               <h1 id="login-title">
                 <Translate contentKey="login.title">Sign in</Translate>
               </h1>
@@ -30,7 +30,7 @@ class LoginComponent extends React.Component<ILoginComponentProps> {
                 <Alert color="danger">
                   <Translate contentKey="login.messages.error.authentication">
                     <strong>Failed to sign in!</strong> Please check your credentials and try again.
-                    </Translate>
+                  </Translate>
                 </Alert>
               ) : null}
               <AvField

@@ -82,7 +82,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
             </h2>
             <hr />
             <Row size="md">
-              <Col md="3" sd="12">
+              <Col md="3" sm="12">
                 <dl className="jh-entity-details">
                   <dt>
                     <Translate contentKey="carcare.vehicle.make">Model</Translate>
@@ -102,7 +102,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                   <dd>{vehicleEntity.licensePlate}</dd>
                 </dl>
               </Col>
-              <Col md="3" sd="12">
+              <Col md="3" sm="12">
                 <dl className="jh-entity-details">
                   <dt>
                     <Translate contentKey="carcare.vehicle-details.year-of-manufacture">Year of manufacture</Translate>
@@ -132,7 +132,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                   <dd>{this.prepareValue(vehicleEntity.vehicleDetails.weight)}</dd>
                 </dl>
               </Col>
-              <Col md="3" sd="12">
+              <Col md="3" sm="12">
                 <dl className="jh-entity-details">
                   <dt>
                     <Translate contentKey="carcare.vehicle-details.vin-number">VIN</Translate>
@@ -177,7 +177,7 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
                   </dd>
                 </dl>
               </Col>
-              <Col md="3" sd="12" className="text-right">
+              <Col md="3" sm="12" className="text-right">
                 <img src={`data:image/jpeg;base64,${vehicleEntity.vehicleDetails.image}`} style={{ width: '90%' }} />
               </Col>
             </Row>
