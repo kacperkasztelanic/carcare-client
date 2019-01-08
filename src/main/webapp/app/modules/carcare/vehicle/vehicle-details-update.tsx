@@ -57,7 +57,7 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
     this.props.history.goBack();
   };
 
-  onBlobChange = (isAnImage, name) => event => {
+  onBlobChange = isAnImage => event => {
     setFileData(
       event,
       (contentType, data) =>
@@ -303,12 +303,7 @@ export class VehicleDetailsUpdate extends React.Component<IVehicleDetailsUpdateP
                         <Translate contentKey="carcare.vehicle-details.image">Image</Translate>
                       </Label>
                       <br />
-                      <input
-                        id="vehicleDetails.image"
-                        type="file"
-                        onChange={this.onBlobChange(true, 'vehicleDetaiils.Image')}
-                        accept="image/*"
-                      />
+                      <input id="vehicleDetails.image" type="file" onChange={this.onBlobChange(true)} accept="image/*" />
                     </AvGroup>
                   </AvGroup>
                 </Col>
