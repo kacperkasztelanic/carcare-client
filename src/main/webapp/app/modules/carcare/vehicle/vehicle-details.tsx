@@ -7,6 +7,7 @@ import ReactLoading from 'react-loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 import BackButton from 'app/shared/components/BackButton';
+import Tile from 'app/shared/components/Tile';
 
 import { getVehicle, updateVehicle, createVehicle, reset } from './vehicle.reducer';
 
@@ -67,7 +68,6 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
 
   render() {
     const { vehicleEntity, loading, match } = this.props;
-    const iconSize = '4x';
     return (
       <div>
         {loading ? (
@@ -184,58 +184,19 @@ export class VehicleDetails extends React.Component<IVehicleUpdateProps, IVehicl
             <hr />
             <Row>
               <Col sm="12" md="">
-                <Button color="danger" style={{ paddingTop: '20px', paddingBottom: '10px', width: '100%' }} onClick={this.clickRepairs}>
-                  <FontAwesomeIcon size={iconSize} icon="screwdriver" />
-                  <h4>
-                    <strong>
-                      <Translate contentKey="carcare.repair.title">Repairs</Translate>
-                    </strong>
-                  </h4>
-                </Button>
+                <Tile handler={this.clickRepairs} color="danger" icon="screwdriver" caption="carcare.repair.title" />
               </Col>
               <Col sm="12" md="">
-                <Button
-                  color="warning"
-                  style={{ paddingTop: '20px', paddingBottom: '10px', width: '100%', color: 'white' }}
-                  onClick={this.clickServices}
-                >
-                  <FontAwesomeIcon size={iconSize} icon="oil-can" />
-                  <h4>
-                    <strong>
-                      <Translate contentKey="carcare.service.title">Services</Translate>
-                    </strong>
-                  </h4>
-                </Button>
+                <Tile handler={this.clickServices} color="warning" icon="oil-can" caption="carcare.service.title" />
               </Col>
               <Col sm="12" md="">
-                <Button color="info" style={{ paddingTop: '20px', paddingBottom: '10px', width: '100%' }} onClick={this.clickInspections}>
-                  <FontAwesomeIcon size={iconSize} icon="check-double" />
-                  <h4>
-                    <strong>
-                      <Translate contentKey="carcare.inspection.title">Inspections</Translate>
-                    </strong>
-                  </h4>
-                </Button>
+                <Tile handler={this.clickInspections} color="info" icon="check-double" caption="carcare.inspection.title" />
               </Col>
               <Col sm="12" md="">
-                <Button color="primary" style={{ paddingTop: '20px', paddingBottom: '10px', width: '100%' }} onClick={this.clickInsurances}>
-                  <FontAwesomeIcon size={iconSize} icon="file-invoice-dollar" />
-                  <h4>
-                    <strong>
-                      <Translate contentKey="carcare.insurance.title">Insurances</Translate>
-                    </strong>
-                  </h4>
-                </Button>
+                <Tile handler={this.clickInsurances} color="primary" icon="file-invoice-dollar" caption="carcare.insurance.title" />
               </Col>
               <Col sm="12" md="">
-                <Button color="success" style={{ paddingTop: '20px', paddingBottom: '10px', width: '100%' }} onClick={this.clickRefuels}>
-                  <FontAwesomeIcon size={iconSize} icon="gas-pump" />
-                  <h4>
-                    <strong>
-                      <Translate contentKey="carcare.refuel.title">Refuels</Translate>
-                    </strong>
-                  </h4>
-                </Button>
+                <Tile handler={this.clickRefuels} color="success" icon="gas-pump" caption="carcare.refuel.title" />
               </Col>
             </Row>
             <hr />

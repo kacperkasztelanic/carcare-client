@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 import { getVehicles, openDetails } from './vehicle.reducer';
 import TableSummary from 'app/shared/components/TableSummary';
+import Tile from 'app/shared/components/Tile';
 import { IVehicle } from 'app/shared/model/vehicle.model';
 
 export interface IVehicleProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
@@ -44,7 +45,6 @@ export class Vehicle extends React.Component<IVehicleProps> {
 
   render() {
     const { vehicles, totalItems, match } = this.props;
-    const iconSize = '3x';
     return (
       <div>
         <Row>
@@ -107,34 +107,13 @@ export class Vehicle extends React.Component<IVehicleProps> {
         </Row>
         <Row>
           <Col md="4" sm="12">
-            <Button color="primary" style={{ paddingTop: '20px', paddingBottom: '10px', width: '100%' }} onClick={this.clickEvents}>
-              <FontAwesomeIcon size={iconSize} icon="calendar-alt" />
-              <h4>
-                <strong>
-                  <Translate contentKey="carcare.forthcoming-events.title">Forthcoming events</Translate>
-                </strong>
-              </h4>
-            </Button>
+            <Tile handler={this.clickEvents} color="primary" icon="calendar-alt" caption="carcare.forthcoming-events.title" />
           </Col>
           <Col md="4" sm="12">
-            <Button color="info" style={{ paddingTop: '20px', paddingBottom: '10px', width: '100%' }} onClick={this.clickStatistics}>
-              <FontAwesomeIcon size={iconSize} icon="chart-bar" />
-              <h4>
-                <strong>
-                  <Translate contentKey="carcare.statistics.title">Statistics</Translate>
-                </strong>
-              </h4>
-            </Button>
+            <Tile handler={this.clickStatistics} color="info" icon="chart-bar" caption="carcare.statistics.title" />
           </Col>
           <Col md="4" sm="12">
-            <Button color="success" style={{ paddingTop: '20px', paddingBottom: '10px', width: '100%' }} onClick={this.clickReports}>
-              <FontAwesomeIcon size={iconSize} icon="file-excel" />
-              <h4>
-                <strong>
-                  <Translate contentKey="carcare.reports.title">Reports</Translate>
-                </strong>
-              </h4>
-            </Button>
+            <Tile handler={this.clickReports} color="success" icon="file-excel" caption="carcare.reports.title" />
           </Col>
         </Row>
       </div>
