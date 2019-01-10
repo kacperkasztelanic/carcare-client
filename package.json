@@ -1,6 +1,6 @@
 {
   "name": "carcare",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "Vehicle fleet management application",
   "author": {
     "name": "Kacper Kasztelanic"
@@ -17,7 +17,7 @@
     "availity-reactstrap-validation": "2.0.6",
     "axios": "0.18.0",
     "bootstrap": "4.1.3",
-    "formik": "^1.3.2",
+    "formik": "^1.4.2",
     "loaders.css": "0.1.2",
     "lodash": "4.17.10",
     "moment": "2.22.2",
