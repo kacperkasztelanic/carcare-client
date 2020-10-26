@@ -1,3 +1,6 @@
+[![](https://jitci.com/gh/kacperkasztelanic/carcare-client/svg)](https://jitci.com/gh/kacperkasztelanic/carcare-client)
+[![](https://jitpack.io/v/kacperkasztelanic/carcare-client.svg)](https://jitpack.io/#kacperkasztelanic/carcare-client)
+
 # CarCare client app
 A websystem supporting vehicle fleet management tasks.  
 Among other features it supports:
