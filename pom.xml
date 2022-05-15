@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.kasztelanic.carcare</groupId>
     <artifactId>client</artifactId>
-    <version>1.0.2</version>
+    <version>1.1.0</version>
 
     <properties>
         <java.version>11</java.version>
@@ -30,11 +30,11 @@
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.10.3</version>
+                <version>1.12.1</version>
                 <configuration>
                     <workingDirectory>./</workingDirectory>
-                    <nodeVersion>v14.15.1</nodeVersion>
-                    <npmVersion>6.14.8</npmVersion>
+                    <nodeVersion>v16.15.0</nodeVersion>
+                    <npmVersion>8.5.5</npmVersion>
                 </configuration>
                 <executions>
                     <execution>

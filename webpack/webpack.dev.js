@@ -42,7 +42,7 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
         '/api',
         '/management',
         '/swagger-resources',
-        '/v2/api-docs',
+        '/api-docs',
         '/h2-console',
         '/auth'
       ],

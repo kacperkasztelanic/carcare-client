@@ -10,22 +10,28 @@ const adminMenuItems = (
     <DropdownItem tag={Link} to="/admin/user-management">
       <FontAwesomeIcon icon="user" /> <Translate contentKey="global.menu.admin.userManagement">User management</Translate>
     </DropdownItem>
-    <DropdownItem tag={Link} to="/admin/metrics">
-      <FontAwesomeIcon icon="tachometer-alt" /> <Translate contentKey="global.menu.admin.metrics">Metrics</Translate>
-    </DropdownItem>
+    {false && (
+      <DropdownItem tag={Link} to="/admin/metrics">
+        <FontAwesomeIcon icon="tachometer-alt" /> <Translate contentKey="global.menu.admin.metrics">Metrics</Translate>
+      </DropdownItem>
+    )}
     <DropdownItem tag={Link} to="/admin/health">
       <FontAwesomeIcon icon="heart" /> <Translate contentKey="global.menu.admin.health">Health</Translate>
     </DropdownItem>
-    {false && <DropdownItem tag={Link} to="/admin/configuration">
-      <FontAwesomeIcon icon="list" /> <Translate contentKey="global.menu.admin.configuration">Configuration</Translate>
-    </DropdownItem>}
+    {true && (
+      <DropdownItem tag={Link} to="/admin/configuration">
+        <FontAwesomeIcon icon="list" /> <Translate contentKey="global.menu.admin.configuration">Configuration</Translate>
+      </DropdownItem>
+    )}
     <DropdownItem tag={Link} to="/admin/audits">
       <FontAwesomeIcon icon="bell" /> <Translate contentKey="global.menu.admin.audits">Audits</Translate>
     </DropdownItem>
     {/* jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here */}
-    {false && <DropdownItem tag={Link} to="/admin/logs">
-      <FontAwesomeIcon icon="tasks" /> <Translate contentKey="global.menu.admin.logs">Logs</Translate>
-    </DropdownItem>}
+    {false && (
+      <DropdownItem tag={Link} to="/admin/logs">
+        <FontAwesomeIcon icon="tasks" /> <Translate contentKey="global.menu.admin.logs">Logs</Translate>
+      </DropdownItem>
+    )}
   </>
 );
 

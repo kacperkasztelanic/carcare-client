@@ -22,7 +22,7 @@ export default (state: ApplicationProfileState = initialState, action): Applicat
         ...state,
         ribbonEnv: data['display-ribbon-on-profiles'],
         inProduction: data.activeProfiles.includes('prod'),
-        isSwaggerEnabled: data.activeProfiles.includes('swagger')
+        isSwaggerEnabled: data.activeProfiles.includes('api-docs')
       };
     default:
       return state;
