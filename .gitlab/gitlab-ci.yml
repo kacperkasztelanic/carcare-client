@@ -1,5 +1,9 @@
-deploy:
-    image: eclipse-temurin:17
+image: eclipse-temurin:17
+stages:
+    - build
+
+build:
+    stage: build
     script:
         - './mvnw deploy -s .gitlab/ci_settings.xml'
     only:
