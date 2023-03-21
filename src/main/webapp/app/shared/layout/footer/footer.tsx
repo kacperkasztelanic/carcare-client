@@ -8,7 +8,7 @@ const Footer = props => (
     <Row>
       <Col md="12">
         <p>
-          &copy; 2018-2022 <img src="content/images/car.svg" alt="Logo" height="20" /> CarCare
+          &copy; 2018-2023 <img src="content/images/car.svg" alt="Logo" height="20" /> CarCare
         </p>
       </Col>
     </Row>
