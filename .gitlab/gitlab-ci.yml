@@ -5,6 +5,7 @@ stages:
 build:
     stage: build
     script:
+        - export NODE_OPTIONS=--openssl-legacy-provider
         - './mvnw deploy -s .gitlab/ci_settings.xml'
     only:
         - tags
